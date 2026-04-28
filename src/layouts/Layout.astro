@@ -1,0 +1,96 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  canonicalPath?: string;
+  jsonLd?: string;
+  isPortal?: boolean;
+}
+
+const { title, description, canonicalPath, jsonLd, isPortal = false } = Astro.props;
+const siteUrl = "https://graveclosure.xyz";
+const canonicalUrl = canonicalPath ? new URL(canonicalPath, siteUrl).toString() : siteUrl;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/assets/favicon.png" type="image/png">
+    
+    <!-- 全体共通CSS -->
+    {isPortal ? (
+        <style>
+            .portal-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh;
+                background: #f9f9f9;
+                padding: 20px;
+            }
+            .portal-title {
+                font-size: 2.5rem;
+                color: #2C3E50; /* var(--color-trust-blue) placeholder */
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            .region-links {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .region-card {
+                background: white;
+                padding: 30px 50px;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                text-decoration: none;
+                color: #333; /* var(--text-main) placeholder */
+                font-size: 1.5rem;
+                font-weight: bold;
+                transition: transform 0.3s ease;
+                text-align: center;
+                min-width: 250px;
+            }
+            .region-card:hover {
+                transform: translateY(-5px);
+            }
+        </style>
+    ) : (
+        <link rel="stylesheet" href="/css/style.css">
+    )}
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    {jsonLd && <script type="application/ld+json" set:html={jsonLd}></script>}
+</head>
+<body>
+    <slot />
+
+    {!isPortal && (
+        <footer class="section" style="background: #2C3E50; color: white; padding-bottom: 20px;">
+            <div class="container text-center" data-aos>
+                <h2 style="font-size: 1.8rem;">「私たちが選ぶ、いちばん優しい終わらせ方。」</h2>
+                <p style="margin-bottom: 40px;">墓じまい案内専門「ここから」</p>
+                <p>お問い合わせ：070-8428-0866</p>
+                <p>24時間受付中 / 年中無休</p>
+            </div>
+            <div class="container text-center" style="font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                <a href="#" style="color: white; margin: 0 10px;">特定商取引法に基づく表記</a>
+                <a href="#" style="color: white; margin: 0 10px;">プライバシーポリシー</a>
+                <p style="margin-top: 10px;">&copy; 2024 ここから. All Rights Reserved.</p>
+            </div>
+        </footer>
+        <script is:inline src="/js/main.js"></script>
+    )}
+</body>
+</html>

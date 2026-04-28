@@ -1,20 +1,13 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>墓じまい 北海道 | 私たちが選ぶ、いちばん優しい終わらせ方。 | ここから</title>
-    <meta name="description" content="北海道での墓じまい・手元供養なら「ここから」。雪深い季節のお参りの不安や、次世代への負担を解消。24時間受付、見積もり無料。">
-    <link rel="icon" href="../assets/favicon.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <!-- JSON-LD SEO / AI Search Data -->
-    <script type="application/ld+json">
+---
+import Layout from '../../layouts/Layout.astro';
+
+const jsonLd = `
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "LocalBusiness",
+      "@id": "https://graveclosure.xyz/hokkaido/#localbusiness",
       "name": "墓じまい・手元供養案内専門 ここから",
       "image": "https://graveclosure.xyz/assets/fv_bg.png",
       "telephone": "070-8428-0866",
@@ -23,12 +16,10 @@
         "name": "北海道"
       },
       "description": "墓じまいとは、お墓を整理し新しい供養へ移行することです。「ここから」は北海道全域で、墓じまいの手続き、永代供養や手元供養への移行、補助金相談に対応する専門業者です。浄土真宗などの各宗派の費用相談も承ります。"
-    }
-    </script>
-    <script type="application/ld+json">
+    },
     {
-      "@context": "https://schema.org",
       "@type": "FAQPage",
+      "@id": "https://graveclosure.xyz/hokkaido/#faq",
       "mainEntity": [
         {
           "@type": "Question",
@@ -64,11 +55,26 @@
         }
       ]
     }
-    </script>
-</head>
-<body>
+  ]
+}
+`;
+---
 
+<Layout 
+    title="墓じまい 北海道 | 私たちが選ぶ、いちばん優しい終わらせ方。 | ここから"
+    description="北海道での墓じまい・手元供養なら「ここから」。雪深い季節のお参りの不安や、次世代への負担を解消。24時間受付、見積もり無料。"
+    canonicalPath="/hokkaido/"
+    jsonLd={jsonLd}
+>
     <!-- 1. FV -->
+    <header class="fv" style="background-image: url('/assets/fv_bg.png'); background-size: cover; background-position: center; color: white; padding: 100px 20px; text-align: center; position: relative;">
+        <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4);"></div>
+        <div class="container" style="position: relative; z-index: 1;">
+            <!-- AIO向け：冒頭500字以内の独立した定義文 -->
+            <div style="background: rgba(255,255,255,0.9); color: #333; padding: 10px 15px; border-radius: 8px; font-weight: bold; font-size: 0.95rem; max-width: 600px; margin: 0 auto 20px auto; border-left: 4px solid var(--color-trust-blue); text-align: left;">
+                <p style="margin: 0;">墓じまいとは、現在あるお墓を更地にして管理者に返還し、取り出した遺骨を永代供養や手元供養など、新しい形で供養し直す手続きのことです。</p>
+            </div>
+            
             <div class="fv-brand" data-aos>ここから</div>
             <div data-aos style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; line-height: 1.6; text-shadow: 0 2px 5px rgba(0,0,0,0.5);">
                 <div>地元密着</div>
@@ -133,7 +139,7 @@
     <section class="section">
         <div class="container">
             <div class="grid-3" style="grid-template-columns: 1fr 1.5fr; align-items: center;">
-                <img src="../assets/temoto_kuyo.png" alt="手元供養" style="width: 100%; border-radius: 20px;" data-aos>
+                <img src="/assets/japanese_temoto_kuyo.png" alt="手元供養" style="width: 100%; border-radius: 20px;" data-aos>
                 <div data-aos>
                     <h2 style="color: var(--color-trust-blue);">墓じまい案内専門「ここから」の<br>手元供養という選択</h2>
                     <p>私たちは、お墓を撤去するだけの業者ではありません。北海道の厳しい冬や遠方の墓地という物理的な距離をゼロにし、あなたの大切な方を、一番落ち着く場所——つまり、あなたのご自宅でお守りするお手伝いをします。</p>
@@ -228,10 +234,29 @@
                     </ul>
                 </div>
                 <div data-aos>
-                    <h3>安心の料金プラン</h3>
-                    <p>墓じまい基本パック：180,000円〜</p>
-                    <p>手元供養セット：50,000円〜</p>
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">※墓地の面積や場所により異なります。詳細はお見積もりにて。</p>
+                    <h3>安心の料金比較（相場と当社の違い）</h3>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 15px; font-size: 0.95rem;">
+                        <thead>
+                            <tr style="background: var(--color-trust-blue); color: white;">
+                                <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">プラン・費用項目</th>
+                                <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">一般的な相場</th>
+                                <th style="padding: 10px; border: 1px solid #ddd; text-align: left;">ここからの料金</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">墓じまい基本パック</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">30万〜50万円</td>
+                                <td style="padding: 10px; border: 1px solid #ddd; color: var(--color-trust-blue); font-weight: bold;">180,000円〜</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">手元供養セット</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">10万〜20万円</td>
+                                <td style="padding: 10px; border: 1px solid #ddd; color: var(--color-trust-blue); font-weight: bold;">50,000円〜</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">※墓地の面積や場所により異なります。お見積もりは完全無料です。</p>
                 </div>
             </div>
         </div>
@@ -270,22 +295,4 @@
             <a href="https://lin.ee/QzDuTbn" class="btn btn-line btn-shine" style="font-size: 1.25rem; padding: 18px 50px;" data-aos>LINEで無料資料請求・相談</a>
         </div>
     </section>
-
-    <footer class="section" style="background: #2C3E50; color: white; padding-bottom: 20px;">
-        <div class="container text-center" data-aos>
-            <h2 style="font-size: 1.8rem;">「私たちが選ぶ、いちばん優しい終わらせ方。」</h2>
-            <p style="margin-bottom: 40px;">墓じまい案内専門「ここから」</p>
-                <p>お問い合わせ：070-8428-0866</p>
-                <p>24時間受付中 / 年中無休</p>
-            </div>
-            <div style="font-size: 0.8rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-                <a href="#" style="color: white; margin: 0 10px;">特定商取引法に基づく表記</a>
-                <a href="#" style="color: white; margin: 0 10px;">プライバシーポリシー</a>
-                <p style="margin-top: 10px;">&copy; 2024 ここから. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="../js/main.js"></script>
-</body>
-</html>
+</Layout>
