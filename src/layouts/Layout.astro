@@ -19,7 +19,12 @@ const canonicalUrl = canonicalPath ? new URL(canonicalPath, siteUrl).toString() 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
+    <meta name="google-site-verification" content="_b12ZyymqArb2dY_eOrWKCMf97RCWINOTxxow51hE34" />
     <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    {description && <meta property="og:description" content={description} />}
     <link rel="icon" href="/assets/favicon.png" type="image/png">
     
     <!-- 全体共通CSS -->
