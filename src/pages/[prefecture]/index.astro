@@ -1,0 +1,525 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { prefectures, type Prefecture } from '../../data/prefectures';
+
+const siteUrl = 'https://graveclosure.xyz';
+const contactTel = '070-8428-0866';
+const contactLineUrl = 'https://lin.ee/QzDuTbn';
+const heroImageUrl = 'https://graveclosure.xyz/assets/fv_bg.png';
+const supportImageUrl = 'https://graveclosure.xyz/assets/japanese_temoto_kuyo.png';
+
+const categoryCopy: Record<Prefecture['category'], { pain: string; value: string; subtitle: string }> = {
+  snow: {
+    pain: '冬季の移動負担と遠方墓地の管理不安',
+    value: '雪の時期でもご家族の供養を継続しやすい設計',
+    subtitle: '気候や移動距離の制約があっても、無理のない供養へ。'
+  },
+  metro: {
+    pain: '都市生活での時間・住空間の制約',
+    value: 'マンション生活と両立しやすい手元供養',
+    subtitle: '忙しい毎日でも、身近に手を合わせられる環境へ。'
+  },
+  standard: {
+    pain: '後継者不足や将来世代への負担',
+    value: '手続きと供養の一体サポートで不安を軽減',
+    subtitle: '今の不安を整理して、家族に無理のない形へ。'
+  }
+};
+
+const faqTemplate = (
+  prefectureName: string,
+  city: string,
+  localCaseCity: string,
+  remoteResidence: string,
+  localMetroResidence: string
+) => [
+  {
+    question: '墓じまいの手続きはどのように進めますか？',
+    answer: `改葬許可証の取得など、${prefectureName}内の行政窓口で必要な墓じまい手続きを事前確認し、申請準備から完了までサポートします。`
+  },
+  {
+    question: '墓じまい後の遺骨は永代供養にするべきですか？',
+    answer: '永代供養に加えて、手元供養という選択肢もあります。ご家族構成・住環境・予算を踏まえた現実的な方法を提案します。'
+  },
+  {
+    question: '宗派によって墓じまい費用は変わりますか？',
+    answer: '離檀料や法要に関する慣習差で変動する場合があります。浄土真宗など宗派ごとの配慮事項を整理して、総額見積もりを事前に提示します。'
+  },
+  {
+    question: `${city}などで墓じまいに使える補助金はありますか？`,
+    answer: `${prefectureName}内の自治体によって制度有無が異なるため、最新の補助制度を確認し、申請時の注意点まで案内します。`
+  },
+  {
+    question: '相談から完了まで、どれくらいの期間がかかりますか？',
+    answer: '墓地や行政窓口の状況によって差はありますが、一般的には相談開始から1〜3か月程度で完了するケースが多いです。急ぎの場合も優先手配を行います。'
+  },
+  {
+    question: '遠方にあるお墓でも対応できますか？',
+    answer: `はい、${prefectureName}内であれば遠方地域にも対応できます。現地確認・必要書類の段取り・工事日程まで、移動負担が少なくなるよう調整します。`
+  },
+  {
+    question: '全国対応はできますか？',
+    answer: `はい、現在のお住まいが全国どこでも、整理したいお墓が${prefectureName}にあればご相談いただけます。たとえば東京都内・大阪市内・名古屋市内・札幌市内などの都市部に住みながら、${localCaseCity}のお墓を整理したいというご相談にも対応可能です。${localMetroResidence}から県内の離れた地域のお墓を見直したい場合や、${remoteResidence}から${prefectureName}のご実家のお墓を整理したい場合もご相談ください。`
+  },
+  {
+    question: '見積もり後に追加料金が発生することはありますか？',
+    answer: '見積もり時点で分かる費用は事前に明示します。追加対応が必要な場合は着手前に必ず説明し、同意なしで進めることはありません。'
+  },
+  {
+    question: '家族や親族への説明が不安です。相談できますか？',
+    answer: 'はい。ご家族への説明ポイントや、話し合いで揉めやすい論点の整理もサポートします。心理面に配慮した進め方を重視しています。'
+  }
+];
+
+const reasonsTemplate = (prefectureName: string, category: Prefecture['category']) => {
+  const firstReason =
+    category === 'snow'
+      ? '雪や長距離移動の負担を減らしやすい供養設計'
+      : category === 'metro'
+        ? '住まいに置きやすい手元供養の提案'
+        : 'ご家族の事情に合わせた無理のない供養設計';
+
+  const firstReasonText =
+    category === 'snow'
+      ? `${prefectureName}で起こりやすい冬季の移動負担や遠方墓地の不安を踏まえて、現実的な進め方を提案します。`
+      : category === 'metro'
+        ? `${prefectureName}の都市生活でも無理なく続けられるよう、住空間に合う供養方法を案内します。`
+        : `${prefectureName}での墓じまいを、生活や家族構成に合わせて無理なく進められる形に整理します。`;
+
+  return [
+    { title: firstReason, text: firstReasonText },
+    { title: `${prefectureName}の手続きに配慮`, text: '改葬許可証や寺院・霊園とのやり取りなど、進行時に迷いやすい工程を順に整理します。' },
+    { title: '見積もりが分かりやすい', text: 'あとから不安が残らないよう、事前に費用の内訳と変動要因を丁寧に説明します。' },
+    { title: '家族への説明も相談できる', text: '親族間の話し合いで伝えるべきポイントを整理し、気持ちの負担にも配慮します。' },
+    { title: '工事から供養先まで一体で案内', text: '撤去工事だけで終わらず、永代供養や手元供養まで含めてサポートします。' },
+    { title: '24時間受付で相談しやすい', text: '昼間に時間が取れない方でも、電話やLINEから相談のきっかけを作りやすい体制です。' }
+  ];
+};
+
+const voiceTemplate = (prefectureName: string, city: string) => [
+  `「手続きの説明がとても分かりやすく、家族にも落ち着いて話せました。気持ちの面まで寄り添ってもらえたのが安心でした。」（${city} 60代）`,
+  `「費用と流れを最初にまとめて教えてもらえたので、不安なく進められました。${prefectureName}で相談先が見つかって本当に助かりました。」（${prefectureName}内 50代）`
+];
+
+const getSpecialLongDistanceCopy = (prefecture: Prefecture) => {
+  switch (prefecture.slug) {
+    case 'shimane':
+      return {
+        faqExamples:
+          '特に、東京都内に住みながら益田市のお墓を整理したい方や、大阪市内に住みながら松江市近郊の実家墓地を見直したい方からのご相談が増えています。',
+        cases: [
+          {
+            title: '東京都内から益田市のお墓を整理したいケース',
+            text: '東京都内で暮らしているものの、島根県益田市にあるご実家のお墓を維持するのが難しくなり、帰省のたびに管理の負担を感じていたケースです。現地確認、親族への説明、改葬許可証の段取りまで順に整理することで、遠方からでも落ち着いて進めやすくなります。'
+          },
+          {
+            title: '大阪市内から松江市近郊のお墓を見直したいケース',
+            text: '大阪市内に住みながら、島根県東部のご先祖墓をどう守るべきか悩んでいたケースです。移動距離が長く、法要や管理のたびに時間を確保しづらいため、永代供養や手元供養も含めて家族で比較検討したいというご相談につながっています。'
+          }
+        ]
+      };
+    case 'kochi':
+      return {
+        faqExamples:
+          'たとえば、東京都内から四万十市のお墓を整理したい方や、大阪市内から高知県西部のご先祖墓を見直したい方など、遠距離のご相談にも対応しています。',
+        cases: [
+          {
+            title: '東京都内から四万十市のお墓を整理したいケース',
+            text: '東京都内で生活している一方、ご実家のお墓が高知県四万十市にあり、今後も継続して通うのが難しいと感じ始めたケースです。現地が遠方でも、必要書類や供養先の候補を先に整理することで、ご家族の判断が進みやすくなります。'
+          },
+          {
+            title: '大阪市内から高知県西部のお墓を見直したいケース',
+            text: '大阪市内に住みながら、高知県西部の墓地管理を続けることに限界を感じていたケースです。移動時間や宿泊負担も含めて現実的な課題を洗い出し、墓じまい後の供養方法まで一体で検討したいというご相談が増えています。'
+          }
+        ]
+      };
+    case 'akita':
+      return {
+        faqExamples:
+          '最近は、東京都内から横手市周辺のお墓を整理したい方や、大阪市内から秋田県南部の墓地を見直したい方からのご相談も目立ちます。',
+        cases: [
+          {
+            title: '東京都内から横手市周辺のお墓を整理したいケース',
+            text: '東京都内に住んでいても、ご実家のお墓が秋田県南部にあるため、冬季の帰省や維持管理の負担が大きくなっていたケースです。雪の時期を避けた現地確認や、親族との話し合いの進め方まで含めて整理したいというご相談です。'
+          },
+          {
+            title: '大阪市内から秋田県南部のお墓を見直したいケース',
+            text: '大阪市内で暮らすご家族が、秋田県南部のご先祖墓を今後どう守るか悩んでいたケースです。距離があるため頻繁には通えず、除雪や管理の現実的な負担も大きいため、墓じまいと新しい供養先を一緒に考えたいという流れでご相談いただいています。'
+          }
+        ]
+      };
+    default:
+      return null;
+  }
+};
+
+const getLocalMetroResidence = (prefecture: Prefecture) => {
+  if (prefecture.slug === 'hokkaido') return '札幌市内';
+  if (prefecture.slug === 'tokyo') return '東京都内';
+  if (prefecture.slug === 'osaka') return '大阪市内';
+  if (prefecture.slug === 'aichi') return '名古屋市内';
+  return `${prefecture.primaryCity}内`;
+};
+
+const getRemoteResidence = (prefecture: Prefecture) => {
+  if (prefecture.slug === 'hokkaido') return '東京都内';
+  if (prefecture.slug === 'tokyo') return '大阪市内';
+  if (prefecture.slug === 'osaka') return '東京都内';
+  if (prefecture.slug === 'aichi') return '大阪市内';
+  if (prefecture.region === '北海道' || prefecture.region === '東北') return '東京都内';
+  if (prefecture.region === '関東') return '大阪市内';
+  if (prefecture.region === '中部') return '名古屋市内';
+  if (prefecture.region === '近畿') return '大阪市内';
+  return '東京都内';
+};
+
+const caseTemplate = (prefecture: Prefecture, remoteResidence: string, localMetroResidence: string) => [
+  {
+    title: `${localMetroResidence}から${prefecture.localCaseCity}のお墓を整理したいケース`,
+    text: `${localMetroResidence}に住んでいるものの、ご先祖のお墓が${prefecture.localCaseCity}にあり、移動負担や今後の管理が心配になってきたというご相談です。県内でも距離がある場合は、現地確認や手続きの段取りをまとめて行うことで、ご家族の負担を減らしやすくなります。`
+  },
+  {
+    title: `${remoteResidence}から${prefecture.name}のお墓を見直したいケース`,
+    text: `${remoteResidence}で暮らしている一方、実家のお墓が${prefecture.localCaseCity}にあり、帰省のたびに管理の難しさを感じているというご相談です。現在のお住まいが遠方でも、墓地側の状況確認、必要書類、供養先の相談まで順に整理できます。`
+  }
+];
+
+export async function getStaticPaths() {
+  return prefectures.map((prefecture) => ({
+    params: { prefecture: prefecture.slug },
+    props: { prefecture }
+  }));
+}
+
+const { prefecture } = Astro.props as { prefecture: Prefecture };
+const pagePath = `/${prefecture.slug}/`;
+const pageUrl = new URL(pagePath, siteUrl).toString();
+const pageTitle = `墓じまい ${prefecture.name} | 私たちが選ぶ、いちばん優しい終わらせ方。 | ここから`;
+const pageDescription = `${prefecture.name}での墓じまい・手元供養なら「ここから」。${categoryCopy[prefecture.category].subtitle}24時間受付、見積もり無料。`;
+const localMetroResidence = getLocalMetroResidence(prefecture);
+const remoteResidence = getRemoteResidence(prefecture);
+const specialLongDistanceCopy = getSpecialLongDistanceCopy(prefecture);
+const faqItems = faqTemplate(prefecture.name, prefecture.primaryCity, prefecture.localCaseCity, remoteResidence, localMetroResidence).map((item) =>
+  item.question === '全国対応はできますか？' && specialLongDistanceCopy
+    ? {
+        ...item,
+        answer: `${item.answer} ${specialLongDistanceCopy.faqExamples}`
+      }
+    : item
+);
+const reasonItems = reasonsTemplate(prefecture.name, prefecture.category);
+const voiceItems = voiceTemplate(prefecture.name, prefecture.primaryCity);
+const caseItems = specialLongDistanceCopy?.cases ?? caseTemplate(prefecture, remoteResidence, localMetroResidence);
+
+const jsonLdData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      logo: `${siteUrl}/assets/favicon.png`,
+      telephone: contactTel
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      inLanguage: 'ja-JP'
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: pageTitle,
+      description: pageDescription,
+      inLanguage: 'ja-JP',
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: [{ '@id': `${pageUrl}#service` }, { '@id': `${pageUrl}#faq` }],
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` },
+      primaryImageOfPage: {
+        '@type': 'ImageObject',
+        url: heroImageUrl
+      }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: prefecture.name, item: pageUrl }
+      ]
+    },
+    {
+      '@type': 'LocalBusiness',
+      '@id': `${pageUrl}#localbusiness`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: pageUrl,
+      telephone: contactTel,
+      image: heroImageUrl,
+      areaServed: { '@type': 'AdministrativeArea', name: prefecture.name },
+      description: `${prefecture.name}全域で、墓じまい手続き・供養方法の相談・見積もりを一体で案内します。`,
+      makesOffer: {
+        '@type': 'OfferCatalog',
+        name: `${prefecture.name}向けサービス`,
+        itemListElement: [
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: '墓じまい基本パック' },
+            priceSpecification: { '@type': 'PriceSpecification', price: '180000', priceCurrency: 'JPY' }
+          },
+          {
+            '@type': 'Offer',
+            itemOffered: { '@type': 'Service', name: '手元供養セット' },
+            priceSpecification: { '@type': 'PriceSpecification', price: '50000', priceCurrency: 'JPY' }
+          }
+        ]
+      }
+    },
+    {
+      '@type': 'Service',
+      '@id': `${pageUrl}#service`,
+      name: `${prefecture.name}の墓じまい・手元供養サポート`,
+      provider: { '@id': `${siteUrl}/#organization` },
+      areaServed: { '@type': 'AdministrativeArea', name: prefecture.name },
+      serviceType: ['墓じまい', '手元供養', '行政手続き代行'],
+      offers: { '@type': 'Offer', availability: 'https://schema.org/InStock', priceCurrency: 'JPY' }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      mainEntity: faqItems.map(({ question, answer }) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer }
+      }))
+    }
+  ]
+};
+
+const jsonLd = JSON.stringify(jsonLdData);
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <a href="#main-content" class="skip-link">本文へスキップ</a>
+  <main id="main-content">
+    <article aria-labelledby="hero-title">
+      <header class="fv" style={`background-image: url('${heroImageUrl}'); background-size: cover; background-position: center; color: white; padding: 100px 20px; text-align: center; position: relative;`}>
+        <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4);"></div>
+        <div class="container" style="position: relative; z-index: 1;">
+          <div class="hero-status" aria-label="受付情報">
+            <span class="hero-status-badge">24時間受付</span>
+            <span class="hero-status-badge">年中受付中</span>
+          </div>
+          <p style="background: rgba(255,255,255,0.95); color: #333; padding: 14px 18px; border-radius: 12px; font-weight: bold; font-size: 1.08rem; max-width: 760px; margin: 0 auto 16px auto; border-left: 6px solid var(--color-trust-blue); text-align: left;">
+            墓じまいとは、現在あるお墓を更地化して管理者へ返還し、遺骨を永代供養や手元供養へ移して供養を続ける手続きです。
+          </p>
+          <div class="fv-brand">ここから</div>
+          <h1 id="hero-title" class="fv-title">{prefecture.name}の墓じまいで、<br />家族に優しい選択を。</h1>
+          <p class="fv-subtitle">{categoryCopy[prefecture.category].subtitle}</p>
+          <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+            <span class="hero-status-badge" style="background: rgba(201,131,43,0.95);">見積もり無料</span>
+            <span class="hero-status-badge">電話相談OK</span>
+          </div>
+          <a href="#cta" class="btn btn-primary btn-shine" style="font-size: 1.2rem; padding: 18px 36px;">無料で相談する</a>
+        </div>
+      </header>
+
+      <aside class="sticky-cta" aria-label="お問い合わせ導線">
+        <a href={contactLineUrl} class="btn btn-line btn-shine">
+          <span>24時間受付中</span>
+          <strong>LINE相談</strong>
+        </a>
+        <a href={`tel:${contactTel}`} class="btn btn-tel btn-shine">
+          <span>見積もり無料</span>
+          <strong>電話相談</strong>
+        </a>
+      </aside>
+
+      <section class="section empathy" id="concerns" aria-labelledby="concerns-heading">
+        <div class="container">
+          <h2 id="concerns-heading" class="text-center">こんなお悩みはありませんか？</h2>
+          <div class="grid-3">
+            <div class="card">
+              <h3 style="font-size: 1.45rem;">お墓が遠く、通う負担が大きい</h3>
+              <p style="font-size: 1.15rem;">移動時間や気候の影響で、お参りを続けることが難しくなっている方が増えています。</p>
+            </div>
+            <div class="card">
+              <h3 style="font-size: 1.45rem;">子ども世代に管理負担を残したくない</h3>
+              <p style="font-size: 1.15rem;">維持費や管理責任を将来世代へ引き継ぐことに、悩みを感じるご家庭が多くあります。</p>
+            </div>
+            <div class="card">
+              <h3 style="font-size: 1.45rem;">手続きと費用が複雑で分かりにくい</h3>
+              <p style="font-size: 1.15rem;">改葬許可証や寺院・石材店との調整など、進め方が分からず止まってしまうケースがあります。</p>
+            </div>
+          </div>
+          <p style="margin-top: 24px; text-align: center; font-size: 1.2rem; font-weight: 700;">
+            その不安を、{prefecture.name}事情に合わせて一つずつ整理します。
+          </p>
+        </div>
+      </section>
+
+      <section class="section" id="definition" aria-labelledby="definition-heading">
+        <div class="container">
+          <h2 id="definition-heading" class="text-center">墓じまいの基本を、分かりやすく</h2>
+          <div class="card" style="max-width: 920px; margin: 0 auto;">
+            <p style="font-size: 1.18rem;">
+              墓じまいは「お墓を閉じる」だけでなく、<strong>ご遺骨の新しい供養先を決める</strong>までが大切な工程です。撤去工事・行政手続き・寺院への相談・ご家族間の合意形成を、無理なく進めることが失敗しないポイントです。
+            </p>
+            <p style="font-size: 1.18rem; margin-top: 12px;">
+              「ここから」は、工事・書類・供養方法の3点を一体で案内し、費用と手順を先に見える化してから進めます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="solution" aria-labelledby="solution-heading">
+        <div class="container">
+          <div class="grid-3" style="grid-template-columns: 1fr 1.35fr; align-items: center;">
+            <img src={supportImageUrl} alt={`${prefecture.name}で選ばれている手元供養のイメージ`} style="width: 100%; border-radius: 20px; box-shadow: 0 12px 36px rgba(34, 50, 71, 0.14);" loading="lazy" />
+            <div class="card">
+              <h2 id="solution-heading">「ここから」がご案内する、無理のない供養の形</h2>
+              <p style="font-size: 1.16rem;">
+                お墓を撤去するだけでは、墓じまいは完了しません。大切なのは、その後も安心して手を合わせられる形を選ぶことです。
+              </p>
+              <p style="font-size: 1.16rem; margin-top: 12px;">
+                永代供養を選ぶ方もいれば、ご自宅で身近に供養できる手元供養を選ぶ方もいます。「ここから」は、{prefecture.name}での暮らし方やご家族の考えに合わせて、無理のない選択肢を一緒に整理します。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="reasons" style="background-color: #f7fafc;" aria-labelledby="reasons-heading">
+        <div class="container">
+          <h2 id="reasons-heading" class="text-center">「ここから」が選ばれる6つの理由</h2>
+          <div class="grid-3">
+            {reasonItems.map((reason, index) => (
+              <div class="card">
+                <h3 style="color: var(--color-trust-blue);">{index + 1}. {reason.title}</h3>
+                <p>{reason.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="future" aria-labelledby="future-heading">
+        <div class="container text-center">
+          <h2 id="future-heading">サービス利用後の「理想の未来」</h2>
+          <div class="card" style="max-width: 900px; margin: 0 auto;">
+            <p style="font-size: 1.2rem;">
+              お墓の管理や遠方への移動を気にし続ける毎日から離れ、ご家族が落ち着いて手を合わせられる環境へ整えていきます。無理のない供養の形が決まると、気持ちの負担も少しずつ軽くなっていきます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="flow" aria-labelledby="flow-heading">
+        <div class="container">
+          <h2 id="flow-heading" class="text-center">手続きの流れ</h2>
+          <ol style="max-width: 880px; margin: 0 auto; padding-left: 1.2rem; font-size: 1.18rem;">
+            <li><strong>無料相談</strong>（電話・LINEで24時間受付）</li>
+            <li><strong>現地確認と見積もり</strong>（総額を先に提示）</li>
+            <li><strong>必要書類の整理</strong>（改葬許可証など）</li>
+            <li><strong>墓石撤去と更地返還</strong>（日程を事前調整）</li>
+            <li><strong>供養先への移行</strong>（永代供養・手元供養）</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="section" id="cases" style="background-color: #f7fafc;" aria-labelledby="cases-heading">
+        <div class="container">
+          <h2 id="cases-heading" class="text-center">ご相談事例</h2>
+          <div class="grid-3" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+            {caseItems.map((item) => (
+              <div class="card">
+                <h3 style="color: var(--color-trust-blue);">{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="voices" aria-labelledby="voices-heading">
+        <div class="container">
+          <h2 id="voices-heading" class="text-center">お客様の声</h2>
+          <div class="grid-3" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+            {voiceItems.map((voice) => (
+              <div class="card">
+                <p>{voice}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="section" style="background-color: #f8f9fa;" aria-labelledby="pricing-heading">
+        <div class="container">
+          <h2 id="pricing-heading" class="text-center">料金の目安</h2>
+          <p style="max-width: 860px; margin: 0 auto 18px; text-align: center;">横スクロールではなく、スマホでも上から順に比較しやすい縦並びで表示しています。</p>
+          <div style="max-width: 860px; margin: 0 auto; display: grid; gap: 18px;">
+            <article class="card" style="border-top: 6px solid var(--color-trust-blue);">
+              <h3 style="font-size: 1.6rem; margin-bottom: 10px;">墓じまい基本パック</h3>
+              <p style="margin-bottom: 14px;">墓石撤去から更地返還までを基本にしたプランです。</p>
+              <div style="display: grid; gap: 10px;">
+                <div style="background: #eef4fb; padding: 14px 16px; border-radius: 12px;">
+                  <div style="font-size: 1rem; color: var(--text-muted);">一般的な相場</div>
+                  <div style="font-size: 1.7rem; font-weight: 800;">30万〜50万円</div>
+                </div>
+                <div style="background: #f4fbf7; padding: 14px 16px; border-radius: 12px; border: 2px solid rgba(47, 143, 107, 0.25);">
+                  <div style="font-size: 1rem; color: var(--text-muted);">ここからの料金</div>
+                  <div style="font-size: 1.9rem; font-weight: 900; color: var(--color-trust-blue);">180,000円〜</div>
+                </div>
+              </div>
+            </article>
+            <article class="card" style="border-top: 6px solid var(--color-accent-gold);">
+              <h3 style="font-size: 1.6rem; margin-bottom: 10px;">手元供養セット</h3>
+              <p style="margin-bottom: 14px;">ご遺骨を身近に供養しやすい形へ整えるプランです。</p>
+              <div style="display: grid; gap: 10px;">
+                <div style="background: #fff6ea; padding: 14px 16px; border-radius: 12px;">
+                  <div style="font-size: 1rem; color: var(--text-muted);">一般的な相場</div>
+                  <div style="font-size: 1.7rem; font-weight: 800;">10万〜20万円</div>
+                </div>
+                <div style="background: #f4fbf7; padding: 14px 16px; border-radius: 12px; border: 2px solid rgba(47, 143, 107, 0.25);">
+                  <div style="font-size: 1rem; color: var(--text-muted);">ここからの料金</div>
+                  <div style="font-size: 1.9rem; font-weight: 900; color: var(--color-trust-blue);">50,000円〜</div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <p style="max-width: 860px; margin: 14px auto 0; font-size: 1rem;">※墓地の広さ、立地、撤去条件により変動します。見積もりは無料です。</p>
+        </div>
+      </section>
+
+      <section id="faq" class="section" aria-labelledby="faq-heading">
+        <div class="container">
+          <h2 id="faq-heading" class="text-center">よくあるご質問</h2>
+          <div style="max-width: 900px; margin: 0 auto;">
+            {faqItems.map((item) => (
+              <div class="card" style="margin-bottom: 14px;">
+                <h3 style="font-size: 1.26rem; color: var(--color-trust-blue);">Q. {item.question}</h3>
+                <p style="font-size: 1.12rem;">A. {item.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-bar" id="cta" aria-labelledby="cta-heading">
+        <div class="container">
+          <h2 id="cta-heading" style="font-size: 2rem;">{prefecture.name}の墓じまいを無料相談</h2>
+          <p style="margin-bottom: 20px;">24時間受付。手続き・費用・供養方法を一緒に整理します。</p>
+          <div class="cta-tel" style="font-size: 2.6rem;">{contactTel}</div>
+          <div style="margin-top: 20px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+            <a href={contactLineUrl} class="btn btn-line btn-shine">LINEで相談</a>
+            <a href={`tel:${contactTel}`} class="btn btn-primary btn-shine">電話で相談</a>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+</Layout>

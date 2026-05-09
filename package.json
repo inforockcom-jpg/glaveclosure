@@ -9,9 +9,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "gsc:generate-verification": "node ./scripts/google/generate-verification-file.mjs",
+    "gsc:sync": "node ./scripts/google/ensure-search-console.mjs"
   },
   "dependencies": {
-    "astro": "^6.1.9"
+    "astro": "^6.3.1",
+    "googleapis": "^171.4.0"
   }
 }

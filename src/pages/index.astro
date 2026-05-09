@@ -1,18 +1,67 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { prefectures } from '../data/prefectures';
+
+const siteUrl = 'https://graveclosure.xyz';
+const pagePath = '/';
+const pageTitle = '墓じまい・手元供養案内専門 ここから | 47都道府県対応';
+const pageDescription = '47都道府県で墓じまい・手元供養を案内。地域ごとの事情に合わせた手続き支援、費用相談、供養方法の提案を行います。';
+const jsonLd = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: '墓じまい・手元供養案内専門 ここから',
+      inLanguage: 'ja-JP'
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/#webpage`,
+      url: siteUrl,
+      name: pageTitle,
+      description: pageDescription,
+      inLanguage: 'ja-JP',
+      isPartOf: {
+        '@id': `${siteUrl}/#website`
+      }
+    },
+    {
+      '@type': 'ItemList',
+      '@id': `${siteUrl}/#prefecture-list`,
+      name: '都道府県別の墓じまい案内ページ',
+      itemListElement: prefectures.map((prefecture, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: `${prefecture.name}の墓じまいページ`,
+        url: `${siteUrl}/${prefecture.slug}/`
+      }))
+    }
+  ]
+});
 ---
 
 <Layout 
-    title="墓じまい・手元供養案内専門 ここから" 
+    title={pageTitle}
+    description={pageDescription}
     isPortal={true}
-    canonicalPath="/"
+    canonicalPath={pagePath}
+    jsonLd={jsonLd}
 >
-    <div class="portal-container">
-        <h1 class="portal-title">墓じまい・手元供養案内専門「ここから」</h1>
-        <p style="margin-bottom: 30px; font-size: 1.2rem;">対応エリアを選択してください</p>
-        <div class="region-links">
-            <a href="/hokkaido/" class="region-card">北海道エリア</a>
-            <a href="/osaka/" class="region-card">大阪エリア</a>
-        </div>
-    </div>
+    <main class="portal-container" id="main-content">
+        <header style="max-width: 880px; text-align: center;">
+            <h1 class="portal-title">墓じまい・手元供養案内専門「ここから」</h1>
+            <p style="margin-bottom: 12px; font-size: 1.1rem;">47都道府県の地域事情に合わせて、手続きと供養方法を案内します。</p>
+            <p style="font-size: 0.9rem; color: #5f6b6d;">正規URL: https://graveclosure.xyz/</p>
+        </header>
+        <section style="width: 100%; max-width: 1080px;" aria-labelledby="prefecture-list-heading">
+            <h2 id="prefecture-list-heading" style="text-align: center; margin: 24px 0;">対応エリアを選択してください</h2>
+            <nav class="region-links" aria-label="都道府県一覧">
+                {prefectures.map((prefecture) => (
+                    <a href={`/${prefecture.slug}/`} class="region-card">{prefecture.name}エリア</a>
+                ))}
+            </nav>
+        </section>
+    </main>
 </Layout>
