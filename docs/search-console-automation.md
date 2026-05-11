@@ -5,8 +5,8 @@
 On every push to `main`, GitHub Actions can:
 
 1. Generate a Google file-verification HTML file for the site root URL
-2. Build the Astro site
-3. Deploy the site to Netlify
+2. Build the Astro site with the Vercel CLI
+3. Deploy the site to Vercel
 4. Verify URL-prefix ownership in Google Site Verification
 5. Add the property to Google Search Console
 6. Submit the sitemap URL to Search Console
@@ -21,10 +21,12 @@ This is implemented by:
 
 - `GOOGLE_SERVICE_ACCOUNT_JSON`
   - Full JSON credentials for the Google service account
-- `NETLIFY_AUTH_TOKEN`
-  - Netlify personal access token
-- `NETLIFY_SITE_ID`
-  - Netlify site ID
+- `VERCEL_TOKEN`
+  - Vercel personal access token
+- `VERCEL_ORG_ID`
+  - Vercel team or user ID (`orgId` in `.vercel/project.json`)
+- `VERCEL_PROJECT_ID`
+  - Vercel project ID (`projectId` in `.vercel/project.json`)
 
 ## Required GitHub repository variables
 
