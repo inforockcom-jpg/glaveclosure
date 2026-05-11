@@ -26,4 +26,5 @@ public/google*.html
 .idea/
 
 .vercel
+!.vercel/project.json
 .env*.local

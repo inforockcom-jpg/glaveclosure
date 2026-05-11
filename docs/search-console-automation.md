@@ -23,10 +23,8 @@ This is implemented by:
   - Full JSON credentials for the Google service account
 - `VERCEL_TOKEN`
   - Vercel personal access token
-- `VERCEL_ORG_ID`
-  - Vercel team or user ID (`orgId` in `.vercel/project.json`)
-- `VERCEL_PROJECT_ID`
-  - Vercel project ID (`projectId` in `.vercel/project.json`)
+
+The Vercel `orgId` and `projectId` are read from `.vercel/project.json` committed to the repo, so they do not need to be stored as GitHub secrets. These identifiers are not sensitive (see Vercel's official documentation).
 
 ## Required GitHub repository variables
 
