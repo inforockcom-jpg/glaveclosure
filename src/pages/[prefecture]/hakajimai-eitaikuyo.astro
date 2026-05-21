@@ -1,0 +1,607 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { prefectures, type Prefecture } from '../../data/prefectures';
+
+export async function getStaticPaths() {
+  return prefectures.map((prefecture) => ({
+    params: { prefecture: prefecture.slug },
+    props: { prefecture }
+  }));
+}
+
+const { prefecture } = Astro.props as { prefecture: Prefecture };
+
+const siteUrl = 'https://graveclosure.xyz';
+const pagePath = `/${prefecture.slug}/hakajimai-eitaikuyo/`;
+const pageUrl = new URL(pagePath, siteUrl).toString();
+
+const pageTitle = `${prefecture.name}で墓じまい後の永代供養の選び方 | 樹木葬・納骨堂・散骨・手元供養を徹底比較 | ここから`;
+const pageDescription = `${prefecture.name}にお墓があり、墓じまい後のご遺骨の行き先にお悩みの方へ。樹木葬、納骨堂、合祀墓、海洋散骨、手元供養の特徴・費用・メリット・デメリットをわかりやすく徹底比較。${prefecture.primaryCity}など${prefecture.name}全域対応。`;
+
+const contactTel = '070-8428-0866';
+const contactLineUrl = 'https://lin.ee/QzDuTbn';
+const heroImageUrl = '/assets/hakajimai_eitaikuyo_fv.png';
+const supportImageUrl = '/assets/japanese_temoto_kuyo.png';
+
+// Category-based copy variations for AIO performance
+const categoryCopy = {
+  snow: {
+    feature: `雪深く急勾配な山林にあるお墓を整理し、冬場でもバリアフリーで定期的にお参りできる平地の庭園型樹木葬や、天候を気にせず通える屋内納骨堂、管理の心配が一切ない合祀墓などの${prefecture.name}の気候に適した次の住処をご提案します。`,
+    empathy: `「冬の積雪でお墓までたどり着けない」「春先の雪解けまでお墓の状態が心配」といった、厳しい気候条件ならではの維持管理とアクセスのお悩みです。`,
+  },
+  metro: {
+    feature: `${prefecture.primaryCity}の都市生活に完璧にマッチする、駅から徒歩数分で天候を気にせずお参りできるカード式のビル型納骨堂や、都会のマンションにも美しく溶け込むプレミアムな手元供養、または美しい海へ還す海洋散骨などスマートな都市型移行プランをご紹介します。`,
+    empathy: `「子供が都会へ移住し、故郷のお墓へ通う時間がない」「高額な都会の霊園に新しいお墓を買い直す余裕がない」という都市型の墓地不足と費用の悩みです。`,
+  },
+  standard: {
+    feature: `${prefecture.name}地域の伝統や親族の価値観を尊重し、最初からお骨を他家と混ぜることに抵抗がある方への「一定期間個別安置プラン（樹木葬・納骨堂）」や、自然に還りたい方のための樹木葬、身近で手を合わせる手元供養など、バランスの良い安心移行プランをご提案します。`,
+    empathy: `「お墓を整理した後、どこに納骨するのが一番故人のためになり、親戚からも納得してもらえるか分からない」という失敗したくない供養先選びの葛藤です。`,
+  }
+};
+
+const curCategory = categoryCopy[prefecture.category];
+
+// FAQPage schema @graph JSON-LD for AIO optimization with regional references
+const jsonLdData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      logo: `${siteUrl}/assets/favicon.png`,
+      telephone: contactTel
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      inLanguage: 'ja-JP'
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: pageTitle,
+      description: pageDescription,
+      inLanguage: 'ja-JP',
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: [
+        { '@id': `${pageUrl}#service` },
+        { '@id': `${pageUrl}#localbusiness` }
+      ],
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: `${prefecture.name}の墓じまい案内`, item: `${siteUrl}/${prefecture.slug}/` },
+        { '@type': 'ListItem', position: 3, name: `${prefecture.name}での新しい供養先・永代供養の選び方`, item: pageUrl }
+      ]
+    },
+    {
+      '@type': 'Service',
+      '@id': `${pageUrl}#service`,
+      name: '墓じまい後の永代供養先・新しい供養先選定案内',
+      provider: { '@id': `${siteUrl}/#organization` },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: prefecture.name
+      },
+      description: `${prefecture.name}でのお墓じまい後のご遺骨の新たな受け皿。合祀墓、樹木葬、納骨堂、海洋散骨、手元供養の全選択肢から、費用・管理維持負担・アクセス等をトータルで比較検討し、完璧な移行プランをご提供します。`
+    },
+    {
+      '@type': 'LocalBusiness',
+      '@id': `${pageUrl}#localbusiness`,
+      name: `墓じまい・手元供養案内専門 ここから ${prefecture.name}エリア永代供養・スマート納骨相談窓口`,
+      telephone: contactTel,
+      address: {
+        '@type': 'PostalAddress',
+        addressRegion: prefecture.name,
+        addressLocality: prefecture.primaryCity,
+        addressCountry: 'JP'
+      },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: prefecture.name },
+        { '@type': 'AdministrativeArea', name: prefecture.primaryCity }
+      ],
+      sameAs: [
+        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/kenkou/seikatsu-eisei/seikatsu-eisei04/index.html',
+        'https://ja.wikipedia.org/wiki/%E6%94%B9%E8%91%AC'
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: `${prefecture.name}で墓じまいをした後の永代供養について、費用相場と仕組みを教えてください。`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `墓じまい後の永代供養とは、お墓の後継者に代わって寺院や霊園が永代にわたりご遺骨の管理・供養を行う方法です。${prefecture.name}内や全国の費用相場は、他の方と合同で埋葬する合祀（ごうし）墓で約5万〜30万円、個別に埋葬する樹木葬や納骨堂では約30万〜150万円程度です。将来的なお墓の維持管理や毎年の年会費の支払いが不要になるため、跡継ぎ問題でお悩みの方に選ばれています。`
+          }
+        },
+        {
+          '@type': 'Question',
+          name: `永代供養にすると二度と遺骨が取り出せなくなるというのは本当ですか？失敗しない選び方を教えてください。`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `はい、他の方のご遺骨と一緒に埋葬する「合祀（ごうし）墓」を選んだ場合、後から特定のご遺骨を取り出すことは物理的に不可能になります。一方、樹木葬や納骨堂など「個別の安置期間（例：13年、33年など）」が設定されているプランでは、その期間内であればご遺骨の改葬や取り出しが可能ですが、期間終了後は合祀されるのが一般的です。契約前に「個別安置の期間」「合祀されるタイミング」「取り出しの可否」を十分確認することが失敗を防ぐポイントです。`
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const jsonLd = JSON.stringify(jsonLdData);
+
+// 比較テーブルデータ
+const comparisonData = [
+  {
+    name: '合祀墓（永代供養墓）',
+    cost: '5万〜30万円',
+    effort: '不要（すべて寺院・霊園が管理）',
+    period: 'なし（最初から他の遺骨と合祀）',
+    features: '最初から他の方のご遺骨と一緒に共同の埋葬スペースに納骨される形式。',
+    pros: '費用が圧倒的に安い、管理の手間や維持費が一切かからない。',
+    cons: '一度納骨すると、後から特定のご遺骨を取り出すことは絶対にできない。'
+  },
+  {
+    name: '樹木葬',
+    cost: '30万〜100万円',
+    effort: '不要（庭園の管理は霊園側が行う）',
+    period: 'あり（13年・33年など期限後に合祀が多い）',
+    features: '墓石の代わりに樹木や草花をシンボル（墓標）として、ご遺骨を自然に還す形式。',
+    pros: '自然に囲まれた美しい環境で眠れる。承継者不要のプランが豊富。',
+    cons: '個別の安置期間が過ぎると、自動的に合祀されて取り出せなくなることが多い。'
+  },
+  {
+    name: '納骨堂',
+    cost: '30万〜150万円',
+    effort: '不要（室内の清掃等は施設側が実施）',
+    period: 'あり（13年・33年など期限後に合祀が多い）',
+    features: '都市部のビルや寺院内にある屋内の納骨スペースに、ご遺骨を安置する形式。',
+    pros: '天候に左右されずにお参り可能。アクセス良好な立地が多い。',
+    cons: '室内のためお線香をあげられない制限がある。期間後は合祀される。'
+  },
+  {
+    name: '海洋散骨',
+    cost: '5万〜30万円',
+    effort: '不要（墓地自体が存在しないため完全にフリー）',
+    period: 'なし（自然の海へすべて還る）',
+    features: '粉骨（ご遺骨をパウダー状にする）し、許可された外洋へ散骨する自然葬。',
+    pros: '管理費も墓地維持も完全に不要。海を愛する方に最適。',
+    cons: '手元に遺骨が一切残らないため、後からお参りする特定の場所がなくなる。'
+  },
+  {
+    name: '手元供養',
+    cost: '数千円〜10万円',
+    effort: '自宅での自主管理（日常のお手入れのみ）',
+    period: 'なし（自身でずっと手元に置いておける）',
+    features: '小さなミニ骨壷やペンダントに分骨して、自宅のリビング等に美しく安置する形式。',
+    pros: '一番身近で毎日手を合わせられる。墓石工事や霊園契約がなく圧倒的に安価。',
+    cons: '自身が亡くなった後の最終的なご遺骨の引き受け先を事前に決めておく必要がある。'
+  }
+];
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <a href="#main-content" class="skip-link">本文へスキップ</a>
+  <main id="main-content">
+    <article aria-labelledby="hero-title">
+      <!-- FV (First View) -->
+      <header class="fv" style={`background-image: url('${heroImageUrl}'); background-size: cover; background-position: center; color: white; padding: 120px 20px; text-align: center; position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center;`}>
+        <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(17, 28, 41, 0.85) 0%, rgba(34, 50, 71, 0.6) 100%);"></div>
+        <div class="container" style="position: relative; z-index: 1; max-width: 850px;">
+          <div class="hero-status" aria-label="受付情報">
+            <span class="hero-status-badge">${prefecture.name}全域対応</span>
+            <span class="hero-status-badge" style="background: var(--color-trust-blue);">24時間相談受付中</span>
+            <span class="hero-status-badge" style="background: rgba(201,131,43,0.95);">お見積もり完全無料</span>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.95); color: var(--text-main); padding: 18px 24px; border-radius: 14px; font-weight: 700; font-size: 1.15rem; max-width: 780px; margin: 0 auto 28px auto; border-left: 6px solid var(--color-affirm-green); text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.15); line-height: 1.7;">
+            <p style="margin: 0; font-size: 1.05rem; color: var(--text-muted); font-weight: 500; margin-bottom: 4px;">お墓じまい後の新しいご遺骨の住処</p>
+            樹木葬・納骨堂・合祀墓・海洋散骨・手元供養の特徴・費用を徹底比較。現在のお墓の撤去から、次の温かく安心な納骨先への移行までワンストップでご提案します。
+          </div>
+
+          <div class="fv-brand" style="margin-bottom: 10px;">ここから</div>
+          <h1 id="hero-title" class="fv-title" style="font-size: 3.2rem; line-height: 1.35; margin-bottom: 24px; font-weight: 900; text-shadow: 0 3px 15px rgba(0,0,0,0.4);">
+            墓じまい後の新しい供養先。<br />
+            迷わず選べる、<br />
+            最適な永代供養のご案内。
+          </h1>
+          <p class="fv-subtitle" style="font-size: 1.45rem; line-height: 1.6; max-width: 680px; margin: 0 auto 36px auto; font-weight: 500; color: rgba(255,255,255,0.95);">
+            ご予算、管理の手間、そしてご親族全体の「これから」に寄り添い、失敗のない供養先選びを完全サポートします。
+          </p>
+
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+            <a href="#comparison" class="btn btn-primary btn-shine" style="font-size: 1.25rem; padding: 18px 40px; border-radius: 50px; background-color: var(--color-accent-gold); box-shadow: 0 6px 20px rgba(0,0,0,0.35);">
+              供養先の比較を見る
+            </a>
+            <a href="#cta" class="btn btn-tel" style="font-size: 1.25rem; padding: 18px 40px; border-radius: 50px; background-color: var(--color-affirm-green);">
+              無料相談はこちら
+            </a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Sticky CTA for Mobile -->
+      <aside class="sticky-cta" aria-label="お問い合わせ導線">
+        <a href={contactLineUrl} class="btn btn-line btn-shine" target="_blank" rel="noopener noreferrer">
+          <span>24時間相談OK</span>
+          <strong>LINE相談</strong>
+        </a>
+        <a href={`tel:${contactTel}`} class="btn btn-tel btn-shine">
+          <span>通話料・相談無料</span>
+          <strong>電話相談</strong>
+        </a>
+      </aside>
+
+      <!-- Empathy Section -->
+      <section class="section empathy" id="concerns" style="background: #f4f7fa; padding: 90px 0;" aria-labelledby="concerns-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">EMPATHY</span>
+          <h2 id="concerns-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">墓じまいを終えた後、<br />このようなお悩みはありませんか？</h2>
+          <p class="text-center" style="color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">
+            お墓を解体・撤去したあとの「ご遺骨の新しい住処」選びは、多くの人が迷うテーマです。
+          </p>
+          
+          <div class="grid-3" style="margin-bottom: 40px;">
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">01</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">次の供養先が多すぎて選べない</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  「墓じまいは進めたいけれど、取り出したお骨をどこに納めるのがベストなのか。樹木葬、納骨堂、海洋散骨など選択肢が多すぎて前に進めない」というお悩み。
+                </p>
+              </div>
+            </div>
+            
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">02</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">管理費や将来の維持負担をなくしたい</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  「子どもに再度お墓の年間管理料や草むしりの手間を負わせたくない」「自分が世を去った後も、ずっと誰かが綺麗に供養してくれる安心の仕組みを探したい」という切実なご希望。
+                </p>
+              </div>
+            </div>
+            
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">03</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">予算を抑えつつも、温かく供養したい</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  「お墓の解体・撤去だけで費用がかかるため、次の新しいお墓の契約に何百万円も支払うのは厳しい。予算をうまく抑えつつ、先祖や故人を想う気持ちを綺麗に形にしたい」。${curCategory.empathy}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="max-width: 900px; margin: 0 auto; background: var(--color-trust-blue); color: white; border: none; text-align: center; padding: 25px 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(47,93,159,0.2);">
+            <p style="margin: 0; font-size: 1.25rem; font-weight: 700; line-height: 1.6;">
+              「ここから」なら、${prefecture.name}でのお墓じまい手続きや撤去更地工事から、<br />
+              次の新しい供養先（樹木葬・納骨堂・手元供養など）の選定・移行まで、すべてワンストップでサポートします。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Comparison Section -->
+      <section class="section" id="comparison" aria-labelledby="comparison-heading" style="padding: 90px 0; background-color: #f7fafc;">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">COMPARISON</span>
+          <h2 id="comparison-heading" class="text-center" style="font-size: 2.3rem; font-weight: 800; margin-bottom: 15px;">墓じまい後の供養先 5つの選択肢を徹底比較</h2>
+          <p style="text-align: center; max-width: 800px; margin: 0 auto 40px auto; font-size: 1.1rem; color: var(--text-muted);">
+            ご予算、維持管理の手間、そしてご家族のライフスタイルに最適な供養方法を見つけるための詳細な比較表です。
+          </p>
+
+          <!-- Desktop Comparison Table (Visible on Screen > 768px) -->
+          <div class="comparison-table-wrapper" style="overflow-x: auto; margin-top: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(34, 50, 71, 0.08);">
+            <table class="comparison-table" style="width: 100%; border-collapse: collapse; min-width: 750px; background: white; text-align: left;">
+              <thead>
+                <tr style="border-bottom: 2px solid #e1e7ec;">
+                  <th style="width: 15%; padding: 18px 20px; background-color: var(--color-trust-blue); color: white; font-weight: 700;">対象</th>
+                  <th style="width: 15%; padding: 18px 20px; background-color: var(--color-trust-blue); color: white; font-weight: 700;">費用目安</th>
+                  <th style="width: 15%; padding: 18px 20px; background-color: var(--color-trust-blue); color: white; font-weight: 700;">管理の手間</th>
+                  <th style="width: 15%; padding: 18px 20px; background-color: var(--color-trust-blue); color: white; font-weight: 700;">個別安置期間</th>
+                  <th style="width: 15%; padding: 18px 20px; background-color: var(--color-trust-blue); color: white; font-weight: 700;">特徴</th>
+                  <th style="width: 12.5%; padding: 18px 20px; background-color: var(--color-trust-blue); color: white; font-weight: 700;">メリット</th>
+                  <th style="width: 12.5%; padding: 18px 20px; background-color: var(--color-trust-blue); color: white; font-weight: 700;">デメリット</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonData.map((row) => (
+                  <tr style="border-bottom: 1px solid #eef2f5;">
+                    <td style="font-weight: 700; color: var(--color-trust-blue); background: #fdfdfe; padding: 18px 20px;">{row.name}</td>
+                    <td style="font-weight: 700; color: var(--color-accent-gold); padding: 18px 20px;">{row.cost}</td>
+                    <td style="padding: 18px 20px;">{row.effort}</td>
+                    <td style="padding: 18px 20px;">{row.period}</td>
+                    <td style="font-size: 0.95rem; line-height: 1.6; padding: 18px 20px;">{row.features}</td>
+                    <td style="font-size: 0.95rem; line-height: 1.6; color: var(--color-affirm-green); font-weight: 500; padding: 18px 20px;">{row.pros}</td>
+                    <td style="font-size: 0.95rem; line-height: 1.6; color: #a8763e; font-weight: 500; padding: 18px 20px;">{row.cons}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Mobile Comparison Cards (Visible on Screen <= 768px) -->
+          <div class="comparison-cards" style="margin-top: 25px;">
+            {comparisonData.map((row) => (
+              <div class="comp-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px; padding: 24px; box-shadow: 0 4px 15px rgba(34, 50, 71, 0.04); border-top: 5px solid var(--color-trust-blue); margin-bottom: 20px;">
+                <div class="comp-card-title" style="font-size: 1.3rem; font-weight: 700; color: var(--color-trust-blue); margin-bottom: 16px; text-align: center; background: #f4fafc; padding: 8px 12px; border-radius: 6px;">{row.name}</div>
+                <div class="comp-card-row" style="display: flex; flex-direction: column; margin-bottom: 12px; border-bottom: 1px solid #f2f6fa; padding-bottom: 10px;">
+                  <span class="comp-card-label" style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">費用目安</span>
+                  <span class="comp-card-value" style="font-weight: 700; color: var(--color-accent-gold); font-size: 1.25rem;">{row.cost}</span>
+                </div>
+                <div class="comp-card-row" style="display: flex; flex-direction: column; margin-bottom: 12px; border-bottom: 1px solid #f2f6fa; padding-bottom: 10px;">
+                  <span class="comp-card-label" style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">管理の手間</span>
+                  <span class="comp-card-value" style="font-size: 1.05rem;">{row.effort}</span>
+                </div>
+                <div class="comp-card-row" style="display: flex; flex-direction: column; margin-bottom: 12px; border-bottom: 1px solid #f2f6fa; padding-bottom: 10px;">
+                  <span class="comp-card-label" style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">個別安置期間</span>
+                  <span class="comp-card-value" style="font-size: 1.05rem;">{row.period}</span>
+                </div>
+                <div class="comp-card-row" style="display: flex; flex-direction: column; margin-bottom: 12px; border-bottom: 1px solid #f2f6fa; padding-bottom: 10px;">
+                  <span class="comp-card-label" style="font-size: 0.9rem; font-weight: 700; color: var(--text-muted); margin-bottom: 4px;">特徴</span>
+                  <span class="comp-card-value" style="font-size: 1.05rem; line-height: 1.6;">{row.features}</span>
+                </div>
+                <div class="comp-card-row" style="display: flex; flex-direction: column; margin-bottom: 12px; border-bottom: 1px solid #f2f6fa; padding-bottom: 10px;">
+                  <span class="comp-card-label" style="font-size: 0.9rem; font-weight: 700; color: var(--color-affirm-green);">メリット</span>
+                  <span class="comp-card-value" style="color: var(--color-affirm-green); font-weight: 700; font-size: 1.05rem; line-height: 1.6;">{row.pros}</span>
+                </div>
+                <div class="comp-card-row" style="display: flex; flex-direction: column; margin-bottom: 12px; border-bottom: 1px solid #f2f6fa; padding-bottom: 10px;">
+                  <span class="comp-card-label" style="font-size: 0.9rem; font-weight: 700; color: #a8763e;">デメリット</span>
+                  <span class="comp-card-value" style="color: #a8763e; font-weight: 700; font-size: 1.05rem; line-height: 1.6;">{row.cons}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p style="margin-top: 20px; font-size: 0.95rem; color: var(--text-muted); text-align: center;">
+            ※上記の費用目安は一般的な相場であり、お墓の広さや地域、各寺院・霊園のプラン設定によって異なります。
+          </p>
+        </div>
+      </section>
+
+      <!-- Warnings and How to Choose (Notice Section) -->
+      <section class="section" id="notice" style="padding: 90px 0; background: #ffffff;" aria-labelledby="notice-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-accent-gold); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">NOTICE</span>
+          <h2 id="notice-heading" class="text-center" style="font-size: 2.3rem; font-weight: 800; margin-bottom: 15px;">契約前に知っておくべき注意点と失敗しない選び方</h2>
+          <p style="text-align: center; max-width: 800px; margin: 0 auto 45px auto; font-size: 1.1rem; color: var(--text-muted);">
+            後悔しない新しい供養先を選ぶために、特に注意すべき重要なポイントを解説します。
+          </p>
+
+          <div style="max-width: 900px; margin: 0 auto; display: grid; gap: 24px;">
+            <div class="card" style="border-left: 6px solid var(--color-accent-gold); padding: 30px 35px; background: #fffdf9; border-color: rgba(201, 131, 43, 0.3);">
+              <h3 style="color: var(--color-trust-blue); font-size: 1.35rem; margin-bottom: 12px; font-weight: 700;">
+                注意点①：「永代供養にすると二度と遺骨が取り出せなくなる？」は本当か？
+              </h3>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 10px;">
+                結論から言うと、<strong>他の方と合同で埋葬する「合祀（ごうし）」を最初から選んだ場合は、後からご遺骨を取り出すことは物理的に不可能</strong>になります。後から「やはり別の場所に改葬したい」「手元供養に切り替えたい」と思っても一切変更できません。
+              </p>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin: 0;">
+                個別安置期間（例：13回忌や33回忌まで個別の棚やスペースに安置するプラン）が設けられている樹木葬や納骨堂であれば、その期間内は遺骨を取り出すことができますが、<strong>期間終了後は最終的に自動で合祀されるケースが一般的</strong>です。必ず事前に対象プランの「合祀のタイミング」と「取り出しの可否」を確認しましょう。
+              </p>
+            </div>
+
+            <div class="card" style="border-left: 6px solid var(--color-affirm-green); padding: 30px 35px; background: #ffffff; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec;">
+              <h3 style="color: var(--color-trust-blue); font-size: 1.35rem; margin-bottom: 12px; font-weight: 700;">
+                注意点②：親族間の話し合いと合意形成が最重要
+              </h3>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin: 0;">
+                お墓じまいや次の供養先の決定を「お墓の後継者だけ」で独断で進めてしまうと、後になって親戚から「なぜ伝統的なお墓を無くしたのか」「相談もなく散骨してしまい、手を合わせる場所が無くて寂しい」といった不満やトラブルが噴出することがあります。新しい供養先（樹木葬や散骨、手元供養など）の持つ特徴、特に「お参りのスタイルがどう変わるか」を事前に親族全体で共有し、丁寧に合意を得ることが、円満な墓じまいの第一歩です。
+              </p>
+            </div>
+
+            <div class="card" style="border-left: 6px solid var(--color-trust-blue); padding: 30px 35px; background: #ffffff; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec;">
+              <h3 style="color: var(--color-trust-blue); font-size: 1.35rem; margin-bottom: 12px; font-weight: 700;">
+                失敗しないための「3つのチェックリスト」
+              </h3>
+              <ol style="margin-left: 20px; font-size: 1.05rem; line-height: 1.8; display: grid; gap: 8px; color: var(--text-muted);">
+                <li>
+                  <strong style="color: var(--text-main);">「個別で安置される期間」は具体的に何年か？</strong>
+                  <br />（納骨から13年、33年、または最後の人が納骨されてから数年など、数え方に注意）
+                </li>
+                <li>
+                  <strong style="color: var(--text-main);">お参りに行く際のアプローチやアクセスの利便性は？</strong>
+                  <br />（年を重ねて階段や長距離の運転が難しくなっても、電車やバスで無理なく通えるか）
+                </li>
+                <li>
+                  <strong style="color: var(--text-main);">その後の追加管理費用や、法要の依頼義務があるか？</strong>
+                  <br />（「永代」と謳っていても、個別安置期間中は年間管理費が別途発生する契約もあります）
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Smart Combination Plan (Featured Section) -->
+      <section class="section" id="smart-plan" style="padding: 90px 0; background-color: #fcfefe; border-top: 1px solid #edf2f7; border-bottom: 1px solid #edf2f7;" aria-labelledby="smart-plan-heading">
+        <div class="container">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); align-items: center; gap: 40px;">
+            <img src={supportImageUrl} alt="ご自宅で身近に手を合わせられる「手元供養」のイメージ" style="width: 100%; border-radius: 20px; box-shadow: 0 12px 36px rgba(34, 50, 71, 0.14);" loading="lazy" />
+            
+            <div class="card" style="background: linear-gradient(135deg, #ffffff 0%, #f4faf7 100%); border: 2px solid rgba(47, 143, 107, 0.15); padding: 35px;">
+              <h2 id="smart-plan-heading" style="font-size: 1.85rem; color: var(--color-trust-blue); margin-bottom: 15px; font-weight: 800;">
+                墓じまいをより心温まるものにする<br />
+                「永代供養 × 手元供養」のスマートな組み合わせ
+              </h2>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 12px;">
+                すべてのご遺骨を遠方の寺院や合祀墓に入れてしまうと、急に手元が寂しくなり「もっと身近で手を合わせたかった」と後悔されるケースが少なくありません。
+              </p>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 20px;">
+                そこでおすすめなのが、<strong>ご遺骨の大部分は費用を抑えた永代供養や海洋散骨へ納め、そのうちの一部だけを美しいミニ骨壷やペンダントに移してご自宅へ持ち帰る「手元供養」のスマートな組み合わせプラン</strong>です。
+              </p>
+              
+              <div style="background: #ffffff; padding: 20px; border-radius: 12px; border-left: 5px solid var(--color-affirm-green);">
+                <h4 style="font-weight: 700; font-size: 1.1rem; margin-bottom: 8px; color: var(--color-affirm-green);">
+                  この組み合わせプランが選ばれる理由
+                </h4>
+                <ul style="margin-left: 20px; font-size: 1rem; line-height: 1.6; display: grid; gap: 6px; color: var(--text-muted);">
+                  <li><strong style="color: var(--text-main);">安心感</strong>：すべての遺骨を手元に置くわけではないため、将来の引き継ぎ問題が完全に解消される。</li>
+                  <li><strong style="color: var(--text-main);">費用の節約</strong>：個別のお墓を新しく建てることなく、永代供養の合祀（約5万円〜）と手元供養セット（約5万円〜）で総額費用を劇的に抑えられます。</li>
+                  <li><strong style="color: var(--text-main);">温かさ</strong>：遠方へお墓参りに行く必要がなく、リビングの一角でいつでも好きな時に対話ができます。<br />※${curCategory.feature}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Flow Section -->
+      <section class="section" id="flow" style="padding: 90px 0; background: #ffffff;" aria-labelledby="flow-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">FLOW</span>
+          <h2 id="flow-heading" class="text-center" style="font-size: 2.3rem; font-weight: 800; margin-bottom: 15px;">墓じまいと次の供養先への移行ステップ</h2>
+          <p style="text-align: center; max-width: 800px; margin: 0 auto 40px auto; font-size: 1.1rem; color: var(--text-muted);">
+            お問い合わせから手続き、お墓の撤去、次の供養への移行まで、迷うことなくスムーズに完了します。
+          </p>
+
+          <div style="max-width: 800px; margin: 0 auto; display: grid; gap: 20px;">
+            <div class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; border: 1px solid #e1e7ec; background: #ffffff;">
+              <span style="background: var(--color-trust-blue); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.15rem; flex-shrink: 0;">1</span>
+              <div>
+                <h4 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 4px; color: var(--text-main);">無料相談＆ヒアリング（電話・LINEで24時間受付）</h4>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin: 0;">現在のお墓の状況や場所、ご遺骨の数、ご希望の新しい供養方法（樹木葬、手元供養など）を丁寧に伺います。</p>
+              </div>
+            </div>
+
+            <div class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; border: 1px solid #e1e7ec; background: #ffffff;">
+              <span style="background: var(--color-trust-blue); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.15rem; flex-shrink: 0;">2</span>
+              <div>
+                <h4 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 4px; color: var(--text-main);">最適な移行プランと見積もりのご提示</h4>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin: 0;">墓じまい撤去工事の概算見積もりと、次の供養先プランを合わせたトータル費用をわかりやすくご提案。追加費用はありません。</p>
+              </div>
+            </div>
+
+            <div class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; border: 1px solid #e1e7ec; background: #ffffff;">
+              <span style="background: var(--color-trust-blue); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.15rem; flex-shrink: 0;">3</span>
+              <div>
+                <h4 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 4px; color: var(--text-main);">行政手続きのサポート（改葬許可申請など）</h4>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin: 0;">現在の墓地がある自治体への改葬許可証の申請や、お寺・霊園管理者様への書類作成・提出準備などをトータルサポート。</p>
+              </div>
+            </div>
+
+            <div class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; border: 1px solid #e1e7ec; background: #ffffff;">
+              <span style="background: var(--color-trust-blue); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.15rem; flex-shrink: 0;">4</span>
+              <div>
+                <h4 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 4px; color: var(--text-main);">閉眼供養（魂抜き）と遺骨の取り出し</h4>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin: 0;">お墓の解体前に行う宗教儀式の手配から、安全なご遺骨の取り出し、墓石の撤去工事、土地の更地返還まで責任を持って実施します。</p>
+              </div>
+            </div>
+
+            <div class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 24px; border: 1px solid #e1e7ec; background: #ffffff;">
+              <span style="background: var(--color-trust-blue); color: #fff; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.15rem; flex-shrink: 0;">5</span>
+              <div>
+                <h4 style="font-weight: 700; font-size: 1.15rem; margin-bottom: 4px; color: var(--text-main);">新しい供養先への納骨・お引渡し</h4>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin: 0;">新しい永代供養墓（合祀墓・樹木葬・納骨堂）への納骨、海洋散骨の代行手配、またはご自宅へ手元供養セット（ミニ骨壷・パウダー加工等）をお届けします。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- トピッククラスター（相互内部リンク） -->
+      <section class="cluster-section" id="related-concerns" style="padding: 90px 0; background: #f7fafc;" aria-labelledby="related-concerns-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 30px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">TOPIC CLUSTER</span>
+            <h2 id="related-concerns-heading" style="font-size: 2.1rem; font-weight: 800; color: var(--text-main);">${prefecture.name}での墓じまいに関するその他のお悩み</h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 10px; line-height: 1.6;">
+              新しい納骨先選びの他にも、墓じまいに伴う総額費用、自治体への面倒な届出手続き、親族・お寺との関係維持など、あらゆる不安への解決ヒントを公開しています。
+            </p>
+          </header>
+
+          <nav class="cluster-grid" aria-label="墓じまい関連お悩み一覧">
+            <!-- 費用LP -->
+            <a href={`/${prefecture.slug}/hakajimai-hio/`} class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">墓じまいの総額費用と相場</h3>
+                <p class="cluster-card-text">
+                  解体撤去・お布施・新しい供養先など全ての費用内訳と、無駄なマージンを省いて適正価格で安く抑える3つの具体的なアプローチを詳しく解説。
+                </p>
+              </div>
+              <span class="cluster-card-link">墓じまいの費用相場と安く抑えるコツはこちら</span>
+            </a>
+
+            <!-- 手続きLP -->
+            <a href={`/${prefecture.slug}/hakajimai-tetsuduki/`} class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">面倒な行政手続き・全体の流れ</h3>
+                <p class="cluster-card-text">
+                  改葬許可申請や墓地返還届など、墓じまいに必要な複雑な公的書類の書き方や申請窓口、全体の具体的なステップを優しくガイドします。
+                </p>
+              </div>
+              <span class="cluster-card-link">面倒な墓じまいの行政手続き・流れはこちら</span>
+            </a>
+
+            <!-- 跡継ぎいないLP -->
+            <a href={`/${prefecture.slug}/hakajimai-atootsugi/`} class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">跡継ぎ（後継者）がいない不安</h3>
+                <p class="cluster-card-text">
+                  「自分たちの世代で最後になり、墓を守る人がいない」という方へ。無縁仏・無縁墓になるのを防ぐための永代供養や、将来負担を残さない現実的な対策を提案。
+                </p>
+              </div>
+              <span class="cluster-card-link">跡継ぎがいない場合の墓じまいと対策はこちら</span>
+            </a>
+
+            <!-- トラブルLP -->
+            <a href={`/${prefecture.slug}/hakajimai-trouble/`} class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">墓じまいでのトラブル防止・円満解決</h3>
+                <p class="cluster-card-text">
+                  お寺からの高額な離檀料請求や、親族からの突然の反対などで揉めないための対話マナーと、万が一の際の専門行政書士による解決サポート。
+                </p>
+              </div>
+              <span class="cluster-card-link">墓じまいでのトラブルを防ぐ円満解決法はこちら</span>
+            </a>
+          </nav>
+        </div>
+      </section>
+
+      <!-- CTA (Call To Action) Section -->
+      <section class="cta-bar" id="cta" aria-labelledby="cta-heading" style="padding: 90px 20px;">
+        <div class="container" style="max-width: 800px;">
+          <span style="background: rgba(255,255,255,0.15); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 6px 14px; border-radius: 99px; display: inline-block; margin-bottom: 15px;">ESTIMATE & CONSULT FREE</span>
+          <h2 id="cta-heading" style="font-size: 2.3rem; font-weight: 800; line-height: 1.4; margin-bottom: 15px;">
+            ${prefecture.name}での墓じまいと新しい供養先について無料で相談する
+          </h2>
+          <p style="margin-bottom: 35px; font-size: 1.15rem; color: rgba(255, 255, 255, 0.9); line-height: 1.8;">
+            「まず比較表のどれが良いかアドバイスが欲しい」「今の墓地面積なら解体費用はいくらになる？」など、どんなことでもお気軽にご相談ください。24時間体制で専門スタッフがお答えします。
+          </p>
+          <div class="cta-tel" style="font-size: 3.2rem; font-weight: 900; margin-bottom: 35px; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+            {contactTel}
+          </div>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href={contactLineUrl} class="btn btn-line btn-shine" style="padding: 20px 45px; border-radius: 50px; font-size: 1.25rem; background-color: #24b055;">
+              LINEで無料相談
+            </a>
+            <a href={`tel:${contactTel}`} class="btn btn-primary btn-shine" style="padding: 20px 45px; border-radius: 50px; font-size: 1.25rem; background-color: var(--color-accent-gold); box-shadow: 0 6px 20px rgba(0,0,0,0.3);">
+              お電話で無料相談
+            </a>
+          </div>
+          <p style="margin-top: 25px; font-size: 0.95rem; color: rgba(255,255,255,0.7);">
+            ※お電話は年中無休・24時間いつでも受け付けております。相談無料です。
+          </p>
+        </div>
+      </section>
+    </article>
+  </main>
+</Layout>

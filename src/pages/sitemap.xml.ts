@@ -5,9 +5,20 @@ const siteUrl = 'https://graveclosure.xyz';
 
 export const GET: APIRoute = () => {
   const now = new Date().toISOString();
+  const specializedSlugs = [
+    'hakajimai-hio',
+    'hakajimai-tetsuduki',
+    'hakajimai-atootsugi',
+    'hakajimai-trouble',
+    'hakajimai-eitaikuyo'
+  ];
+
   const urls = [
     `${siteUrl}/`,
-    ...prefectures.map((prefecture) => `${siteUrl}/${prefecture.slug}/`)
+    ...prefectures.flatMap((prefecture) => [
+      `${siteUrl}/${prefecture.slug}/`,
+      ...specializedSlugs.map((slug) => `${siteUrl}/${prefecture.slug}/${slug}/`)
+    ])
   ];
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>

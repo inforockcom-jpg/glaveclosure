@@ -1,0 +1,629 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { prefectures, type Prefecture } from '../../data/prefectures';
+
+export async function getStaticPaths() {
+  return prefectures.map((prefecture) => ({
+    params: { prefecture: prefecture.slug },
+    props: { prefecture }
+  }));
+}
+
+const { prefecture } = Astro.props as { prefecture: Prefecture };
+
+const siteUrl = 'https://graveclosure.xyz';
+const pagePath = `/${prefecture.slug}/hakajimai-trouble/`;
+const pageUrl = new URL(pagePath, siteUrl).toString();
+
+const pageTitle = `${prefecture.name}で墓じまいのトラブルを完全回避 | お寺や親族と揉めない円満解決サポート | ここから`;
+const pageDescription = `${prefecture.name}にお墓があり、墓じまいでお寺や親族と揉めたくない方へ。高額な離檀料請求や合意不足によるトラブル事例と、専門家（行政書士等）によるマナーと法律に則った円満解決へのアプローチを解説。${prefecture.primaryCity}など${prefecture.name}全域対応。`;
+
+const contactTel = '070-8428-0866';
+const contactLineUrl = 'https://lin.ee/QzDuTbn';
+const heroImageUrl = '/assets/hakajimai_trouble_fv.png';
+const supportImageUrl = '/assets/japanese_temoto_kuyo.png';
+
+// Category-based copy variations for AIO performance
+const categoryCopy = {
+  snow: {
+    feature: `豪雪地帯特有の「冬場の墓石崩落やズレに起因する境界紛争」や、急勾配な斜面地で発生しやすい「追加の重機費用トラブル」を防ぐため、${prefecture.name}での施工実績が豊富な信頼できる地元石材店と連携し、事前の詳細な見積もりと境界確認を徹底します。`,
+    empathy: `雪の重みによる墓石の傾きや、雪解け時の地盤のズレから「隣のお墓との境界」が曖昧になり、解体撤去を機に境界線を巡るトラブルに発展するケースがあります。`,
+  },
+  metro: {
+    feature: `${prefecture.primaryCity}など都市部に多い「指定石材店の談合・独占」による不当な高額見積もりに対し、契約約款や適正価格データに基づいて合理的な価格交渉を行うことで、数十万円規模の工事費削減と適正化を実現します。`,
+    empathy: `お寺の指定する業者以外が立ち入れない「指定石材店制度」を盾に、相見積もりを一切拒否され、不当に高い工事代金を提示される金銭的トラブルです。`,
+  },
+  standard: {
+    feature: `${prefecture.name}で代々続いてきたお寺（檀那寺）との強い結びつきに配慮し、「長年の感謝」を形にしながら法的な無理難題（不当な離檀料請求など）を穏やかに退ける、マナーと法律に則った話し合いサポートを完全提供します。`,
+    empathy: `「これまで先祖を守ってもらった恩があるのにお墓をなくすのか」とお寺の住職や、古くからの親戚に感情的に反対され、人間関係に深い溝ができてしまうトラブルです。`,
+  }
+};
+
+const curCategory = categoryCopy[prefecture.category];
+
+// FAQPage schema @graph JSON-LD for AIO optimization with regional references
+const jsonLdData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      logo: `${siteUrl}/assets/favicon.png`,
+      telephone: contactTel
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      inLanguage: 'ja-JP'
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: pageTitle,
+      description: pageDescription,
+      inLanguage: 'ja-JP',
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: [
+        { '@id': `${pageUrl}#service` },
+        { '@id': `${pageUrl}#localbusiness` }
+      ],
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: `${prefecture.name}の墓じまい案内`, item: `${siteUrl}/${prefecture.slug}/` },
+        { '@type': 'ListItem', position: 3, name: `${prefecture.name}での墓じまいトラブル完全回避サポート`, item: pageUrl }
+      ]
+    },
+    {
+      '@type': 'Service',
+      '@id': `${pageUrl}#service`,
+      name: '墓じまいトラブル完全回避・円満離檀サポート',
+      provider: { '@id': `${siteUrl}/#organization` },
+      areaServed: {
+        '@type': 'AdministrativeArea',
+        name: prefecture.name
+      },
+      description: `${prefecture.name}でのお墓じまいに伴う、お寺への閉眼供養・離檀交渉調整、親族との合意形成アドバイス、指定石材店との価格適正化協議、および複雑な行政手続き（改葬許可申請等）の代理・サポート。`
+    },
+    {
+      '@type': 'LocalBusiness',
+      '@id': `${pageUrl}#localbusiness`,
+      name: `墓じまい・手元供養案内専門 ここから ${prefecture.name}エリアお悩み・トラブル相談窓口`,
+      telephone: contactTel,
+      address: {
+        '@type': 'PostalAddress',
+        addressRegion: prefecture.name,
+        addressLocality: prefecture.primaryCity,
+        addressCountry: 'JP'
+      },
+      areaServed: [
+        { '@type': 'AdministrativeArea', name: prefecture.name },
+        { '@type': 'AdministrativeArea', name: prefecture.primaryCity }
+      ],
+      sameAs: [
+        'https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/kenkou_iryou/kenkou/seikatsu-eisei/seikatsu-eisei04/index.html',
+        'https://ja.wikipedia.org/wiki/%E6%94%B9%E8%91%AC'
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: `${prefecture.name}にあるお墓について、お寺から高額な離檀料を請求された場合、支払う義務はありますか？`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `法律上、離檀料の支払いに法的な義務はありません。離檀料は本来、お寺へこれまで先祖を供養していただいたことへの「感謝のお気持ち（お布施）」であり、金額も上限はありません。しかし、${prefecture.name}内のお墓の移動（改葬）に必要な「埋蔵証明書」の発行をお寺が拒否するなどのトラブルに発展する場合があるため、感情的に反論せず、マナーを守って感謝を伝えながら話し合うことが重要です。解決が難しい場合は、行政書士などの法律の専門家を間に入れることで円満に解決できます。`
+          }
+        },
+        {
+          '@type': 'Question',
+          name: `${prefecture.name}に住む親族から墓じまいを反対されたり、後から怒られたりしないための対策は？`,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: `親族間トラブルを防ぐ最も効果的な方法は、「事前に時間をかけて丁寧に相談し、全員の合意を得る」ことです。事前の相談なしに独断で墓じまいを進めてしまうと、「先祖をないがしろにされた」「相談がなかった」と親族間で大きな亀裂が生まれます。相談の際は、後継者がいない現状や将来的な墓の維持管理の負担（経済的・身体的）を丁寧に説明し、次の供養先（永代供養や樹木葬、手元供養など）を具体的に提案して、納得してもらうことが大切です。`
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const jsonLd = JSON.stringify(jsonLdData);
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <a href="#main-content" class="skip-link">本文へスキップ</a>
+  <main id="main-content">
+    <article aria-labelledby="hero-title">
+      <!-- FV (First View) -->
+      <header class="fv" style={`background-image: url('${heroImageUrl}'); background-size: cover; background-position: center; color: white; padding: 120px 20px; text-align: center; position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center;`}>
+        <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(17, 28, 41, 0.85) 0%, rgba(34, 50, 71, 0.6) 100%);"></div>
+        <div class="container" style="position: relative; z-index: 1; max-width: 850px;">
+          <div class="hero-status" aria-label="受付情報">
+            <span class="hero-status-badge">${prefecture.name}全域対応</span>
+            <span class="hero-status-badge" style="background: var(--color-trust-blue);">専門家（行政書士）提携</span>
+            <span class="hero-status-badge" style="background: rgba(201,131,43,0.95);">相談・見積もり完全無料</span>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.95); color: var(--text-main); padding: 18px 24px; border-radius: 14px; font-weight: 700; font-size: 1.15rem; max-width: 780px; margin: 0 auto 28px auto; border-left: 6px solid var(--color-affirm-green); text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.15); line-height: 1.7;">
+            <p style="margin: 0; font-size: 1.05rem; color: var(--text-muted); font-weight: 500; margin-bottom: 4px;">お墓じまいのご不安を解消します</p>
+            「離檀の際に高額な請求をされないか」「親戚から反対されて前に進まない」といったお悩みに寄り添い、法律とマナーに則った対話でスムーズな円満解決へと導きます。
+          </div>
+
+          <div class="fv-brand" style="margin-bottom: 10px;">ここから</div>
+          <h1 id="hero-title" class="fv-title" style="font-size: 3.2rem; line-height: 1.35; margin-bottom: 24px; font-weight: 900; text-shadow: 0 3px 15px rgba(0,0,0,0.4);">
+            ${prefecture.name}での墓じまい。<br />
+            トラブルを完全に回避し、<br />
+            お寺や親族と揉めない円満解決へ。
+          </h1>
+          <p class="fv-subtitle" style="font-size: 1.45rem; line-height: 1.6; max-width: 680px; margin: 0 auto 36px auto; font-weight: 500; color: rgba(255,255,255,0.95);">
+            ご先祖様への敬意とお寺との絆を守りながら、金銭面・心理面すべてのトラブルをゼロにするサポート体制。
+          </p>
+
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+            <span class="hero-status-badge" style="background: var(--color-accent-gold); padding: 8px 18px;">24時間全国対応</span>
+            <span class="hero-status-badge" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 18px;">秘密厳守・個別相談</span>
+          </div>
+          
+          <a href="#cta" class="btn btn-primary btn-shine" style="font-size: 1.35rem; padding: 20px 48px; border-radius: 50px; background-color: var(--color-accent-gold); box-shadow: 0 8px 25px rgba(201,131,43,0.45);">
+            無料でトラブル回避について相談する
+          </a>
+        </div>
+      </header>
+
+      <!-- Sticky CTA for Mobile -->
+      <aside class="sticky-cta" aria-label="お問い合わせ導線">
+        <a href={contactLineUrl} class="btn btn-line btn-shine" target="_blank" rel="noopener noreferrer">
+          <span>24時間相談OK</span>
+          <strong>LINE相談</strong>
+        </a>
+        <a href={`tel:${contactTel}`} class="btn btn-tel btn-shine">
+          <span>通話料・相談無料</span>
+          <strong>電話相談</strong>
+        </a>
+      </aside>
+
+      <!-- 導入（Empathy / Problem） -->
+      <section class="section empathy" id="concerns" style="background: #f4f7fa; padding: 90px 0;" aria-labelledby="concerns-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">EMPATHY</span>
+          <h2 id="concerns-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">${prefecture.name}での墓じまいで、<br />このようなご不安はありませんか？</h2>
+          <p class="text-center" style="color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">
+            お墓の整理は極めてデリケートな問題です。感情的な対立や高額な請求で揉めてしまう事例が後を絶ちません。
+          </p>
+          
+          <div class="grid-3" style="margin-bottom: 40px;">
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">01</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">お寺から高額な「離檀料」を請求されないか不安</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  「先祖代々何十年もお世話になったから…」と長年のお付き合いがある分、お寺の住職に話を切り出しにくく、後で数十万円〜数百万円もの離檀料を提示されたらどうしようという大きな心理的不安。
+                </p>
+              </div>
+            </div>
+            
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">02</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">親族に「先祖を捨てる気か」と反対されないか心配</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  兄弟や親戚の間でお墓に対する信仰心や価値観が異なり、十分な相談をしないまま勝手に墓じまいを進めると「親不孝だ」と激怒され、親族関係が永久に断絶してしまうリスク。
+                </p>
+              </div>
+            </div>
+            
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">03</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">お寺指定の石材店から高額な撤去費を出された</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  寺院墓地特有の「指定石材店制度」を理由に他社での相見積もりを拒まれ、相場を遥かに超える撤去見積もり（倍以上の請求）を出されてどうしていいか分からない。${curCategory.empathy}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="card" style="max-width: 900px; margin: 0 auto; background: var(--color-trust-blue); color: white; border: none; text-align: center; padding: 25px 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(47,93,159,0.2);">
+            <p style="margin: 0; font-size: 1.25rem; font-weight: 700; line-height: 1.6;">
+              「ここから」は、法律の専門家である行政書士と緊密に提携。<br />
+              マナーを押さえた話し合いと法的な安心感で、あなたの墓じまいをトラブルゼロへと導きます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- メインコンテンツ1：よくあるトラブル3つの事例（Detail） -->
+      <section class="section" id="trouble-examples" style="padding: 90px 0; background-color: #ffffff;" aria-labelledby="trouble-examples-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 50px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">TROUBLE CASE</span>
+            <h2 id="trouble-examples-heading" style="font-size: 2.2rem; font-weight: 800;">実際に起こりがちな「3大墓じまいトラブル」の真相</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              お墓じまいにまつわる対立の多くは、事前の話し合い不足や関係性のねじれが原因です。具体的な事例とその本質を詳しく解説します。
+            </p>
+          </header>
+
+          <div style="max-width: 960px; margin: 0 auto; display: grid; gap: 40px;">
+            <!-- 事例1 -->
+            <div class="card" style="display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 30px; align-items: center; padding: 35px; border: 1px solid #e1e7ec;">
+              <div style="text-align: center; background: #fdf5ec; padding: 30px; border-radius: 12px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--color-accent-gold); display: block; margin-bottom: 8px;">トラブル事例 ①</span>
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">お寺からの高額な離檀料請求</h3>
+                <div style="font-size: 1.65rem; font-weight: 900; color: var(--color-accent-gold);">数百万<span style="font-size: 1.1rem;">円の請求も</span></div>
+                <span style="font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 6px;">(※お布施の常識を超えた要求)</span>
+              </div>
+              <div>
+                <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; border-left: 4px solid var(--color-accent-gold); padding-left: 10px;">「埋蔵証明書」に印鑑を押してくれない嫌がらせも</h4>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 12px;">
+                  長年お世話になったお寺を離れる際、数万〜20万円程度が一般的な相場である離檀料に対し、「先祖代々の永代供養の解約料」などとして、突然300万円〜500万円といった不条理な金額を請求されるケースがあります。
+                </p>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                  お寺側も意地悪をしたいわけではなく、「事前の挨拶もなしに石材店を連れてこられた」「一方的に関係を切られた」という感情的もつれが、高額請求や書類発行の拒否という形に現れるのが大半です。
+                </p>
+              </div>
+            </div>
+
+            <!-- 事例2 -->
+            <div class="card" style="display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 30px; align-items: center; padding: 35px; border: 1px solid #e1e7ec;">
+              <div style="text-align: center; background: #eef4fb; padding: 30px; border-radius: 12px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--color-trust-blue); display: block; margin-bottom: 8px;">トラブル事例 ②</span>
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">親族間の意見の対立と合意不足</h3>
+                <div style="font-size: 1.65rem; font-weight: 900; color: var(--color-trust-blue);">修復困難<span style="font-size: 1.1rem;">な亀裂</span></div>
+                <span style="font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 6px;">(※独断での契約進行による反発)</span>
+              </div>
+              <div>
+                <h4 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; border-left: 4px solid var(--color-trust-blue); padding-left: 10px;">「相談されなかった」という感情の爆発</h4>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 12px;">
+                  お墓の継承者（本家や長男など）が「管理の負担が大きい」「子どもに迷惑をかけたくない」と、兄弟や他の親族に十分相談せずに墓じまいを契約し、工事を進めてしまうトラブルです。
+                </p>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                  後から知った他の親族から「お参りする場所をなくすとは何事だ！」「先祖をないがしろにしている」と強い言葉で非難され、親族間で激しい口論になり、法要などの付き合いが断絶してしまうケースが後を絶ちません。
+                </p>
+              </div>
+            </div>
+
+            <!-- 事例3 -->
+            <div class="card" style="display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 30px; align-items: center; padding: 35px; border: 1px solid #e1e7ec;">
+              <div style="text-align: center; background: #f4fbf7; padding: 30px; border-radius: 12px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--color-affirm-green); display: block; margin-bottom: 8px;">トラブル事例 ③</span>
+                <h3 style="font-size: 1.35rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">霊園・お寺の「指定石材店」との金銭トラブル</h3>
+                <div style="font-size: 1.65rem; font-weight: 900; color: var(--color-affirm-green);">2〜3倍<span style="font-size: 1.1rem;">の高額見積もり</span></div>
+                <span style="font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 6px;">(※独占的な契約ルールが原因)</span>
+              </div>
+              <div>
+                <h4 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; border-left: 4px solid var(--color-affirm-green); padding-left: 10px;">相見積もりが取れず、不当に高額な撤去費を支払う羽目に</h4>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 12px;">
+                  寺院墓地や民間霊園の管理規則には、「工事は霊園が指定した石材店で行わなければならない」と定められていることが多々あります（指定石材店制度）。
+                </p>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                  このルールにより、他の石材店では30万円で済む解体更地工事を、指定石材店から「ルールだから」と80万円〜100万円以上で提示され、泣く泣く高額な支払いを承諾させられるトラブルが多発しています。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- メインコンテンツ2：話し合いのマナーと法的な権利（Solution Part 1） -->
+      <section class="section" id="manners-and-rights" style="padding: 90px 0; background-color: #f7fafc;" aria-labelledby="manners-and-rights-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 50px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">MANNERS & RIGHTS</span>
+            <h2 id="manners-and-rights-heading" style="font-size: 2.2rem; font-weight: 800;">お寺へ切り出す話し合いのマナーと法的な真実</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              お寺と揉めずに円満な合意を得るためには、「相手を思いやるマナー」と「冷静な法的事実の把握」の両輪が欠かせません。
+            </p>
+          </header>
+
+          <div style="max-width: 960px; margin: 0 auto; display: grid; gap: 40px;">
+            <!-- マナーの重要ポイント -->
+            <div class="card" style="padding: 40px; border-left: 6px solid var(--color-trust-blue); background: #ffffff;">
+              <h3 style="font-size: 1.6rem; color: var(--color-trust-blue); margin-bottom: 25px; border-bottom: 2px solid #eef4fb; padding-bottom: 15px;">お寺と円満に合意するための3大マナー</h3>
+              
+              <ul style="list-style: none; display: grid; gap: 24px; padding-left: 0;">
+                <li style="display: flex; gap: 16px; align-items: flex-start;">
+                  <span style="background: var(--color-trust-blue); color: white; border-radius: 4px; padding: 2px 10px; font-weight: 700; font-size: 0.95rem; margin-top: 4px; white-space: nowrap;">POINT 1</span>
+                  <div>
+                    <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">まずは「これまでの感謝の気持ち」を伝える</h4>
+                    <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                      対立姿勢ではなく、長年にわたりご先祖様を供養して守り続けてくれたお寺・住職への感謝を最優先に伝えます。「長年ありがとうございました」という丁寧な姿勢が、お寺側の感情のトゲを解きほぐします。
+                    </p>
+                  </div>
+                </li>
+                
+                <li style="display: flex; gap: 16px; align-items: flex-start;">
+                  <span style="background: var(--color-trust-blue); color: white; border-radius: 4px; padding: 2px 10px; font-weight: 700; font-size: 0.95rem; margin-top: 4px; white-space: nowrap;">POINT 2</span>
+                  <div>
+                    <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">「墓じまい」ではなく「改葬（お骨の引っ越し）」と表現する</h4>
+                    <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                      「お墓を潰して縁を切る（離檀）」という冷たい響きを避け、「自分たちが元気なうちに、別の新しい場所（永代供養墓や手元供養など）でお骨を責任持って守り続けるための『お骨のお引越し』です」と説明します。
+                    </p>
+                  </div>
+                </li>
+
+                <li style="display: flex; gap: 16px; align-items: flex-start;">
+                  <span style="background: var(--color-trust-blue); color: white; border-radius: 4px; padding: 2px 10px; font-weight: 700; font-size: 0.95rem; margin-top: 4px; white-space: nowrap;">POINT 3</span>
+                  <div>
+                    <h4 style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); margin-bottom: 6px;">「やむを得ない個別事情（少子高齢化・遠方）」を強調する</h4>
+                    <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                      「お金がないから」「面倒だから」といった利己的な理由ではなく、「跡継ぎがいなくなってしまうため、将来無縁仏にしてお寺や周囲にご迷惑をかけたくない」「高齢になり長距離のお参りや雑草刈りが困難になった」など、物理的・家族的な限界による決断であることを誠実に説明します。
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <!-- 法的な真実 -->
+            <div class="card" style="padding: 40px; border-left: 6px solid var(--color-accent-gold); background: #fffdf9; border-color: rgba(201, 131, 43, 0.3);">
+              <h3 style="font-size: 1.6rem; color: var(--color-accent-gold); margin-bottom: 20px;">知っておくべき「離檀料の法的な真実」</h3>
+              <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-main); margin-bottom: 15px;">
+                <strong>結論から言うと、法律上、墓じまいに伴う「離檀料の支払い義務」は一切存在しません。</strong>
+              </p>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 15px;">
+                お墓の契約解除は、民法上の信教の自由に基づくものであり、特定の金銭を支払わないと離檀できないという法律はありません。離檀料は本来、お寺への「感謝の布施」であり、施主側が自発的に支払う「お気持ち」の金銭です。
+              </p>
+              <div style="background: rgba(201, 131, 43, 0.08); padding: 18px; border-radius: 8px; border: 1px solid rgba(201, 131, 43, 0.25); font-size: 1rem; color: var(--text-main);">
+                <strong style="color: var(--color-accent-gold);">【極めて重要な注意点】</strong><br />
+                「支払う義務はない」と住職に感情的に突きつける行為は、最もトラブルを悪化させます。お寺はお墓の改葬に必要な書類（埋蔵証明書）に署名押印する強い権限を持っており、対立すると書類を発行してくれなくなる実質的な被害（二次トラブル）が発生します。論破するのではなく、誠意を持って「円満解決」を目指す対話が最優先です。
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- メインコンテンツ3：専門家（行政書士）サポートの紹介（Solution Part 2） -->
+      <section class="section" id="expert-support" style="padding: 90px 0; background-color: #ffffff;" aria-labelledby="expert-support-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 50px;">
+            <span style="color: var(--color-affirm-green); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">EXPERT SUPPORT</span>
+            <h2 id="expert-support-heading" style="font-size: 2.2rem; font-weight: 800;">行政書士など「法律と対話の専門家」が間に入る大きなメリット</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              お寺や親族との関係を壊さず、ストレスから解放されながら円満に墓じまいを成功させるために、専門家サポートが大きな威力を発揮します。
+            </p>
+          </header>
+
+          <div style="max-width: 960px; margin: 0 auto; display: grid; gap: 30px;">
+            <!-- メリット1 -->
+            <article class="card" style="border-left: 6px solid var(--color-affirm-green); padding: 30px; background: #ffffff; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec;">
+              <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">直接の「揉め事」を未然に防ぐ、中立的な円満仲介</h3>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 12px;">
+                当事者同士（施主とお寺、施主と親族）だけで話し合いを行うと、お互いに過去の歴史や感情が入り混じり、些細な一言が引き金となって大激論に発展しがちです。
+              </p>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted);">
+                お寺の事情や行政規則に精通した**専門の行政書士**が中立な相談相手・アドバイザーとして書類や対話を整理することで、お寺の住職にも冷静に事情が伝わり、頑なだった住職の態度が劇的に軟化・円満合意に至るケースが極めて多いです。
+              </p>
+            </article>
+
+            <!-- メリット2 -->
+            <article class="card" style="border-left: 6px solid var(--color-affirm-green); padding: 30px; background: #ffffff; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec;">
+              <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">複雑な「改葬許可申請」など全ての行政手続きを代行</h3>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 12px;">
+                墓じまいを完了するためには、元の墓がある役所へ提出する「改葬許可申請書」、お寺が発行する「埋蔵証明書（受入証明書）」、新しい供養先が発行する「使用許可証（受入証明書）」の3つを揃えて自治体と調整する必要があります。
+              </p>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted);">
+                提出書類の不備による役所との往復や、高齢の方にとって負担が大きい書類作成の手続きを、行政書士が完璧にサポート・代行（※）するため、施主様は一切の煩わしい事務作業から解放されます。
+                <br /><span style="font-size: 0.9rem; color: var(--text-muted);">（※提携行政書士による法的な手続代行業務を提供いたします）</span>
+              </p>
+            </article>
+
+            <!-- メリット3 -->
+            <article class="card" style="border-left: 6px solid var(--color-affirm-green); padding: 30px; background: #ffffff; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec;">
+              <h3 style="font-size: 1.45rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px;">指定石材店に対する、不当な高額撤去費用の適正価格交渉</h3>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 12px;">
+                「お寺の指定石材店だから」と諦めて、相場の数倍もの高額な解体更地費用を言われるがまま支払う必要はありません。
+              </p>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted);">
+                専門知識を持つアドバイザーが介在し、現地調査データと適正な見積もり項目に基づき、指定石材店との間で「工法や人工費用の見直し」など適正な単価にするための根拠ある協議を行います。結果として、数十万円単位で解体費用を圧縮・適正価格に下げさせることが可能です。<br />
+                ※${curCategory.feature}
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- サービス紹介/サポートプラン比較 -->
+      <section class="section" id="support-plan" style="padding: 90px 0; background-color: #f7fafc;" aria-labelledby="support-plan-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 40px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">PLAN & COMPARISON</span>
+            <h2 id="support-plan-heading" style="font-size: 2.2rem; font-weight: 800;">「ここから」のトラブル完全回避サポート体制</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              ただお墓を壊して更地にするだけの解体業者と、お寺や親族との関係、そして心を守る「ここから」の円満解決サポートの違いをご確認ください。
+            </p>
+          </header>
+
+          <div class="comparison-table-wrapper" style="overflow-x: auto; margin: 30px 0; border-radius: 12px; box-shadow: 0 10px 30px rgba(34, 50, 71, 0.08);">
+            <table class="comparison-table" style="width: 100%; border-collapse: collapse; min-width: 750px; background: white;">
+              <thead>
+                <tr style="border-bottom: 2px solid #e1e7ec;">
+                  <th style="width: 25%; padding: 20px; text-align: left; background: #f8fafc; font-weight: 700; color: var(--text-main);">比較項目</th>
+                  <th style="width: 40%; padding: 20px; text-align: left; background-color: rgba(47, 143, 107, 0.08); color: var(--color-affirm-green); font-weight: 700;" class="highlight">「ここから」のトラブル回避サポート</th>
+                  <th style="width: 35%; padding: 20px; text-align: left; background: #f8fafc; font-weight: 700; color: var(--text-main);">一般的な格安解体業者</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #e1e7ec;">
+                  <th style="padding: 20px; text-align: left; font-weight: 700; color: var(--text-main); background: #f8fafc;">お寺との関係維持</th>
+                  <td style="padding: 20px; background-color: rgba(47, 143, 107, 0.02);" class="highlight"><strong>◎円満な話し合いサポート</strong><br /><span style="font-size: 0.9rem;">(住職の感情に寄り添うマナーと文面作成)</span></td>
+                  <td style="padding: 20px;"><strong>×一切ノータッチ</strong><br /><span style="font-size: 0.9rem;">(「話し合いは自分たちで行ってください」)</span></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e1e7ec;">
+                  <th style="padding: 20px; text-align: left; font-weight: 700; color: var(--text-main); background: #f8fafc;">離檀トラブル時の介入</th>
+                  <td style="padding: 20px; background-color: rgba(47, 143, 107, 0.02);" class="highlight"><strong>◎専門行政書士と連携対応</strong><br /><span style="font-size: 0.9rem;">(不当な離檀料に対する法的アドバイスと調停)</span></td>
+                  <td style="padding: 20px;"><strong>×対応不可（工事中止）</strong><br /><span style="font-size: 0.9rem;">(トラブルが解決するまで解体工事を行えない)</span></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e1e7ec;">
+                  <th style="padding: 20px; text-align: left; font-weight: 700; color: var(--text-main); background: #f8fafc;">指定石材店トラブル</th>
+                  <td style="padding: 20px; background-color: rgba(47, 143, 107, 0.02);" class="highlight"><strong>◎価格適正化の協議・交渉対応</strong><br /><span style="font-size: 0.9rem;">(見積内訳の妥当性をチェックし価格を下げる)</span></td>
+                  <td style="padding: 20px;"><strong>×参入できずに工事辞退</strong><br /><span style="font-size: 0.9rem;">(お寺側のルールに太刀打ちできない)</span></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e1e7ec;">
+                  <th style="padding: 20px; text-align: left; font-weight: 700; color: var(--text-main); background: #f8fafc;">行政手続きの代行・指導</th>
+                  <td style="padding: 20px; background-color: rgba(47, 143, 107, 0.02);" class="highlight"><strong>◎改葬書類の手配と完璧な代行</strong><br /><span style="font-size: 0.9rem;">(役所とお寺の往復や申請作業を完全クリア)</span></td>
+                  <td style="padding: 20px;"><strong>×書類はお客様がすべて記入</strong><br /><span style="font-size: 0.9rem;">(書き方等の案内だけで代理申請は不可)</span></td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e1e7ec;">
+                  <th style="padding: 20px; text-align: left; font-weight: 700; color: var(--text-main); background: #f8fafc;">親族への説明ツール</th>
+                  <td style="padding: 20px; background-color: rgba(47, 143, 107, 0.02);" class="highlight"><strong>◎円満合意用の説明ガイド提供</strong><br /><span style="font-size: 0.9rem;">(親族間のモヤモヤを解消する言葉選びを助言)</span></td>
+                  <td style="padding: 20px;"><strong>×相談者の自己責任</strong><br /><span style="font-size: 0.9rem;">(工事前の親族合意が工事条件になる)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="text-align: center; font-size: 1rem; color: var(--text-muted); margin-top: 15px;">
+            ※横スクロールで表全体をご覧いただけます。
+          </p>
+        </div>
+      </section>
+
+      <!-- よくあるご質問（FAQ） -->
+      <section id="faq" class="section" style="padding: 90px 0; background-color: #ffffff;" aria-labelledby="faq-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 40px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">FAQ</span>
+            <h2 id="faq-heading" style="font-size: 2.2rem; font-weight: 800;">墓じまいトラブルに関するよくあるご質問</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              お寺や親族との関係、指定石材店に関する法的な疑問やマナーについてお答えします。
+            </p>
+          </header>
+
+          <div style="max-width: 900px; margin: 0 auto; display: grid; gap: 16px;">
+            <div class="card" style="border-left: 6px solid var(--color-trust-blue); padding: 25px; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec; background: #ffffff;">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 10px;">Q. お寺から「離檀料300万円」を請求され、お骨を出させてくれません。どうすべきですか？</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-main); margin: 0;">
+                A. <strong>法律上、300万円という高額な離檀料を支払う義務はありません。</strong>しかし、「お金は払いません」とお寺に直接突っぱねるのは逆効果です。お墓の移動に必要な「埋蔵証明書（改葬許可申請）」への住職の署名・捺印を引き続き拒否されるなど、膠着状態になりお骨の移動ができなくなります。<br />
+                このような場合は、これまでの歴史や供養への感謝を最大限伝えつつ、行政書士などの専門家に入ってもらい、中立な第三者の立場からマナーと法律に則った「話し合いの着地点（3万〜20万円程度の常識的な布施額への収束）」を調整してもらうことが最も円満かつスピーディーな解決策です。
+              </p>
+            </div>
+            
+            <div class="card" style="border-left: 6px solid var(--color-trust-blue); padding: 25px; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec; background: #ffffff;">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 10px;">Q. お寺に「墓じまいをしたい」と切り出すタイミングや言葉遣いはどうすべきですか？</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-main); margin: 0;">
+                A. 切り出す時期は、<strong>実際の解体工事を希望する日の「半年前〜最低でも3ヶ月前」</strong>がベストです。直前に伝えるとお寺側も法要や檀家管理の準備に支障をきたし、感情を害する原因になります。<br />
+                また、「墓じまい（お寺をやめること）」という言葉ではなく、<strong>「次の場所でお骨を大切に守り続けるための『お骨のお引越し（改葬）』を行いたい」</strong>と表現します。「少子高齢化で後継者が途絶え、将来無縁仏にしてお寺にご迷惑をおかけしたくないため、元気なうちに綺麗に納骨をやり直したい」というように、「やむを得ない事情」と「お寺の未来を思いやる姿勢」を伝えるのが揉めない最大のコツです。
+              </p>
+            </div>
+
+            <div class="card" style="border-left: 6px solid var(--color-trust-blue); padding: 25px; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec; background: #ffffff;">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 10px;">Q. お寺が指定した「指定石材店」の解体費用が高すぎます。拒否して別の会社に依頼できますか？</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-main); margin: 0;">
+                A. 残念ながら、墓地の「管理運営規則」に『工事は指定石材店に限る』と明確な規定がある場合、<strong>お客様が勝手に他社を敷地に入れて解体工事を行うことはほぼ不可能です。</strong>無理に入ると不法侵入などの法的トラブルになる恐れがあります。<br />
+                しかし、<strong>指定石材店が出した「高額すぎる見積もり」を無条件で受け入れる必要はありません。</strong>専門の第三者を交えて、工事見積書の内訳（使用重機、人件費、運搬費など）が本当に適正であるかを細かく分析し、適正な単価や工法に基づく工事計画書を再提示して「価格適正化の引き下げ協議」を行うことで、金額を30％〜50％近く適正化できるケースが多く存在します。諦める前に一度「ここから」にご相談ください。
+              </p>
+            </div>
+
+            <div class="card" style="border-left: 6px solid var(--color-trust-blue); padding: 25px; border-top: 1px solid #e1e7ec; border-right: 1px solid #e1e7ec; border-bottom: 1px solid #e1e7ec; background: #ffffff;">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 10px;">Q. 親戚の一人が「お墓をなくすのは絶対に許さない」と大反対しています。進めても良いですか？</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-main); margin: 0;">
+                A. <strong>親族の反対を無視して独断で工事を強行することは、絶対におすすめしません。</strong>お墓じまいが原因で親族関係が永久に崩壊し、後でお骨を別の場所に埋葬した後に再度掘り起こせと要求されるような極端なトラブルに発展するケースがあるからです。<br />
+                反対している親戚の方には、「お墓をなくす（捨てる）」のではなく、「今の状態では遠くない未来に誰も守れなくなり、墓が雑草だらけで荒れ果てた『無縁墓』になりご先祖様に一番失礼になってしまう。それを防ぐために、永代にわたり綺麗に守ってくれる新しいお寺や手元供養へ、自分が責任を持ってご遺骨を移す前向きなお引越しである」ことを、新しい供養先の写真やカタログを一緒に見せながら、丁寧に根気よく対話を重ねることが大切です。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-bar" id="cta" aria-labelledby="cta-heading" style="padding: 90px 20px;">
+        <div class="container" style="max-width: 800px;">
+          <span style="background: rgba(255,255,255,0.15); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 6px 14px; border-radius: 99px; display: inline-block; margin-bottom: 15px;">ESTIMATE & CONSULT FREE</span>
+          <h2 id="cta-heading" style="font-size: 2.3rem; font-weight: 800; line-height: 1.4; margin-bottom: 15px;">
+            ${prefecture.name}での墓じまいトラブル無料相談・円満解決の見積もり
+          </h2>
+          <p style="margin-bottom: 35px; font-size: 1.15rem; color: rgba(255, 255, 255, 0.9); line-height: 1.8;">
+            「お寺への最初の切り出し方が分からない」「高額な離檀料で話が進まない」「親族の合意を得るコツを知りたい」など、デリケートなお悩みも専門スタッフが優しく耳を傾け、最善の円満解決ルートを個別に設計します。
+          </p>
+          <div class="cta-tel" style="font-size: 3.2rem; font-weight: 900; margin-bottom: 35px; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+            {contactTel}
+          </div>
+          <p style="font-size: 1.15rem; color: #cfe9dd; font-weight: 700; margin-bottom: 30px;">24時間受付中 / 相談・お見積もり無料 / 日本全国対応</p>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href={contactLineUrl} class="btn btn-line btn-shine" target="_blank" rel="noopener noreferrer" style="padding: 20px 45px; border-radius: 50px; font-size: 1.25rem; background-color: #24a85c;">
+              LINEで無料相談・交渉対策を聞く
+            </a>
+            <a href={`tel:${contactTel}`} class="btn btn-primary btn-shine" style="padding: 20px 45px; border-radius: 50px; font-size: 1.25rem; background-color: var(--color-accent-gold); box-shadow: 0 6px 20px rgba(0,0,0,0.3);">
+              お電話で円満サポートを申し込む
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- トピッククラスター（相互内部リンク） -->
+      <section class="cluster-section" id="related-concerns" aria-labelledby="related-concerns-heading" style="padding: 90px 0; background: #ffffff;">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 30px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">TOPIC CLUSTER</span>
+            <h2 id="related-concerns-heading" style="font-size: 2.1rem; font-weight: 800; color: var(--text-main);">${prefecture.name}での墓じまいに関するその他のお悩み</h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 10px; line-height: 1.6;">
+              揉め事の回避方法以外にも、墓じまいに伴う総額費用、自治体への面倒な届出手続き、新しい納骨先選びなど、あらゆる不安への解決ヒントを公開しています。
+            </p>
+          </header>
+
+          <nav class="cluster-grid" aria-label="墓じまい関連お悩み一覧">
+            <!-- 費用LP -->
+            <a href={`/${prefecture.slug}/hakajimai-hio/`} class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">墓じまいの総額費用と相場</h3>
+                <p class="cluster-card-text">
+                  解体撤去・お布施・新しい供養先など全ての費用内訳と、無駄なマージンを省いて適正価格で安く抑える3つの具体的なアプローチを詳しく解説。
+                </p>
+              </div>
+              <span class="cluster-card-link">墓じまいの費用相場と安く抑えるコツはこちら</span>
+            </a>
+
+            <!-- 手続きLP -->
+            <a href={`/${prefecture.slug}/hakajimai-tetsuduki/`} class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">面倒な行政手続き・全体の流れ</h3>
+                <p class="cluster-card-text">
+                  改葬許可申請や墓地返還届など、墓じまいに必要な複雑な公的書類の書き方や申請窓口、全体の具体的なステップを優しくガイドします。
+                </p>
+              </div>
+              <span class="cluster-card-link">面倒な墓じまいの行政手続き・流れはこちら</span>
+            </a>
+
+            <!-- 跡継ぎいないLP -->
+            <a href={`/${prefecture.slug}/hakajimai-atootsugi/`} class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">跡継ぎ（後継者）がいない不安</h3>
+                <p class="cluster-card-text">
+                  「自分たちの世代で最後になり、墓を守る人がいない」という方へ。無縁仏・無縁墓になるのを防ぐための永代供養や、将来負担を残さない現実的な対策を提案。
+                </p>
+              </div>
+              <span class="cluster-card-link">跡継ぎがいない場合の墓じまいと対策はこちら</span>
+            </a>
+
+            <!-- 永代供養LP -->
+            <a href={`/${prefecture.slug}/hakajimai-eitaikuyo/`} class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">永代供養・新しい供養先の選び方</h3>
+                <p class="cluster-card-text">
+                  樹木葬、納骨堂、合祀墓、手元供養など、墓じまいした後のご遺骨の新たな受け皿。それぞれのメリット・デメリットを分かりやすく整理し、最適な供養先探しを支援します。
+                </p>
+              </div>
+              <span class="cluster-card-link">墓じまい後の永代供養・新しい供養先の選び方はこちら</span>
+            </a>
+          </nav>
+        </div>
+      </section>
+    </article>
+  </main>
+</Layout>
