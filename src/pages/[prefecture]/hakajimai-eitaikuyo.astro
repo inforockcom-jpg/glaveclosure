@@ -200,7 +200,7 @@ const comparisonData = [
         <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(17, 28, 41, 0.85) 0%, rgba(34, 50, 71, 0.6) 100%);"></div>
         <div class="container" style="position: relative; z-index: 1; max-width: 850px;">
           <div class="hero-status" aria-label="受付情報">
-            <span class="hero-status-badge">${prefecture.name}全域対応</span>
+            <span class="hero-status-badge">{prefecture.name}全域対応</span>
             <span class="hero-status-badge" style="background: var(--color-trust-blue);">24時間相談受付中</span>
             <span class="hero-status-badge" style="background: rgba(201,131,43,0.95);">お見積もり完全無料</span>
           </div>
@@ -284,7 +284,7 @@ const comparisonData = [
                 </div>
                 <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">予算を抑えつつも、温かく供養したい</h3>
                 <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
-                  「お墓の解体・撤去だけで費用がかかるため、次の新しいお墓の契約に何百万円も支払うのは厳しい。予算をうまく抑えつつ、先祖や故人を想う気持ちを綺麗に形にしたい」。${curCategory.empathy}
+                  「お墓の解体・撤去だけで費用がかかるため、次の新しいお墓の契約に何百万円も支払うのは厳しい。予算をうまく抑えつつ、先祖や故人を想う気持ちを綺麗に形にしたい」。{curCategory.empathy}
                 </p>
               </div>
             </div>
@@ -292,7 +292,7 @@ const comparisonData = [
 
           <div class="card" style="max-width: 900px; margin: 0 auto; background: var(--color-trust-blue); color: white; border: none; text-align: center; padding: 25px 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(47,93,159,0.2);">
             <p style="margin: 0; font-size: 1.25rem; font-weight: 700; line-height: 1.6;">
-              「ここから」なら、${prefecture.name}でのお墓じまい手続きや撤去更地工事から、<br />
+              「ここから」なら、{prefecture.name}でのお墓じまい手続きや撤去更地工事から、<br />
               次の新しい供養先（樹木葬・納骨堂・手元供養など）の選定・移行まで、すべてワンストップでサポートします。
             </p>
           </div>
@@ -456,7 +456,7 @@ const comparisonData = [
                 <ul style="margin-left: 20px; font-size: 1rem; line-height: 1.6; display: grid; gap: 6px; color: var(--text-muted);">
                   <li><strong style="color: var(--text-main);">安心感</strong>：すべての遺骨を手元に置くわけではないため、将来の引き継ぎ問題が完全に解消される。</li>
                   <li><strong style="color: var(--text-main);">費用の節約</strong>：個別のお墓を新しく建てることなく、永代供養の合祀（約5万円〜）と手元供養セット（約5万円〜）で総額費用を劇的に抑えられます。</li>
-                  <li><strong style="color: var(--text-main);">温かさ</strong>：遠方へお墓参りに行く必要がなく、リビングの一角でいつでも好きな時に対話ができます。<br />※${curCategory.feature}</li>
+                  <li><strong style="color: var(--text-main);">温かさ</strong>：遠方へお墓参りに行く必要がなく、リビングの一角でいつでも好きな時に対話ができます。<br />※{curCategory.feature}</li>
                 </ul>
               </div>
             </div>
@@ -517,12 +517,31 @@ const comparisonData = [
         </div>
       </section>
 
+      <!-- AIO/SEO 対策：各地区の細かな地名・対応市区町村網羅セクション -->
+      <section class="area-coverage-section" aria-labelledby="area-coverage-heading" style="background-color: var(--color-bg-light, #f9fbfd); padding: 60px 20px; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05);">
+        <div style="max-width: 1080px; margin: 0 auto; text-align: center;">
+          <h2 id="area-coverage-heading" style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 15px;">
+            {prefecture.name}内の墓じまい・手元供養 対応市区町村
+          </h2>
+          <p style="font-size: 1rem; color: #5f6b6d; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            「ここから」では、{prefecture.primaryCity}や{prefecture.localCaseCity}をはじめ、{prefecture.name}内の以下のすべての市区町村にて墓じまい手続きの代行、墓石解体撤去、永代供養・手元供養のご相談を承っております。
+          </p>
+          <div class="cities-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 900px; margin: 0 auto;">
+            {prefecture.cities.map((city) => (
+              <span class="city-badge" style="background-color: white; border: 1px solid #e1e8ed; padding: 6px 14px; border-radius: 30px; font-size: 0.9rem; color: #2c3e50; font-weight: 500; transition: all 0.2s ease;">
+                {city}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <!-- トピッククラスター（相互内部リンク） -->
       <section class="cluster-section" id="related-concerns" style="padding: 90px 0; background: #f7fafc;" aria-labelledby="related-concerns-heading">
         <div class="container">
           <header class="text-center" style="max-width: 800px; margin: 0 auto 30px;">
             <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">TOPIC CLUSTER</span>
-            <h2 id="related-concerns-heading" style="font-size: 2.1rem; font-weight: 800; color: var(--text-main);">${prefecture.name}での墓じまいに関するその他のお悩み</h2>
+            <h2 id="related-concerns-heading" style="font-size: 2.1rem; font-weight: 800; color: var(--text-main);">{prefecture.name}での墓じまいに関するその他のお悩み</h2>
             <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 10px; line-height: 1.6;">
               新しい納骨先選びの他にも、墓じまいに伴う総額費用、自治体への面倒な届出手続き、親族・お寺との関係維持など、あらゆる不安への解決ヒントを公開しています。
             </p>
@@ -581,7 +600,7 @@ const comparisonData = [
         <div class="container" style="max-width: 800px;">
           <span style="background: rgba(255,255,255,0.15); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 6px 14px; border-radius: 99px; display: inline-block; margin-bottom: 15px;">ESTIMATE & CONSULT FREE</span>
           <h2 id="cta-heading" style="font-size: 2.3rem; font-weight: 800; line-height: 1.4; margin-bottom: 15px;">
-            ${prefecture.name}での墓じまいと新しい供養先について無料で相談する
+            {prefecture.name}での墓じまいと新しい供養先について無料で相談する
           </h2>
           <p style="margin-bottom: 35px; font-size: 1.15rem; color: rgba(255, 255, 255, 0.9); line-height: 1.8;">
             「まず比較表のどれが良いかアドバイスが欲しい」「今の墓地面積なら解体費用はいくらになる？」など、どんなことでもお気軽にご相談ください。24時間体制で専門スタッフがお答えします。

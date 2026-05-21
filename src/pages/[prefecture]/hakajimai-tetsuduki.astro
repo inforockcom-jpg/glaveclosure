@@ -152,7 +152,7 @@ const jsonLd = JSON.stringify(jsonLdData);
         <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(17, 28, 41, 0.88) 0%, rgba(34, 50, 71, 0.65) 100%);"></div>
         <div class="container" style="position: relative; z-index: 1; max-width: 850px;">
           <div class="hero-status" aria-label="受付情報">
-            <span class="hero-status-badge">${prefecture.name}対応</span>
+            <span class="hero-status-badge">{prefecture.name}対応</span>
             <span class="hero-status-badge" style="background: var(--color-trust-blue);">完全非対面・現地訪問不要</span>
             <span class="hero-status-badge" style="background: var(--color-affirm-green);">24時間相談受付中</span>
           </div>
@@ -164,12 +164,12 @@ const jsonLd = JSON.stringify(jsonLdData);
           
           <div class="fv-brand" style="margin-bottom: 10px;">ここから</div>
           <h1 id="hero-title" class="fv-title" style="font-size: 3.2rem; line-height: 1.35; margin-bottom: 24px; font-weight: 900; text-shadow: 0 3px 15px rgba(0,0,0,0.4);">
-            面倒な${prefecture.name}での墓じまい手続きを<br />
+            面倒な{prefecture.name}での墓じまい手続きを<br />
             すべてプロに丸投げ。<br />
             現地訪問不要の「安心代行」
           </h1>
           <p class="fv-subtitle" style="font-size: 1.45rem; line-height: 1.6; max-width: 720px; margin: 0 auto 36px auto; font-weight: 500; color: rgba(255,255,255,0.95);">
-            「お墓が${prefecture.name}にあるが遠方で戻れない」「仕事で役所に行けない」という方も、完全非対面で書類取得からお寺の調整、更地返還まで完結します。
+            「お墓が{prefecture.name}にあるが遠方で戻れない」「仕事で役所に行けない」という方も、完全非対面で書類取得からお寺の調整、更地返還まで完結します。
           </p>
           
           <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
@@ -206,7 +206,7 @@ const jsonLd = JSON.stringify(jsonLdData);
             <div class="card" style="border-top: 4px solid var(--color-alert-red);">
               <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; color: var(--text-main);">① 平日に何度も役所に行かなければならない</h3>
               <p style="font-size: 1.02rem; line-height: 1.7; color: var(--text-muted);">
-                改葬許可申請書の入手、現在の墓地がある${prefecture.name}内の役所（${prefecture.primaryCity}など）への提出、必要書類（埋蔵証明・受入証明など）の収集など、すべて役所の開いている「平日の日中」に動かなければなりません。
+                改葬許可申請書の入手、現在の墓地がある{prefecture.name}内の役所（{prefecture.primaryCity}など）への提出、必要書類（埋蔵証明・受入証明など）の収集など、すべて役所の開いている「平日の日中」に動かなければなりません。
               </p>
             </div>
             <div class="card" style="border-top: 4px solid var(--color-alert-red);">
@@ -218,14 +218,14 @@ const jsonLd = JSON.stringify(jsonLdData);
             <div class="card" style="border-top: 4px solid var(--color-alert-red);">
               <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; color: var(--text-main);">③ 遠方のお墓まで、現地確認・立ち会いのための往復</h3>
               <p style="font-size: 1.02rem; line-height: 1.7; color: var(--text-muted);">
-                お墓がある場所（例：${prefecture.localCaseCity}）が現在住んでいる場所から離れている場合、石材店に見積もりを依頼するための現地確認や、閉眼供養（法要）、工事の立ち会いなどで、交通費だけで何万円も失い、時間と体力を浪費してしまいます。
+                お墓がある場所（例：{prefecture.localCaseCity}）が現在住んでいる場所から離れている場合、石材店に見積もりを依頼するための現地確認や、閉眼供養（法要）、工事の立ち会いなどで、交通費だけで何万円も失い、時間と体力を浪費してしまいます。
               </p>
             </div>
           </div>
 
           <div class="card" style="max-width: 900px; margin: 0 auto; background: #fffdf9; border: 1px solid rgba(47, 143, 107, 0.2); padding: 25px; text-align: center;">
             <p style="font-size: 1.15rem; font-weight: 700; color: var(--text-main); line-height: 1.6; margin: 0;">
-              ご安心ください。${curCategory.feature}<br />
+              ご安心ください。{curCategory.feature}<br />
               お客様は、委任状等の簡単な郵送書類にご署名・ご捺印いただくだけ。あとはすべての進捗をLINE等でゆったり待つだけです。
             </p>
           </div>
@@ -252,7 +252,7 @@ const jsonLd = JSON.stringify(jsonLdData);
                   お問い合わせ＆無料ヒアリング
                 </h3>
                 <p class="timeline-text">
-                  現在のお墓の場所（例：${prefecture.name}〇〇市、〇〇霊園など）やお分かりになる限りの状況、改葬後のご遺骨の新たな供養先のご希望（手元供養や永代供養墓など）を公式LINEやお電話でご相談ください。専任の担当アドバイザーが丁寧に状況をお聞きします。
+                  現在のお墓の場所（例：{prefecture.name}〇〇市、〇〇霊園など）やお分かりになる限りの状況、改葬後のご遺骨の新たな供養先のご希望（手元供養や永代供養墓など）を公式LINEやお電話でご相談ください。専任の担当アドバイザーが丁寧に状況をお聞きします。
                 </p>
               </div>
             </div>
@@ -281,7 +281,7 @@ const jsonLd = JSON.stringify(jsonLdData);
                   【代行】改葬許可申請書などの必要書類の取得
                 </h3>
                 <p class="timeline-text">
-                  墓じまい（改葬）を法的に行うために、現在お墓がある${prefecture.name}内の役所から「改葬許可申請書」を取り寄せ、さらに現在のお墓の管理者から「埋蔵（収蔵）証明書」を取得します。
+                  墓じまい（改葬）を法的に行うために、現在お墓がある{prefecture.name}内の役所から「改葬許可申請書」を取り寄せ、さらに現在のお墓の管理者から「埋蔵（収蔵）証明書」を取得します。
                 </p>
                 <div class="timeline-detail-box">
                   <strong>ここからの代行範囲：</strong>役所からの申請書取り寄せ手続きを完全代行。提携法律家（行政書士）が代理となって、お墓に埋葬されている方全員分の証明書や申請書の必要事項記入サポート、書類の整理を行います。
@@ -313,7 +313,7 @@ const jsonLd = JSON.stringify(jsonLdData);
                   【代行】役所への改葬許可申請・「改葬許可証」の正式交付
                 </h3>
                 <p class="timeline-text">
-                  そろった書類（改葬許可申請書、埋蔵証明書、受入証明書など）を一式まとめて、現在お墓のある${prefecture.name}内の役所の窓口（または郵送）に申請し、正式な公的許可証である「改葬許可証」を交付してもらいます。
+                  そろった書類（改葬許可申請書、埋蔵証明書、受入証明書など）を一式まとめて、現在お墓のある{prefecture.name}内の役所の窓口（または郵送）に申請し、正式な公的許可証である「改葬許可証」を交付してもらいます。
                 </p>
                 <div class="timeline-detail-box">
                   <strong>ここからの代行範囲：</strong>役所への完成書類の提出、不備があった際の修正対応、役所から交付された「改葬許可証」の原本受け取りまで、委任状に基づきすべての行政窓口との対応を代行します。
@@ -452,7 +452,7 @@ const jsonLd = JSON.stringify(jsonLdData);
                 墓じまいの手続きにはどのようなものがありますか？（墓じまいの行政手続きの流れ）
               </h3>
               <p style="font-size: 1.05rem; color: var(--text-main); line-height: 1.7; margin: 0; padding-left: 24px;">
-                <strong>A.</strong> 墓じまいに必要な主な行政手続きは「改葬（かいそう）手続き」です。具体的には、1) 現在のお墓がある${prefecture.name}内の市区町村役場から「改葬許可申請書」を入手する、2) 現在の墓地管理者（お寺や霊園）から「埋蔵証明書（または収蔵証明書）」を発行してもらう、3) 新しいお墓や受け入れ先（永代供養墓など）から「受入証明書（または使用許可証）」を発行してもらう、4) 現在のお墓がある役場へこれら一式の書類を提出し「改葬許可証」を交付してもらう、という流れになります。この改葬許可証がないと、ご遺骨を取り出して新しい場所に納骨（改葬）することは法律上（墓地、埋葬等に関する法律）できません。
+                <strong>A.</strong> 墓じまいに必要な主な行政手続きは「改葬（かいそう）手続き」です。具体的には、1) 現在のお墓がある{prefecture.name}内の市区町村役場から「改葬許可申請書」を入手する、2) 現在の墓地管理者（お寺や霊園）から「埋蔵証明書（または収蔵証明書）」を発行してもらう、3) 新しいお墓や受け入れ先（永代供養墓など）から「受入証明書（または使用許可証）」を発行してもらう、4) 現在のお墓がある役場へこれら一式の書類を提出し「改葬許可証」を交付してもらう、という流れになります。この改葬許可証がないと、ご遺骨を取り出して新しい場所に納骨（改葬）することは法律上（墓地、埋葬等に関する法律）できません。
               </p>
             </div>
 
@@ -480,12 +480,31 @@ const jsonLd = JSON.stringify(jsonLdData);
         </div>
       </section>
 
+      <!-- AIO/SEO 対策：各地区の細かな地名・対応市区町村網羅セクション -->
+      <section class="area-coverage-section" aria-labelledby="area-coverage-heading" style="background-color: var(--color-bg-light, #f9fbfd); padding: 60px 20px; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05);">
+        <div style="max-width: 1080px; margin: 0 auto; text-align: center;">
+          <h2 id="area-coverage-heading" style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 15px;">
+            {prefecture.name}内の墓じまい・手元供養 対応市区町村
+          </h2>
+          <p style="font-size: 1rem; color: #5f6b6d; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            「ここから」では、{prefecture.primaryCity}や{prefecture.localCaseCity}をはじめ、{prefecture.name}内の以下のすべての市区町村にて墓じまい手続きの代行、墓石解体撤去、永代供養・手元供養のご相談を承っております。
+          </p>
+          <div class="cities-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 900px; margin: 0 auto;">
+            {prefecture.cities.map((city) => (
+              <span class="city-badge" style="background-color: white; border: 1px solid #e1e8ed; padding: 6px 14px; border-radius: 30px; font-size: 0.9rem; color: #2c3e50; font-weight: 500; transition: all 0.2s ease;">
+                {city}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <!-- Topic Clusters (相互内部リンク) -->
       <section class="cluster-section" id="related-topics" aria-labelledby="cluster-heading">
         <div class="container" style="max-width: 900px;">
           <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">RELATED LINK</span>
           <h2 id="cluster-heading" class="text-center" style="font-size: 2.1rem; margin-bottom: 15px; font-weight: 800;">
-            ${prefecture.name}での墓じまいに関するその他のお悩み
+            {prefecture.name}での墓じまいに関するその他のお悩み
           </h2>
           <p class="text-center" style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.05rem;">
             解決したい問題や調べたい情報に合わせて、以下の案内もぜひご参照ください。
@@ -539,7 +558,7 @@ const jsonLd = JSON.stringify(jsonLdData);
       <section class="cta-bar" id="cta" aria-labelledby="cta-heading" style="padding: 90px 20px;">
         <div class="container" style="max-width: 800px;">
           <h2 id="cta-heading" style="font-size: 2.3rem; font-weight: 800; line-height: 1.4; margin-bottom: 15px;">
-            ${prefecture.name}での墓じまいの面倒な手続きでお悩みなら、<br />
+            {prefecture.name}での墓じまいの面倒な手続きでお悩みなら、<br />
             まずは無料相談してみませんか？
           </h2>
           <p style="margin-bottom: 35px; font-size: 1.15rem; color: rgba(255,255,255,0.9); line-height: 1.8;">

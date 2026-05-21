@@ -151,7 +151,7 @@ const jsonLd = JSON.stringify(jsonLdData);
         <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(17, 28, 41, 0.85) 0%, rgba(34, 50, 71, 0.6) 100%);"></div>
         <div class="container" style="position: relative; z-index: 1; max-width: 850px;">
           <div class="hero-status" aria-label="受付情報">
-            <span class="hero-status-badge">${prefecture.name}全域対応</span>
+            <span class="hero-status-badge">{prefecture.name}全域対応</span>
             <span class="hero-status-badge" style="background: var(--color-trust-blue);">専門家（行政書士）提携</span>
             <span class="hero-status-badge" style="background: rgba(201,131,43,0.95);">相談・見積もり完全無料</span>
           </div>
@@ -163,7 +163,7 @@ const jsonLd = JSON.stringify(jsonLdData);
 
           <div class="fv-brand" style="margin-bottom: 10px;">ここから</div>
           <h1 id="hero-title" class="fv-title" style="font-size: 3.2rem; line-height: 1.35; margin-bottom: 24px; font-weight: 900; text-shadow: 0 3px 15px rgba(0,0,0,0.4);">
-            ${prefecture.name}での墓じまい。<br />
+            {prefecture.name}での墓じまい。<br />
             トラブルを完全に回避し、<br />
             お寺や親族と揉めない円満解決へ。
           </h1>
@@ -198,7 +198,7 @@ const jsonLd = JSON.stringify(jsonLdData);
       <section class="section empathy" id="concerns" style="background: #f4f7fa; padding: 90px 0;" aria-labelledby="concerns-heading">
         <div class="container">
           <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">EMPATHY</span>
-          <h2 id="concerns-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">${prefecture.name}での墓じまいで、<br />このようなご不安はありませんか？</h2>
+          <h2 id="concerns-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">{prefecture.name}での墓じまいで、<br />このようなご不安はありませんか？</h2>
           <p class="text-center" style="color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">
             お墓の整理は極めてデリケートな問題です。感情的な対立や高額な請求で揉めてしまう事例が後を絶ちません。
           </p>
@@ -235,7 +235,7 @@ const jsonLd = JSON.stringify(jsonLdData);
                 </div>
                 <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">お寺指定の石材店から高額な撤去費を出された</h3>
                 <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
-                  寺院墓地特有の「指定石材店制度」を理由に他社での相見積もりを拒まれ、相場を遥かに超える撤去見積もり（倍以上の請求）を出されてどうしていいか分からない。${curCategory.empathy}
+                  寺院墓地特有の「指定石材店制度」を理由に他社での相見積もりを拒まれ、相場を遥かに超える撤去見積もり（倍以上の請求）を出されてどうしていいか分からない。{curCategory.empathy}
                 </p>
               </div>
             </div>
@@ -432,7 +432,7 @@ const jsonLd = JSON.stringify(jsonLdData);
               </p>
               <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted);">
                 専門知識を持つアドバイザーが介在し、現地調査データと適正な見積もり項目に基づき、指定石材店との間で「工法や人工費用の見直し」など適正な単価にするための根拠ある協議を行います。結果として、数十万円単位で解体費用を圧縮・適正価格に下げさせることが可能です。<br />
-                ※${curCategory.feature}
+                ※{curCategory.feature}
               </p>
             </article>
           </div>
@@ -546,7 +546,7 @@ const jsonLd = JSON.stringify(jsonLdData);
         <div class="container" style="max-width: 800px;">
           <span style="background: rgba(255,255,255,0.15); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 6px 14px; border-radius: 99px; display: inline-block; margin-bottom: 15px;">ESTIMATE & CONSULT FREE</span>
           <h2 id="cta-heading" style="font-size: 2.3rem; font-weight: 800; line-height: 1.4; margin-bottom: 15px;">
-            ${prefecture.name}での墓じまいトラブル無料相談・円満解決の見積もり
+            {prefecture.name}での墓じまいトラブル無料相談・円満解決の見積もり
           </h2>
           <p style="margin-bottom: 35px; font-size: 1.15rem; color: rgba(255, 255, 255, 0.9); line-height: 1.8;">
             「お寺への最初の切り出し方が分からない」「高額な離檀料で話が進まない」「親族の合意を得るコツを知りたい」など、デリケートなお悩みも専門スタッフが優しく耳を傾け、最善の円満解決ルートを個別に設計します。
@@ -566,12 +566,31 @@ const jsonLd = JSON.stringify(jsonLdData);
         </div>
       </section>
 
+      <!-- AIO/SEO 対策：各地区の細かな地名・対応市区町村網羅セクション -->
+      <section class="area-coverage-section" aria-labelledby="area-coverage-heading" style="background-color: var(--color-bg-light, #f9fbfd); padding: 60px 20px; border-top: 1px solid rgba(0,0,0,0.05); border-bottom: 1px solid rgba(0,0,0,0.05);">
+        <div style="max-width: 1080px; margin: 0 auto; text-align: center;">
+          <h2 id="area-coverage-heading" style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 15px;">
+            {prefecture.name}内の墓じまい・手元供養 対応市区町村
+          </h2>
+          <p style="font-size: 1rem; color: #5f6b6d; margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+            「ここから」では、{prefecture.primaryCity}や{prefecture.localCaseCity}をはじめ、{prefecture.name}内の以下のすべての市区町村にて墓じまい手続きの代行、墓石解体撤去、永代供養・手元供養のご相談を承っております。
+          </p>
+          <div class="cities-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; max-width: 900px; margin: 0 auto;">
+            {prefecture.cities.map((city) => (
+              <span class="city-badge" style="background-color: white; border: 1px solid #e1e8ed; padding: 6px 14px; border-radius: 30px; font-size: 0.9rem; color: #2c3e50; font-weight: 500; transition: all 0.2s ease;">
+                {city}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <!-- トピッククラスター（相互内部リンク） -->
       <section class="cluster-section" id="related-concerns" aria-labelledby="related-concerns-heading" style="padding: 90px 0; background: #ffffff;">
         <div class="container">
           <header class="text-center" style="max-width: 800px; margin: 0 auto 30px;">
             <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">TOPIC CLUSTER</span>
-            <h2 id="related-concerns-heading" style="font-size: 2.1rem; font-weight: 800; color: var(--text-main);">${prefecture.name}での墓じまいに関するその他のお悩み</h2>
+            <h2 id="related-concerns-heading" style="font-size: 2.1rem; font-weight: 800; color: var(--text-main);">{prefecture.name}での墓じまいに関するその他のお悩み</h2>
             <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 10px; line-height: 1.6;">
               揉め事の回避方法以外にも、墓じまいに伴う総額費用、自治体への面倒な届出手続き、新しい納骨先選びなど、あらゆる不安への解決ヒントを公開しています。
             </p>
