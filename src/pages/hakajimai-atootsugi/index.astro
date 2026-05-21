@@ -1,0 +1,606 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = 'https://graveclosure.xyz';
+const pagePath = '/hakajimai-atootsugi/';
+const pageUrl = new URL(pagePath, siteUrl).toString();
+const pageTitle = '跡継ぎがいない方のための墓じまい対策 | 子供に負担をかけないスマート終活 | ここから';
+const pageDescription = 'お墓の後継者がいない、独身、子供に管理負担を残したくないとお悩みの方へ。無縁仏になるリスクを解消し、永代供養や手元供養など跡継ぎ不要な次の住処へのスムーズな移行をサポート。';
+
+const contactTel = '070-8428-0866';
+const contactLineUrl = 'https://lin.ee/QzDuTbn';
+const heroImageUrl = '/assets/hakajimai_atootsugi_fv.png';
+const supportImageUrl = '/assets/japanese_temoto_kuyo.png';
+
+// Q&AのJSON-LD（Schema.org/FAQPage）
+const jsonLdData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      inLanguage: 'ja-JP'
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: pageTitle,
+      description: pageDescription,
+      inLanguage: 'ja-JP',
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: [
+        { '@id': `${pageUrl}#service` },
+        { '@id': `${pageUrl}#faq` }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          "name": "跡継ぎ（お墓の後継者）がいない場合、お墓はどうなってしまいますか？",
+          "acceptedAnswer": {
+            '@type': 'Answer',
+            "text": "お墓の後継者がいない状態（継承者不在）で放置されると、管理費の支払いが滞り、最終的には霊園や自治体によって使用権が取り消され「無縁仏」として墓石が撤去されます。その際、遺骨は他の無縁遺骨とともに共同墓地へ合祀（合葬）され、後から個別に個別供養や取り出しを行うことは不可能になります。このような事態を避けるために、生前に「墓じまい」を行い、永代供養墓や樹木葬、散骨、手元供養などへ遺骨を移す段取りを整えることが推奨されます。"
+          }
+        },
+        {
+          '@type': 'Question',
+          "name": "身寄りがない、または独身でも、自分が亡くなった後の墓じまいを生前に契約することは可能ですか？",
+          "acceptedAnswer": {
+            '@type': 'Answer',
+            "text": "はい、十分に可能です。「生前契約」や「死後事務委任契約」という法的な仕組みを活用することで、身寄りがいない方や独身の方でも、ご自身が亡くなった後の墓じまい工事や行政手続き、遺骨の永代供養先への納骨までを一括して信頼できる専門機関や専門家に委託することができます。これにより、周囲に迷惑をかけることなく、ご自身の望む形で終活を完結させることが可能です。"
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const jsonLd = JSON.stringify(jsonLdData);
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <a href="#main-content" class="skip-link">本文へスキップ</a>
+  <main id="main-content">
+    <article aria-labelledby="hero-title">
+      
+      <!-- FV (First View) -->
+      <header class="fv" style={`background-image: url('${heroImageUrl}'); background-size: cover; background-position: center; color: white; padding: 120px 20px; text-align: center; position: relative; min-height: 90vh; display: flex; align-items: center; justify-content: center;`}>
+        <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(17, 28, 41, 0.85) 0%, rgba(34, 50, 71, 0.6) 100%);"></div>
+        <div class="container" style="position: relative; z-index: 1; max-width: 850px;">
+          <div class="hero-status" aria-label="受付情報">
+            <span class="hero-status-badge">全国対応</span>
+            <span class="hero-status-badge" style="background: var(--color-trust-blue);">24時間相談受付中</span>
+          </div>
+          
+          <div style="background: rgba(255,255,255,0.95); color: var(--text-main); padding: 18px 24px; border-radius: 14px; font-weight: 700; font-size: 1.15rem; max-width: 780px; margin: 0 auto 28px auto; border-left: 6px solid var(--color-affirm-green); text-align: left; box-shadow: 0 10px 25px rgba(0,0,0,0.15); line-height: 1.7;">
+            <p style="margin: 0; font-size: 1.05rem; color: var(--text-muted); font-weight: 500; margin-bottom: 4px;">お墓の後継ぎでお悩みの方へ</p>
+            「子供に面倒な負担を残したくない」「自分が亡くなった後、無縁仏になるのを防ぎたい」そんな不安を解消する、跡継ぎ不要のスマート終活・安心の墓じまいパックです。
+          </div>
+          
+          <div class="fv-brand" style="margin-bottom: 10px;">ここから</div>
+          <h1 id="hero-title" class="fv-title" style="font-size: 3.2rem; line-height: 1.35; margin-bottom: 24px; font-weight: 900; text-shadow: 0 3px 15px rgba(0,0,0,0.4);">
+            後継者がいなくても安心。<br />
+            子供に負担をかけない<br />
+            優しくスマートな墓じまい。
+          </h1>
+          <p class="fv-subtitle" style="font-size: 1.45rem; line-height: 1.6; max-width: 680px; margin: 0 auto 36px auto; font-weight: 500; color: rgba(255,255,255,0.95);">
+            跡継ぎ不要の次の住処（永代供養・手元供養）の提案から、ご自身が亡くなった後の納骨・書類事務まで一体でサポート。
+          </p>
+          
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px;">
+            <span class="hero-status-badge" style="background: var(--color-accent-gold); padding: 8px 18px;">ご相談・お見積もり完全無料</span>
+            <span class="hero-status-badge" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); padding: 8px 18px;">生前相談・単身対応可</span>
+          </div>
+          <a href="#cta" class="btn btn-primary btn-shine" style="font-size: 1.35rem; padding: 20px 48px; border-radius: 50px; background-color: var(--color-accent-gold); box-shadow: 0 8px 25px rgba(201,131,43,0.4);">
+            無料で終活・墓じまい相談をする
+          </a>
+        </div>
+      </header>
+
+      <!-- Sticky CTA for Mobile -->
+      <aside class="sticky-cta" aria-label="お問い合わせ導線">
+        <a href={contactLineUrl} class="btn btn-line btn-shine">
+          <span>24時間受付中</span>
+          <strong>LINE相談</strong>
+        </a>
+        <a href={`tel:${contactTel}`} class="btn btn-tel btn-shine">
+          <span>通話料・見積もり無料</span>
+          <strong>電話相談</strong>
+        </a>
+      </aside>
+
+      <!-- Empathy Section -->
+      <section class="section empathy" id="concerns" style="background: #f4f7fa; padding: 90px 0;" aria-labelledby="concerns-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">EMPATHY</span>
+          <h2 id="concerns-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">お墓の後継ぎについて、<br />このようなお悩みはありませんか？</h2>
+          <p class="text-center" style="color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">後継者不在、独身、少子高齢化…時代の変化に伴い、多くの方が同じ葛藤を抱えています。</p>
+          
+          <div class="grid-3" style="margin-bottom: 40px;">
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">01</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">子どもに遠方の管理や金銭負担を遺したくない</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  子どもが東京など遠方に住んでおり、地元のお墓の定期的な清掃や、管理費・年会費の支払いを引き継がせるのは心理的にも金銭的にも大きな罪悪感がある。
+                </p>
+              </div>
+            </div>
+            
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">02</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">自分が独身・身寄りなしで、将来お墓がどうなるか不安</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  お墓の跡継ぎとなる家族がおらず、このまま自分が世を去ると、お墓が誰も管理しない「荒れ放題」の状態になってしまうのではないかと心配。
+                </p>
+              </div>
+            </div>
+            
+            <div class="card" style="position: relative; border-top: 4px solid var(--color-alert-red); display: flex; flex-direction: column; justify-content: space-between; height: 100%;">
+              <div>
+                <div style="font-size: 2.5rem; line-height: 1; margin-bottom: 15px; color: var(--color-alert-red);">
+                  <span style="font-weight: 900; font-style: italic;">03</span>
+                </div>
+                <h3 style="font-size: 1.45rem; line-height: 1.4; margin-bottom: 15px; font-weight: 700; color: var(--text-main);">墓じまいの相談や手続きを託せる相手がいない</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7;">
+                  お墓を片付ける手続きや寺院との交渉、更地化する工事の業者選びなど、膨大で専門的な手続きを頼れる親族がおらず、途方に暮れている。
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="card" style="max-width: 900px; margin: 0 auto; background: var(--color-trust-blue); color: white; border: none; text-align: center; padding: 25px 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(47,93,159,0.2);">
+            <p style="margin: 0; font-size: 1.25rem; font-weight: 700; line-height: 1.6;">
+              「いつかやらなきゃ」と一人で思い悩む必要はありません。<br />
+              跡継ぎがいなくても、あなたの代でスマートに解決できる方法があります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Danger Section (お墓を放置するリスク) -->
+      <section class="section" id="risks" style="padding: 90px 0; background: #ffffff;" aria-labelledby="risks-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-alert-red); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">RISK OF OMISSION</span>
+          <h2 id="risks-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">
+            「後継者がいないお墓」を<br class="sp-only" />そのまま放置する3つの深刻なリスク
+          </h2>
+          <p class="text-center" style="color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">
+            管理者が途絶えたお墓は「放置された遺骨」として、思わぬ不利益やトラブルを発生させます。
+          </p>
+
+          <div style="max-width: 920px; margin: 0 auto; display: grid; gap: 24px;">
+            
+            <div style="display: flex; gap: 20px; background: #fffdf9; border: 1px solid rgba(201,131,43,0.25); padding: 25px; border-radius: 12px; align-items: flex-start; box-shadow: 0 4px 15px rgba(201,131,43,0.03);">
+              <span style="background: var(--color-alert-red); color: white; font-weight: 900; font-size: 1.2rem; padding: 4px 12px; border-radius: 4px; line-height: 1.4; display: inline-block; flex-shrink: 0; margin-top: 4px;">リスク 1</span>
+              <div>
+                <h3 style="font-size: 1.35rem; margin-bottom: 8px; font-weight: 700; color: var(--text-main);">無縁仏（むえんぼつ）として扱われる不安</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin: 0;">
+                  後継者がいなくなると、最終的には国や霊園の規定に則り、行政の手で「無縁仏」として処置されます。他の方の遺骨と一緒に合祀されるため、後から個別の遺骨を取り出すことや、個別の手を合わせる対象としての供養は不可能になります。
+                </p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; background: #fffdf9; border: 1px solid rgba(201,131,43,0.25); padding: 25px; border-radius: 12px; align-items: flex-start; box-shadow: 0 4px 15px rgba(201,131,43,0.03);">
+              <span style="background: var(--color-alert-red); color: white; font-weight: 900; font-size: 1.2rem; padding: 4px 12px; border-radius: 4px; line-height: 1.4; display: inline-block; flex-shrink: 0; margin-top: 4px;">リスク 2</span>
+              <div>
+                <h3 style="font-size: 1.35rem; margin-bottom: 8px; font-weight: 700; color: var(--text-main);">お墓の使用権の消滅と、強制撤去費用の請求</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin: 0;">
+                  管理費の支払いが一定期間途絶えると、お墓の設置権利が強制消滅します。霊園管理者によって墓石が撤去され、その撤去にかかった費用が（連帯保証人や親族が残っている場合）請求される等、親族への法的なトラブルを招く恐れがあります。
+                </p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; background: #fffdf9; border: 1px solid rgba(201,131,43,0.25); padding: 25px; border-radius: 12px; align-items: flex-start; box-shadow: 0 4px 15px rgba(201,131,43,0.03);">
+              <span style="background: var(--color-alert-red); color: white; font-weight: 900; font-size: 1.2rem; padding: 4px 12px; border-radius: 4px; line-height: 1.4; display: inline-block; flex-shrink: 0; margin-top: 4px;">リスク 3</span>
+              <div>
+                <h3 style="font-size: 1.35rem; margin-bottom: 8px; font-weight: 700; color: var(--text-main);">雑草や崩壊による、隣接するお墓への迷惑</h3>
+                <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.7; margin: 0;">
+                  お手入れが途絶えた墓所は、雑草が生い茂り、ひどい場合は墓石の風化やズレ・崩壊が生じます。霊園内の他家のお墓に損害を与えたり、景観を著しく損ねることで「お隣のお墓の持ち主」に精神的・衛生的なご迷惑をかけることになります。
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="card" style="max-width: 920px; margin: 40px auto 0 auto; background: #fdf2f2; border: 1px solid rgba(201,131,43,0.3); padding: 30px; border-radius: 12px; text-align: center;">
+            <p style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--text-main); line-height: 1.8;">
+              早くに対策を講じることで、これらすべてのリスクや親族間の心理的な葛藤から解放されます。<br />
+              頭を悩ませていた将来の不安がなくなり、<strong>「心の底からすっきりとした精神的自由」</strong>を手に入れることができます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Solutions Section (跡継ぎ不要な次の供養方法) -->
+      <section class="section" id="供養方法" style="background: #f8fafc; padding: 90px 0;" aria-labelledby="solutions-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">SOLUTIONS</span>
+          <h2 id="solutions-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">
+            墓じまいの後はどうする？<br />
+            跡継ぎが不要な4つの「新しい供養方法」
+          </h2>
+          <p class="text-center" style="color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">
+            お墓を片付けたあとのご遺骨をどうするか、生活スタイルや家族構成に応じた選択肢をご提案します。
+          </p>
+
+          <div class="grid-3" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px;">
+            
+            <div class="card" style="border-top: 5px solid var(--color-trust-blue); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; background: #fff;">
+              <div>
+                <h3 style="font-size: 1.35rem; color: var(--color-trust-blue); margin-bottom: 12px; font-weight: 700;">① 永代供養墓（合祀・個別）</h3>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">
+                  寺院や霊園がご家族の代わりに永代にわたって供養・管理を行う方法です。後継者がいなくても無縁仏になる心配がなく、年間管理費も発生しません。
+                </p>
+              </div>
+              <div style="background: #edf4fc; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: var(--color-trust-blue); text-align: center;">
+                管理・供養を全てお任せ
+              </div>
+            </div>
+
+            <div class="card" style="border-top: 5px solid var(--color-affirm-green); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; background: #fff;">
+              <div>
+                <h3 style="font-size: 1.35rem; color: var(--color-affirm-green); margin-bottom: 12px; font-weight: 700;">② 樹木葬（じゅもくそう）</h3>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">
+                  墓石の代わりに樹木や草花をシンボルとし、自然豊かな環境にご遺骨を埋葬する方法です。個別の区画であっても、一定期間後に永代供養へ移行するため跡継ぎ不要です。
+                </p>
+              </div>
+              <div style="background: #edfbf4; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: var(--color-affirm-green); text-align: center;">
+                自然に還る人気の供養
+              </div>
+            </div>
+
+            <div class="card" style="border-top: 5px solid var(--color-accent-gold); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; background: #fff;">
+              <div>
+                <h3 style="font-size: 1.35rem; color: var(--color-accent-gold); margin-bottom: 12px; font-weight: 700;">③ 海洋散骨（かいようさんこつ）</h3>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">
+                  ご遺骨を粉末状にして美しい海へと還す、墓地を全く必要としない完全に跡継ぎ不要の自然葬です。お墓という物理的な管理物が残らないため最も身軽な供養先です。
+                </p>
+              </div>
+              <div style="background: #fffbf4; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: var(--color-accent-gold); text-align: center;">
+                形を遺さないスマートな終活
+              </div>
+            </div>
+
+            <div class="card" style="border-top: 5px solid var(--text-main); padding: 25px; display: flex; flex-direction: column; justify-content: space-between; background: #fff;">
+              <div>
+                <h3 style="font-size: 1.35rem; color: var(--text-main); margin-bottom: 12px; font-weight: 700;">④ 身近な手元供養（てもとくよう）</h3>
+                <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 15px;">
+                  ご遺骨を少量分骨し、デザインされた美しいミニ骨壺やアクセサリー等の形で自宅に置く方法です。高額な購入費用も不要で、マンション暮らしにも綺麗に馴染みます。
+                </p>
+              </div>
+              <div style="background: #f1f4f8; padding: 8px 12px; border-radius: 8px; font-size: 0.95rem; font-weight: 700; color: var(--text-main); text-align: center;">
+                いつも身近に感じられる形
+              </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top: 50px; display: grid; grid-template-columns: 1fr 1.35fr; gap: 30px; align-items: center; background: white; padding: 35px; border-radius: 16px; border: 1px solid #e1e7ec; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+            <img src={supportImageUrl} alt="身近な手元供養のミニ骨壺イメージ" style="width: 100%; border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.1);" loading="lazy" />
+            <div>
+              <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--text-main); margin-bottom: 15px;">
+                「ここから」は墓石の撤去工事から、<br class="pc-only" />次の住処のご案内まで一体サポートします。
+              </h3>
+              <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 0;">
+                お墓を撤去（解体）して更地にするだけでなく、取り出したご遺骨をその後の生活スタイルにどう合わせるかまでを親身に相談に乗ります。お客様のご予算やご意向に沿って、最も負担のない移行プランをご案内します。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Lifecare Support (生前契約・サポート体制) -->
+      <section class="section" id="support-system" style="padding: 90px 0; background: #ffffff;" aria-labelledby="support-system-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-affirm-green); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">LIFETIME SUPPORT</span>
+          <h2 id="support-system-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">
+            独身・身寄りがない方のための<br />
+            「自分が逝った後の墓じまい」生前契約サポート
+          </h2>
+          <p class="text-center" style="color: var(--text-muted); margin-bottom: 50px; font-size: 1.15rem;">
+            ご自身が亡くなった後の役所手続きや、お墓の撤去、遺骨の永代納骨まで、全て生前に段取りを組んでおけます。
+          </p>
+
+          <div style="max-width: 900px; margin: 0 auto; display: grid; gap: 30px;">
+            <div class="card" style="padding: 35px; border-left: 6px solid var(--color-affirm-green); border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+              <h3 style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 20px; font-weight: 700;">
+                死後事務委任・生前予約システムで安心を託す
+              </h3>
+              <p style="font-size: 1.1rem; color: var(--text-main); line-height: 1.8; margin-bottom: 20px; font-weight: 500;">
+                「いま生きているうちは自分で判断できるが、自分が倒れた後や他界した後のことまでは自分では実行できない」という不安を抱えていませんか？
+              </p>
+              <p style="font-size: 1.05rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">
+                当サポートでは、行政書士や司法書士、信頼の置ける終活パートナーと連携し、<strong>「あなたが亡くなった後の墓じまい撤去工事の執行」</strong>や<strong>「あらかじめ指定された永代供養先へのご遺骨の納骨」</strong>を法律上および契約上で担保する死後事務代行のご案内をしています。
+              </p>
+              <ul style="padding-left: 20px; font-size: 1.05rem; color: var(--text-main); line-height: 1.8; display: grid; gap: 8px;">
+                <li><strong>生前契約の完了</strong>：存命のうちに墓じまいの総費用を明確にし、契約を済ませておけます。</li>
+                <li><strong>他界後の安心移行</strong>：ご逝去時、弊社と提携機関が自動的に墓じまい手続きや工事を執行します。</li>
+                <li><strong>孤独死・無縁墓リスクゼロ</strong>：身寄りのない方であっても、指定の永代供養先へ確実に納骨されます。</li>
+              </ul>
+            </div>
+            
+            <div style="background: #f4fbf7; border: 1px dashed var(--color-affirm-green); border-radius: 12px; padding: 25px; text-align: center;">
+              <p style="margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--color-affirm-green); line-height: 1.6;">
+                将来の「もしも」をすべて書面にして備え、肩の荷を今すぐ下ろしませんか？<br class="pc-only" />
+                生前整理のプロフェッショナルが、あなたにぴったりの終活設計をお手伝いします。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose Us (「ここから」が選ばれる理由) -->
+      <section class="section" id="reasons" style="background-color: #f7fafc; padding: 90px 0;" aria-labelledby="reasons-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">WHY CHOOSE US</span>
+          <h2 id="reasons-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 50px; font-weight: 800;">「ここから」が選ばれる安心の理由</h2>
+          
+          <div class="grid-3">
+            <div class="card" style="background: white; border-top: 4px solid var(--color-trust-blue); padding: 30px; border-radius: 12px;">
+              <h3 style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.3rem; margin-bottom: 12px;">1. 跡継ぎ不要プランのご提案</h3>
+              <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.7;">
+                永代供養・散骨・手元供養など、後継者の管理を一切必要としないスマートな移行先に特化し、最適なプランをご提案。
+              </p>
+            </div>
+            
+            <div class="card" style="background: white; border-top: 4px solid var(--color-trust-blue); padding: 30px; border-radius: 12px;">
+              <h3 style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.3rem; margin-bottom: 12px;">2. 生前契約＆死後事務に対応</h3>
+              <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.7;">
+                独身・身寄りのない方でも、他界後の手続き・工事・納骨のすべてを生前に契約して託せる安心体制を構築。
+              </p>
+            </div>
+            
+            <div class="card" style="background: white; border-top: 4px solid var(--color-trust-blue); padding: 30px; border-radius: 12px;">
+              <h3 style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.3rem; margin-bottom: 12px;">3. 行政手続き・寺院調整を代行</h3>
+              <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.7;">
+                役所への「改葬許可申請」や、難しい寺院との離檀交渉・お布施等の調整も、経験豊富なアドバイザーが全てサポート。
+              </p>
+            </div>
+
+            <div class="card" style="background: white; border-top: 4px solid var(--color-trust-blue); padding: 30px; border-radius: 12px;">
+              <h3 style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.3rem; margin-bottom: 12px;">4. 追加費用のない「総額提示」</h3>
+              <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.7;">
+                墓地現地を事前にしっかりと調査し、行政手続き、解体撤去、更地返還までを含めた明瞭な見積もりを契約前に提示。
+              </p>
+            </div>
+
+            <div class="card" style="background: white; border-top: 4px solid var(--color-trust-blue); padding: 30px; border-radius: 12px;">
+              <h3 style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.3rem; margin-bottom: 12px;">5. 周囲や親族の合意形成をサポート</h3>
+              <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.7;">
+                墓じまいを独断で進めると後から親戚間でトラブルになることも。円滑に納得してもらうための説明のコツを伝授。
+              </p>
+            </div>
+
+            <div class="card" style="background: white; border-top: 4px solid var(--color-trust-blue); padding: 30px; border-radius: 12px;">
+              <h3 style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.3rem; margin-bottom: 12px;">6. 24時間いつでも寄り添う相談窓口</h3>
+              <p style="font-size: 1rem; color: var(--text-muted); line-height: 1.7;">
+                お仕事をされている方や、深夜にお悩みが深まった方でも、お電話やLINEから気兼ねなく専門相談員へ繋がれる環境です。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Steps Flow (手続きの流れ) -->
+      <section class="section" id="flow" style="padding: 90px 0; background: #ffffff;" aria-labelledby="flow-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">FLOW</span>
+          <h2 id="flow-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 50px; font-weight: 800;">
+            ご相談から完了までのスマートな5ステップ
+          </h2>
+          
+          <div style="max-width: 900px; margin: 0 auto; display: grid; gap: 20px;">
+            <div style="display: flex; gap: 20px; align-items: center; background: #f8fafc; padding: 20px 25px; border-radius: 10px; border-left: 5px solid var(--color-trust-blue);">
+              <span style="background: var(--color-trust-blue); color: white; font-weight: 900; font-size: 1.25rem; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">1</span>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main);">無料相談と状況の整理</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">お墓の現状（場所、広さ、名義人）や後継者不在のご事情をお電話・LINEでお伺いします。</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; align-items: center; background: #f8fafc; padding: 20px 25px; border-radius: 10px; border-left: 5px solid var(--color-trust-blue);">
+              <span style="background: var(--color-trust-blue); color: white; font-weight: 900; font-size: 1.25rem; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">2</span>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main);">現地確認とお見積もりの提示</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">弊社で墓地を現地調査し、撤去工事費・更地復旧費などの見積もり総額をご提示します（生前契約のプランも含む）。</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; align-items: center; background: #f8fafc; padding: 20px 25px; border-radius: 10px; border-left: 5px solid var(--color-trust-blue);">
+              <span style="background: var(--color-trust-blue); color: white; font-weight: 900; font-size: 1.25rem; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">3</span>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main);">行政手続き・寺院調整代行</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">改葬許可証の取得や、お寺への離檀の説明、魂抜き法要の日程調整等を弊社が仲介・代行します。</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; align-items: center; background: #f8fafc; padding: 20px 25px; border-radius: 10px; border-left: 5px solid var(--color-trust-blue);">
+              <span style="background: var(--color-trust-blue); color: white; font-weight: 900; font-size: 1.25rem; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">4</span>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main);">墓石の解体撤去と更地返還</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">法要ののち、お墓の解体・撤去・更地化工事を速やかに行い、管理者に土地を無事返還します。</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; align-items: center; background: #f8fafc; padding: 20px 25px; border-radius: 10px; border-left: 5px solid var(--color-trust-blue);">
+              <span style="background: var(--color-trust-blue); color: white; font-weight: 900; font-size: 1.25rem; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; flex-shrink: 0;">5</span>
+              <div>
+                <h4 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 4px; color: var(--text-main);">次のご供養先へ納骨</h4>
+                <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; margin: 0;">お選びいただいた永代供養墓や樹木葬、散骨・手元供養など、跡継ぎ不要の住処へご遺骨を移行します（他界後の代行も可）。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing Section (料金プラン) -->
+      <section id="pricing" class="section" style="background-color: #f8f9fa; padding: 90px 0;" aria-labelledby="pricing-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-accent-gold); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">PRICING</span>
+          <h2 id="pricing-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 15px; font-weight: 800;">料金の目安</h2>
+          <p style="max-width: 860px; margin: 0 auto 40px; text-align: center; color: var(--text-muted); font-size: 1.1rem;">
+            スマートフォンの画面でも横スクロールせず、上から順に比較検討しやすいデザインでご案内しています。
+          </p>
+          
+          <div style="max-width: 860px; margin: 0 auto; display: grid; gap: 24px;">
+            <article class="card" style="border-top: 6px solid var(--color-trust-blue); background: white;">
+              <h3 style="font-size: 1.6rem; margin-bottom: 10px; font-weight: 700; color: var(--text-main);">墓じまい基本パック（撤去・返還）</h3>
+              <p style="margin-bottom: 20px; font-size: 1rem; color: var(--text-muted);">行政手続き・墓石解体撤去・更地返還までを完全パッケージにした安心プランです。</p>
+              <div style="display: grid; gap: 12px; margin-bottom: 20px;">
+                <div style="background: #eef4fb; padding: 14px 18px; border-radius: 12px;">
+                  <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: bold;">一般的な市場相場</div>
+                  <div style="font-size: 1.7rem; font-weight: 800; color: var(--text-main);">30万円〜50万円</div>
+                </div>
+                <div style="background: #f4fbf7; padding: 14px 18px; border-radius: 12px; border: 2px solid rgba(47, 143, 107, 0.25);">
+                  <div style="font-size: 0.9rem; color: var(--color-affirm-green); font-weight: bold;">ここからの価格</div>
+                  <div style="font-size: 2.1rem; font-weight: 900; color: var(--color-trust-blue);">180,000円〜 <span style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">(税込)</span></div>
+                </div>
+              </div>
+              <ul style="font-size: 0.95rem; color: var(--text-muted); padding-left: 20px; line-height: 1.6;">
+                <li>※墓地の敷地面積、立地条件、石材の量などにより変動します。</li>
+                <li>※現地確認をしっかり行い、ご契約後の「追加費用なし」でお見積もりします。</li>
+              </ul>
+            </article>
+            
+            <article class="card" style="border-top: 6px solid var(--color-accent-gold); background: white;">
+              <h3 style="font-size: 1.6rem; margin-bottom: 10px; font-weight: 700; color: var(--text-main);">手元供養セット（ご遺骨の新たな形）</h3>
+              <p style="margin-bottom: 20px; font-size: 1rem; color: var(--text-muted);">高額な永代供養墓をすぐに購入せず、マンション等で清潔かつコンパクトに祀るためのセットです。</p>
+              <div style="display: grid; gap: 12px; margin-bottom: 20px;">
+                <div style="background: #fff6ea; padding: 14px 18px; border-radius: 12px;">
+                  <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: bold;">一般的な市場相場</div>
+                  <div style="font-size: 1.7rem; font-weight: 800; color: var(--text-main);">10万円〜20万円</div>
+                </div>
+                <div style="background: #f4fbf7; padding: 14px 18px; border-radius: 12px; border: 2px solid rgba(47, 143, 107, 0.25);">
+                  <div style="font-size: 0.9rem; color: var(--color-affirm-green); font-weight: bold;">ここからの価格</div>
+                  <div style="font-size: 2.1rem; font-weight: 900; color: var(--color-trust-blue);">50,000円〜 <span style="font-size: 1.1rem; font-weight: 700; color: var(--text-main);">(税込)</span></div>
+                </div>
+              </div>
+              <ul style="font-size: 0.95rem; color: var(--text-muted); padding-left: 20px; line-height: 1.6;">
+                <li>※ご自宅に置いていただけるデザイン性の高いミニ骨壺などの提供を含みます。</li>
+                <li>※粉骨処理・殺菌処理なども含まれるため、非常に清潔に保管できます。</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ Section -->
+      <section id="faq" class="section" style="padding: 90px 0; background: #ffffff;" aria-labelledby="faq-heading">
+        <div class="container">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">FAQ</span>
+          <h2 id="faq-heading" class="text-center" style="font-size: 2.3rem; margin-bottom: 50px; font-weight: 800;">よくあるご質問</h2>
+          
+          <div style="max-width: 900px; margin: 0 auto; display: grid; gap: 20px;">
+            
+            <div class="card" style="padding: 25px; border-radius: 10px; background: #f8fafc; border: 1px solid #e2e8f0;">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 12px; display: flex; gap: 8px;">
+                <span style="font-weight: 900;">Q.</span>
+                跡継ぎ（お墓の後継者）がいない場合、お墓はどうなってしまいますか？
+              </h3>
+              <p style="font-size: 1.05rem; color: var(--text-main); line-height: 1.7; margin: 0; padding-left: 24px;">
+                <strong>A.</strong> お墓の後継者がいない状態（継承者不在）で放置されると、管理費の支払いが滞り、最終的には霊園や自治体によって使用権が取り消され「無縁仏」として墓石が撤去されます。その際、遺骨は他の無縁遺骨とともに共同墓地へ合祀（合葬）され、後から個別に個別供養や取り出しを行うことは不可能になります。このような事態を避けるために、生前に「墓じまい」を行い、永代供養墓や樹木葬、散骨、手元供養などへ遺骨を移す段取りを整えることが推奨されます。
+              </p>
+            </div>
+
+            <div class="card" style="padding: 25px; border-radius: 10px; background: #f8fafc; border: 1px solid #e2e8f0;">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 12px; display: flex; gap: 8px;">
+                <span style="font-weight: 900;">Q.</span>
+                身寄りがない、または独身でも、自分が亡くなった後の墓じまいを生前に契約することは可能ですか？
+              </h3>
+              <p style="font-size: 1.05rem; color: var(--text-main); line-height: 1.7; margin: 0; padding-left: 24px;">
+                <strong>A.</strong> はい、十分に可能です。「生前契約」や「死後事務委任契約」という法的な仕組みを活用することで、身寄りがいない方や独身の方でも、ご自身が亡くなった後の墓じまい工事や行政手続き、遺骨の永代供養先への納骨までを一括して信頼できる専門機関や専門家に委託することができます。これにより、周囲に迷惑をかけることなく、ご自身の望む形で終活を完結させることが可能です。
+              </p>
+            </div>
+
+            <div class="card" style="padding: 25px; border-radius: 10px; background: #f8fafc; border: 1px solid #e2e8f0;">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 12px; display: flex; gap: 8px;">
+                <span style="font-weight: 900;">Q.</span>
+                お寺（菩提寺）への離檀の相談はどう切り出せばいいでしょうか？
+              </h3>
+              <p style="font-size: 1.05rem; color: var(--text-main); line-height: 1.7; margin: 0; padding-left: 24px;">
+                <strong>A.</strong> 「後継者がおらず、このままだとお寺にも迷惑がかかってしまうため、自分の代で綺麗に片付けて永代供養にしたい」という率直な事情をお伝えするのが最も円満に進みます。決して一方的な通告ではなく、これまでの感謝を伝えるのが大切です。もしお寺側とのお話し合いが不安な場合は、「ここから」のアドバイザーが間に入って交渉のクッションとなったり、お布施（離檀料）の適正相場について事前にアドバイスさせていただきますのでご安心ください。
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Topic Clusters (相互内部リンク) -->
+      <section class="section" id="related-topics" style="background-color: #f7fafc; padding: 90px 0; border-top: 1px solid #e1e7ec;" aria-labelledby="cluster-heading">
+        <div class="container" style="max-width: 900px;">
+          <span style="display: block; text-align: center; color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 2px; margin-bottom: 10px;">RELATED LINK</span>
+          <h2 id="cluster-heading" class="text-center" style="font-size: 2.1rem; margin-bottom: 15px; font-weight: 800;">
+            墓じまいに関するその他のお悩み
+          </h2>
+          <p class="text-center" style="color: var(--text-muted); margin-bottom: 40px; font-size: 1.05rem;">
+            解決したい問題や調べたい情報に合わせて、以下の案内もぜひご参照ください。
+          </p>
+
+          <div style="display: grid; gap: 16px;">
+            
+            <a href="/hakajimai-hio/" class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; text-decoration: none; border: 1px solid #d9e2ef; border-radius: 12px; background: white; transition: var(--transition-smooth);">
+              <span style="font-size: 1.15rem; font-weight: 700; color: var(--color-trust-blue);">墓じまいの費用相場と安く抑えるコツはこちら</span>
+              <span style="font-weight: 900; color: var(--color-trust-blue); font-size: 1.3rem;">&rarr;</span>
+            </a>
+
+            <a href="/hakajimai-tetsuduki/" class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; text-decoration: none; border: 1px solid #d9e2ef; border-radius: 12px; background: white; transition: var(--transition-smooth);">
+              <span style="font-size: 1.15rem; font-weight: 700; color: var(--color-trust-blue);">面倒な墓じまいの行政手続き・流れはこちら</span>
+              <span style="font-weight: 900; color: var(--color-trust-blue); font-size: 1.3rem;">&rarr;</span>
+            </a>
+
+            <a href="/hakajimai-trouble/" class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; text-decoration: none; border: 1px solid #d9e2ef; border-radius: 12px; background: white; transition: var(--transition-smooth);">
+              <span style="font-size: 1.15rem; font-weight: 700; color: var(--color-trust-blue);">墓じまいでのトラブルを防ぐ円慢解決法はこちら</span>
+              <span style="font-weight: 900; color: var(--color-trust-blue); font-size: 1.3rem;">&rarr;</span>
+            </a>
+
+            <a href="/hakajimai-eitaikuyo/" class="card" style="display: flex; justify-content: space-between; align-items: center; padding: 22px 28px; text-decoration: none; border: 1px solid #d9e2ef; border-radius: 12px; background: white; transition: var(--transition-smooth);">
+              <span style="font-size: 1.15rem; font-weight: 700; color: var(--color-trust-blue);">墓じまい後の永代供養・新しい供養先の選び方はこちら</span>
+              <span style="font-weight: 900; color: var(--color-trust-blue); font-size: 1.3rem;">&rarr;</span>
+            </a>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-bar" id="cta" aria-labelledby="cta-heading" style="padding: 90px 20px;">
+        <div class="container" style="max-width: 800px;">
+          <h2 id="cta-heading" style="font-size: 2.3rem; font-weight: 800; line-height: 1.4; margin-bottom: 15px;">
+            跡継ぎがいないお墓の悩み、<br />
+            まずは無料相談してみませんか？
+          </h2>
+          <p style="margin-bottom: 35px; font-size: 1.15rem; color: rgba(255,255,255,0.9); line-height: 1.8;">
+            24時間受付中・完全相談無料。無理な勧誘は一切ありません。<br />
+            墓じまいの概算費用確認、生前契約のご相談、何でもお気軽にどうぞ。
+          </p>
+          <div class="cta-tel" style="font-size: 3.2rem; font-weight: 900; margin-bottom: 35px; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+            {contactTel}
+          </div>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href={contactLineUrl} class="btn btn-line btn-shine" style="padding: 20px 45px; border-radius: 50px; font-size: 1.25rem;">
+              LINEで無料相談する (24時間)
+            </a>
+            <a href={`tel:${contactTel}`} class="btn btn-primary btn-shine" style="padding: 20px 45px; border-radius: 50px; font-size: 1.25rem; background-color: var(--color-accent-gold); box-shadow: 0 6px 20px rgba(0,0,0,0.3);">
+              電話で無料相談する (通話料無料)
+            </a>
+          </div>
+          <p style="margin-top: 25px; font-size: 0.95rem; color: rgba(255,255,255,0.7);">※スマホをご利用の方は、画面下部の固定ボタンからもワンタップで繋がります。</p>
+        </div>
+      </section>
+
+    </article>
+  </main>
+</Layout>

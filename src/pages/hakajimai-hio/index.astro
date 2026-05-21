@@ -1,0 +1,802 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = 'https://graveclosure.xyz';
+const pagePath = '/hakajimai-hio/';
+const pageUrl = new URL(pagePath, siteUrl).toString();
+
+const pageTitle = '墓じまいの費用相場と安く抑えるコツ | 追加料金なしのコミコミ安心プラン | ここから';
+const pageDescription = '墓じまいの費用でお悩みなら。不透明な総額費用のクリア化、他社比較、安く抑える3つのコツを解説。追加料金なしのコミコミ安心パック（180,000円〜）をご案内。';
+
+const contactTel = '070-8428-0866';
+const contactLineUrl = 'https://lin.ee/QzDuTbn';
+const heroImageUrl = '/assets/hakajimai_hio_fv.png';
+const supportImageUrl = 'https://graveclosure.xyz/assets/japanese_temoto_kuyo.png';
+
+// FAQPage schema JSON-LD for AIO optimization
+const jsonLdData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      logo: `${siteUrl}/assets/favicon.png`,
+      telephone: contactTel
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      name: '墓じまい・手元供養案内専門 ここから',
+      url: siteUrl,
+      inLanguage: 'ja-JP'
+    },
+    {
+      '@type': 'WebPage',
+      '@id': `${pageUrl}#webpage`,
+      url: pageUrl,
+      name: pageTitle,
+      description: pageDescription,
+      inLanguage: 'ja-JP',
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: [{ '@id': `${pageUrl}#service` }, { '@id': `${pageUrl}#faq` }],
+      breadcrumb: { '@id': `${pageUrl}#breadcrumb` }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${pageUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'ホーム', item: siteUrl },
+        { '@type': 'ListItem', position: 2, name: '墓じまいの費用相場と安く抑えるコツ', item: pageUrl }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${pageUrl}#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: '墓じまいには総額でどのくらいの費用がかかりますか？',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: '墓じまいの総額費用は一般的に30万円〜150万円が相場です。主な内訳は、①お墓の解体撤去工事費用（1平方メートルあたり約10万〜15万円）、②お寺への離檀料や閉眼供養のお布施（約3万〜20万円）、③次の移行先での永代供養や納骨等の供養先費用（数万〜数十万円）の3大費用です。「ここから」では、追加料金なしのコミコミ安心プランを180,000円からご案内しており、不透明な費用をクリアにしています。'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: '墓じまいの費用を安く抑えるコツはありますか？',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: '墓じまい費用を安く抑えるコツは主に3つあります。1つ目は「複数社からの相見積もり」で解体撤去費用の適正価格を確認すること。2つ目は「自治体の墓じまい補助金や支援制度の活用」で、数万〜数十万円の支給を受けられる場合があります。3つ目は「手元供養や散骨など柔軟な移行先を選択する」ことで、高額な永代供養墓や新たな納骨堂の購入費用を大幅に削減できます。'
+          }
+        }
+      ]
+    }
+  ]
+};
+
+const jsonLd = JSON.stringify(jsonLdData);
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <a href="#main-content" class="skip-link">本文へスキップ</a>
+  <main id="main-content">
+    <article aria-labelledby="hero-title">
+      <!-- FV (First View) -->
+      <header class="fv" style={`background-image: url('${heroImageUrl}'); background-size: cover; background-position: center; color: white; padding: 100px 20px; text-align: center; position: relative;`}>
+        <div class="fv-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.45);"></div>
+        <div class="container" style="position: relative; z-index: 1;">
+          <div class="hero-status" aria-label="受付情報">
+            <span class="hero-status-badge">追加料金なし</span>
+            <span class="hero-status-badge" style="background: rgba(201,131,43,0.95);">見積もり完全無料</span>
+            <span class="hero-status-badge">24時間全国受付中</span>
+          </div>
+          
+          <div class="fv-brand">ここから</div>
+          <h1 id="hero-title" class="fv-title" style="font-size: 3.2rem; font-weight: 900; line-height: 1.35; margin-bottom: 20px; text-shadow: 0 3px 15px rgba(0,0,0,0.6);">
+            不透明な墓じまい費用をクリアに。<br />追加料金なしのコミコミ安心プラン
+          </h1>
+          <p class="fv-subtitle" style="font-size: 1.5rem; font-weight: 700; color: #cfe9dd; margin-bottom: 30px; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">
+            【総額180,000円〜】解体から行政サポートまで全て含んだ明朗会計
+          </p>
+
+          <div style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+            <a href="#cta" class="btn btn-primary btn-shine" style="font-size: 1.25rem; padding: 18px 40px; box-shadow: 0 6px 20px rgba(201, 131, 43, 0.45);">無料で費用を見積もる</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Sticky CTA for Mobile -->
+      <aside class="sticky-cta" aria-label="お問い合わせ導線">
+        <a href={contactLineUrl} class="btn btn-line btn-shine" target="_blank" rel="noopener noreferrer">
+          <span>24時間相談OK</span>
+          <strong>LINE相談</strong>
+        </a>
+        <a href={`tel:${contactTel}`} class="btn btn-tel btn-shine">
+          <span>通話料・見積無料</span>
+          <strong>電話相談</strong>
+        </a>
+      </aside>
+
+      <!-- FV直下: 墓地面積ごとの相場表（縦並びでスマホ対応） -->
+      <section class="section" id="area-pricing" style="background-color: #ffffff; padding: 60px 0;" aria-labelledby="area-pricing-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 40px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 10px;">CLEAR PRICE</span>
+            <h2 id="area-pricing-heading" style="font-size: 2.2rem; font-weight: 800; color: var(--text-main);">墓地面積ごとの費用相場と「ここから」の料金プラン</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              お墓の広さに応じた一般的な解体撤去費用相場と、当社のコミコミ安心パック料金の比較です。スマホでも見やすいよう縦並びで表示しています。
+            </p>
+          </header>
+
+          <div class="pricing-card-list">
+            <!-- 1平米未満 -->
+            <article class="pricing-card-item" style="border-left: 6px solid var(--color-trust-blue);">
+              <div class="pricing-card-left">
+                <div class="pricing-card-area">極小区画 (〜1㎡)</div>
+                <div class="pricing-card-size">マンション墓地や小さな個人墓地に多い広さです。</div>
+              </div>
+              <div class="pricing-card-right">
+                <div class="pricing-card-price-box market">
+                  <div class="price-label">一般的な解体費用相場</div>
+                  <div class="price-value">約10万〜15万円</div>
+                </div>
+                <div class="pricing-card-price-box kokokara">
+                  <div class="price-label">ここからのコミコミ安心プラン</div>
+                  <div class="price-value highlight">100,000円<span style="font-size: 1rem; font-weight: 700;">〜</span></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 2平米未満 -->
+            <article class="pricing-card-item" style="border-left: 6px solid var(--color-trust-blue);">
+              <div class="pricing-card-left">
+                <div class="pricing-card-area">小規模区画 (〜2㎡)</div>
+                <div class="pricing-card-size">一般的な公営霊園や民営霊園に多い標準的なサイズです。</div>
+              </div>
+              <div class="pricing-card-right">
+                <div class="pricing-card-price-box market">
+                  <div class="price-label">一般的な解体費用相場</div>
+                  <div class="price-value">約20万〜30万円</div>
+                </div>
+                <div class="pricing-card-price-box kokokara">
+                  <div class="price-label">ここからのコミコミ安心プラン</div>
+                  <div class="price-value highlight">180,000円<span style="font-size: 1rem; font-weight: 700;">〜</span></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 3平米未満 -->
+            <article class="pricing-card-item" style="border-left: 6px solid var(--color-trust-blue);">
+              <div class="pricing-card-left">
+                <div class="pricing-card-area">中規模区画 (〜3㎡)</div>
+                <div class="pricing-card-size">地方の墓地や、少しゆとりのあるお墓に多い広さです。</div>
+              </div>
+              <div class="pricing-card-right">
+                <div class="pricing-card-price-box market">
+                  <div class="price-label">一般的な解体費用相場</div>
+                  <div class="price-value">約30万〜45万円</div>
+                </div>
+                <div class="pricing-card-price-box kokokara">
+                  <div class="price-label">ここからのコミコミ安心プラン</div>
+                  <div class="price-value highlight">270,000円<span style="font-size: 1rem; font-weight: 700;">〜</span></div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 4平米未満 -->
+            <article class="pricing-card-item" style="border-left: 6px solid var(--color-trust-blue);">
+              <div class="pricing-card-left">
+                <div class="pricing-card-area">大規模区画 (〜4㎡)</div>
+                <div class="pricing-card-size">代々受け継がれてきた広い区画や外柵がしっかりしたお墓です。</div>
+              </div>
+              <div class="pricing-card-right">
+                <div class="pricing-card-price-box market">
+                  <div class="price-label">一般的な解体費用相場</div>
+                  <div class="price-value">約40万〜60万円</div>
+                </div>
+                <div class="pricing-card-price-box kokokara">
+                  <div class="price-label">ここからのコミコミ安心プラン</div>
+                  <div class="price-value highlight">360,000円<span style="font-size: 1rem; font-weight: 700;">〜</span></div>
+                </div>
+              </div>
+            </article>
+          </div>
+          <p style="max-width: 860px; margin: 24px auto 0; font-size: 1rem; color: var(--text-muted); line-height: 1.5; text-align: center;">
+            ※上記料金には、お墓の解体撤去工事、更地化、行政手続きサポート、産業廃棄物処理費用がすべて含まれています。<br />
+            ※傾斜地、重機が入らない狭小地など、現地状況により別途見積もりが必要となる場合がございますが、事前に必ず総額をお出しします。
+          </p>
+        </div>
+      </section>
+
+      <!-- お悩みセクション（Empathy） -->
+      <section class="section empathy" id="concerns" aria-labelledby="concerns-heading">
+        <div class="container">
+          <h2 id="concerns-heading" class="text-center" style="font-size: 2.1rem; font-weight: 800; margin-bottom: 15px;">墓じまいの費用で、こんなお悩みはありませんか？</h2>
+          <p class="text-center" style="color: var(--text-muted); margin-bottom: 45px; font-size: 1.15rem;">お墓の整理は多くの方にとって一生に一度。費用が不透明なことで不安を感じるのは当然です。</p>
+          <div class="grid-3">
+            <div class="card" style="border-top: 4px solid var(--color-alert-red);">
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">他社の見積もりが高すぎて妥当かわからない</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                石材店によって見積もり額に数十万円以上の差があることも珍しくありません。「この金額が適正なのかどうか」判断がつかず、困惑してしまう方が非常に多いです。
+              </p>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--color-alert-red);">
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">離檀料や閉眼供養のお布施など寺院費用が不安</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                これまでお世話になったお寺へ渡す「離檀料」や「閉眼法要のお布施」について、相場が明文化されておらず、いくら包めば失礼がないか不安を抱かれる方が多くいます。
+              </p>
+            </div>
+            <div class="card" style="border-top: 4px solid var(--color-alert-red);">
+              <h3 style="font-size: 1.35rem; font-weight: 700; margin-bottom: 15px; color: var(--text-main);">工事の後から追加料金を請求されないか不安</h3>
+              <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                「事前の見積もりは安かったのに、解体後に『地中の障害物の処理費用』や『重機使用料』を別途請求された」といった、石材店との金銭トラブルを懸念されるご相談が増えています。
+              </p>
+            </div>
+          </div>
+          <div class="card" style="max-width: 900px; margin: 40px auto 0; background: #fffdf9; border: 1px solid rgba(201, 131, 43, 0.25); text-align: center; padding: 24px;">
+            <p style="font-size: 1.2rem; font-weight: 700; color: var(--text-main); line-height: 1.6;">
+              「ここから」は、不透明になりがちな墓じまいの総額費用を契約前にすべてクリア化。<br />
+              追加料金一切なしのコミコミ安心パックで、お客様のご不安を完全に解消します。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- メインコンテンツ1：総額費用のクリア化（3大内訳の解説） -->
+      <section class="section" id="cost-breakdown" style="background-color: #ffffff;" aria-labelledby="cost-breakdown-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 50px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">BREAKDOWN</span>
+            <h2 id="cost-breakdown-heading" style="font-size: 2.2rem; font-weight: 800;">墓じまいにかかる「総額費用」の3大内訳</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              墓じまい費用の総額が不透明に感じられるのは、性質の異なる複数の出費が重なるためです。お墓の整理に必要な費用は、大きく分けて以下の3つに分類されます。
+            </p>
+          </header>
+
+          <div style="max-width: 960px; margin: 0 auto; display: grid; gap: 40px;">
+            <!-- 内訳1 -->
+            <div class="card" style="display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 30px; align-items: center; padding: 35px;">
+              <div style="text-align: center; background: #eef4fb; padding: 30px; border-radius: 12px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--color-trust-blue); display: block; margin-bottom: 8px;">内訳 その①</span>
+                <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">お墓の解体撤去費用</h3>
+                <div style="font-size: 2rem; font-weight: 900; color: var(--color-trust-blue);">10万〜60<span style="font-size: 1.1rem;">万円</span></div>
+                <span style="font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 6px;">(※お墓の面積による)</span>
+              </div>
+              <div>
+                <h4 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; border-left: 4px solid var(--color-trust-blue); padding-left: 10px;">墓石の撤去と区画の更地化にかかる実費</h4>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 12px;">
+                  墓石の解体・運搬・処分、基礎コンクリートの掘り起こし、真砂土を入れて平らにする更地化工事、と産業廃棄物としての墓石の処理費用が含まれます。
+                </p>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                  <strong>【費用変動の要因】</strong> 墓地の立地が斜面にある場合や、通路が極端に狭くクレーン車や重機が入らない手作業工事となる場合は、人工（人件費）が増えるため相場が高くなります。
+                </p>
+              </div>
+            </div>
+
+            <!-- 内訳2 -->
+            <div class="card" style="display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 30px; align-items: center; padding: 35px;">
+              <div style="text-align: center; background: #fdf5ec; padding: 30px; border-radius: 12px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--color-accent-gold); display: block; margin-bottom: 8px;">内訳 その②</span>
+                <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">お寺への離檀料・お布施</h3>
+                <div style="font-size: 2rem; font-weight: 900; color: var(--color-accent-gold);">3万〜20<span style="font-size: 1.1rem;">万円</span></div>
+                <span style="font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 6px;">(※一般的な感謝の目安)</span>
+              </div>
+              <div>
+                <h4 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; border-left: 4px solid var(--color-accent-gold); padding-left: 10px;">寺院への感謝を示すお気持ちと儀式の費用</h4>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 12px;">
+                  これまでご先祖をお守りいただいたお寺の檀家を離れる際にお渡しする「離檀料」や、お墓から魂を抜く「閉眼供養（魂抜き）」の法要に対するお布施です。
+                </p>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                  <strong>【費用変動 of 要因】</strong> 離檀料は本来お寺への「感謝の布施」であり、法律上の支払義務はありませんが、トラブル防止のために一般的な法要のお布施1〜3回分（3万〜10万円程度）を包むのが主流です。
+                </p>
+              </div>
+            </div>
+
+            <!-- 内訳3 -->
+            <div class="card" style="display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 30px; align-items: center; padding: 35px;">
+              <div style="text-align: center; background: #f4fbf7; padding: 30px; border-radius: 12px;">
+                <span style="font-size: 0.9rem; font-weight: 700; color: var(--color-affirm-green); display: block; margin-bottom: 8px;">内訳 その③</span>
+                <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 10px;">次の供養先の移行費用</h3>
+                <div style="font-size: 2rem; font-weight: 900; color: var(--color-affirm-green);">5万〜100<span style="font-size: 1.1rem;">万円</span></div>
+                <span style="font-size: 0.9rem; color: var(--text-muted); display: block; margin-top: 6px;">(※選択する供養法による)</span>
+              </div>
+              <div>
+                <h4 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 12px; border-left: 4px solid var(--color-affirm-green); padding-left: 10px;">取り出したご遺骨を新たに供養する費用</h4>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted); margin-bottom: 12px;">
+                  お墓から取り出したご遺骨は放置できず、別の場所へ納骨する必要があります。合祀される永代供養墓、個別の納骨堂、樹木葬、あるいは自宅で綺麗に保管する手元供養、海洋散骨などが挙げられます。
+                </p>
+                <p style="font-size: 1.05rem; line-height: 1.7; color: var(--text-muted);">
+                  <strong>【費用変動の要因】</strong> 新たに高額な個別の納骨堂（50万〜150万円）を契約すると総額費用が跳ね上がりますが、共同墓への永代供養（5万〜10万円）や手元供養（5万円〜）にすることで費用を大幅に削減できます。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- メインコンテンツ2：他社との費用比較テーブル -->
+      <section class="section" id="comparison" style="background-color: #f7fafc;" aria-labelledby="comparison-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 40px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">COMPARISON</span>
+            <h2 id="comparison-heading" style="font-size: 2.2rem; font-weight: 800;">「ここから」と一般的な他社見積もりとの詳細比較</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              格安を謳いながら後から追加請求をするような不透明な見積もり業者と、全てが含まれた明朗会計の「ここから」の違いをご確認ください。
+            </p>
+          </header>
+
+          <div class="comparison-table-wrapper">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">比較項目</th>
+                  <th style="width: 40%; background-color: rgba(47, 143, 107, 0.08); color: var(--color-affirm-green);" class="highlight">「ここから」のコミコミ安心プラン</th>
+                  <th style="width: 35%;">一般的な他社の見積もり</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th>基本料金</th>
+                  <td class="highlight"><strong>180,000円〜</strong><br /><span style="font-size: 0.9rem;">(面積別の明朗な平米単価制)</span></td>
+                  <td><strong>300,000円〜</strong><br /><span style="font-size: 0.9rem;">(見積もり後に価格変動あり)</span></td>
+                </tr>
+                <tr>
+                  <th>行政手続きサポート</th>
+                  <td class="highlight"><strong>込（無料サポート）</strong><br /><span style="font-size: 0.9rem;">(改葬許可申請などのアドバイス・必要書類案内)</span></td>
+                  <td><strong>別途（3万〜5万円）</strong><br /><span style="font-size: 0.9rem;">(代行料金がオプション扱い)</span></td>
+                </tr>
+                <tr>
+                  <th>法要手配・寺院調整</th>
+                  <td class="highlight"><strong>込（無料サポート）</strong><br /><span style="font-size: 0.9rem;">(閉眼供養のお布施相場のアドバイス)</span></td>
+                  <td><strong>非対応・または有料</strong><br /><span style="font-size: 0.9rem;">(お寺との話し合いは施主任せ)</span></td>
+                </tr>
+                <tr>
+                  <th>離檀トラブル相談</th>
+                  <td class="highlight"><strong>込（円満解決アドバイス）</strong><br /><span style="font-size: 0.9rem;">(トラブル防止のための進め方を個別伝授)</span></td>
+                  <td><strong>対応不可</strong><br /><span style="font-size: 0.9rem;">(工事以外のサポート外)</span></td>
+                </tr>
+                <tr>
+                  <th>追加請求の有無</th>
+                  <td class="highlight"><strong>一切なし</strong><br /><span style="font-size: 0.9rem;">(ご契約後の追加費用請求は0円を徹底)</span></td>
+                  <td><strong>発生する場合あり</strong><br /><span style="font-size: 0.9rem;">(地中障害物、重機使用、整地費など後出し請求)</span></td>
+                </tr>
+                <tr>
+                  <th>供養先（お骨）の提案</th>
+                  <td class="highlight"><strong>永代供養・手元供養をワンストップ提案</strong><br /><span style="font-size: 0.9rem;">(予算と生活に最適な供養法をトータル提示)</span></td>
+                  <td><strong>石材撤去のみで対応外</strong><br /><span style="font-size: 0.9rem;">(供養先は自分で探す必要がある)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p style="text-align: center; font-size: 1rem; color: var(--text-muted); margin-top: 15px;">
+            ※横スクロールで表全体をご覧いただけます。
+          </p>
+        </div>
+      </section>
+
+      <!-- メインコンテンツ3：「墓じまい費用を安く抑える3つのコツ」 -->
+      <section class="section" id="saving-tips" style="background-color: #ffffff;" aria-labelledby="saving-tips-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 50px;">
+            <span style="color: var(--color-affirm-green); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">HOW TO SAVE MONEY</span>
+            <h2 id="saving-tips-heading" style="font-size: 2.2rem; font-weight: 800;">墓じまい費用を安く抑える3つのコツ</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              ちょっとした工夫や選択肢を知っておくだけで、墓じまいのトータル費用を数十万円単位で節約することができます。具体的な3つのステップを解説します。
+            </p>
+          </header>
+
+          <div style="max-width: 960px; margin: 0 auto; display: grid; gap: 30px;">
+            <!-- コツ1 -->
+            <article class="card" style="border-left: 6px solid var(--color-affirm-green); padding: 30px;">
+              <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <span style="background: var(--color-affirm-green); color: white; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; margin-right: 15px; font-size: 1.2rem;">1</span>
+                <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0;">複数社から「相見積もり」を取り適正価格を知る</h3>
+              </div>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 15px;">
+                お墓の解体撤去費用には決まった定価がありません。そのため、最初に相談した1社だけで決めてしまうと、相場より数十万円も高く支払わされる可能性があります。複数の優良な石材店から相見積もりを取ることが最も確実な対策です。
+              </p>
+              <div style="background: #f4fbf7; padding: 18px; border-radius: 8px; border: 1px solid rgba(47, 143, 107, 0.2);">
+                <strong style="color: var(--color-affirm-green); font-size: 1.05rem;">【「ここから」なら安心】</strong><br />
+                当社は独自の優良石材店ネットワークと提携しており、中間マージンを徹底排除した「適正価格のコミコミプラン（180,000円〜）」を最初からご提示しています。無駄な交渉をせずとも最安水準で工事が可能です。
+              </div>
+            </article>
+
+            <!-- コツ2 -->
+            <article class="card" style="border-left: 6px solid var(--color-affirm-green); padding: 30px;">
+              <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <span style="background: var(--color-affirm-green); color: white; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; margin-right: 15px; font-size: 1.2rem;">2</span>
+                <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0;">自治体の「墓じまい補助金・助成金」を活用する</h3>
+              </div>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 15px;">
+                全国の一部の地方自治体では、管理者がいなくなる放置墓を防ぐため、「墓じまい（改葬）に伴うお墓の解体撤去費用」の一部を補助する助成金制度を設けています。支給額は数万〜数十万円に及ぶ場合があり、自己負担額を大幅に減らせる大チャンスです。
+              </p>
+              <div style="background: #f4fbf7; padding: 18px; border-radius: 8px; border: 1px solid rgba(47, 143, 107, 0.2);">
+                <strong style="color: var(--color-affirm-green); font-size: 1.05rem;">【「ここから」なら安心】</strong><br />
+                お墓がある自治体に「墓じまい補助金制度」があるかどうか、事前調査と適用条件の確認、さらには申請手続きのアドバイスまで無料でしっかりとサポートいたします。
+              </div>
+            </article>
+
+            <!-- コツ3 -->
+            <article class="card" style="border-left: 6px solid var(--color-affirm-green); padding: 30px;">
+              <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <span style="background: var(--color-affirm-green); color: white; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; margin-right: 15px; font-size: 1.2rem;">3</span>
+                <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 0;">「手元供養」などの柔軟な移行先を選び、新規の墓購入を避ける</h3>
+              </div>
+              <p style="font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 15px;">
+                墓じまい後の最も大きな出費が「新しい納骨堂や永代供養墓の契約（数十万〜150万円）」です。費用を低く抑えるためには、共同の永代供養墓（合祀：5万円〜）や、ご自宅にお骨の一部をお洒落な骨壷やプレートに納めて身近に偲ぶ「手元供養（50,000円〜）」、海洋散骨などを選ぶことで、新しくお墓を買う莫大な費用を大幅にカットできます。
+              </p>
+              <div style="background: #f4fbf7; padding: 18px; border-radius: 8px; border: 1px solid rgba(47, 143, 107, 0.2);">
+                <strong style="color: var(--color-affirm-green); font-size: 1.05rem;">【「ここから」なら安心】</strong><br />
+                当社は、自宅に置ける美しいミニ仏壇やモダンな手元供養セット（50,000円〜）など、生活スペースや予算に合わせた新しい供養方法のパッケージプランを豊富に用意しております。工事と新しい供養を一貫してご提供できるからこそ、総額費用を圧倒的にお安くできるのです。
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 手続きの流れ（Flow） -->
+      <section class="section" id="flow" style="background-color: #f7fafc;" aria-labelledby="flow-heading">
+        <div class="container">
+          <h2 id="flow-heading" class="text-center" style="font-size: 2.2rem; font-weight: 800; margin-bottom: 45px;">相談から墓じまい完了までの流れ</h2>
+          <div style="max-width: 800px; margin: 0 auto;">
+            <ol style="list-style: none; padding-left: 0; display: grid; gap: 20px;">
+              <li class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 25px;">
+                <span style="background: var(--color-trust-blue); color: white; border-radius: 4px; padding: 4px 10px; font-weight: 700; font-size: 0.95rem;">STEP 1</span>
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; color: var(--text-main);">無料相談と状況のヒアリング</h3>
+                  <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.6;">
+                    お電話または公式LINEから、現在お持ちのお墓の状況（場所・大まかな広さ）や、ご希望の新しい供養方法をお伝えください。24時間体制で専門スタッフが対応します。
+                  </p>
+                </div>
+              </li>
+              <li class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 25px;">
+                <span style="background: var(--color-trust-blue); color: white; border-radius: 4px; padding: 4px 10px; font-weight: 700; font-size: 0.95rem;">STEP 2</span>
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; color: var(--text-main);">現地調査と「追加料金なし」の見積もり提示</h3>
+                  <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.6;">
+                    提携する優良石材店が現地を確認し、重機の入り具合や撤去条件を確認の上、最終的な確定見積もりをお出しします。ご契約後は追加費用は一切発生しません。
+                  </p>
+                </div>
+              </li>
+              <li class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 25px;">
+                <span style="background: var(--color-trust-blue); color: white; border-radius: 4px; padding: 4px 10px; font-weight: 700; font-size: 0.95rem;">STEP 3</span>
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; color: var(--text-main);">行政手続きのサポート（改葬許可申請など）</h3>
+                  <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.6;">
+                    お骨の移動に必要な「改葬許可証」を役所で取得するための手続きを分かりやすくアドバイス。必要な書類や記入箇所も専門スタッフが丁寧に整理します。
+                  </p>
+                </div>
+              </li>
+              <li class="card" style="display: flex; gap: 20px; align-items: flex-start; padding: 20px 25px;">
+                <span style="background: var(--color-trust-blue); color: white; border-radius: 4px; padding: 4px 10px; font-weight: 700; font-size: 0.95rem;">STEP 4</span>
+                <div>
+                  <h3 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; color: var(--text-main);">解体・撤去更地化工事の実施とご遺骨の引き渡し</h3>
+                  <p style="font-size: 0.98rem; color: var(--text-muted); line-height: 1.6;">
+                    閉眼法要を終えた後、石材店が墓石を丁寧に解体・撤去し、敷地を更地にします。取り出したご遺骨は新しい供養に向けて綺麗な状態でお渡し（あるいは新しい供養先へ納骨）します。
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <!-- よくあるご質問（FAQ） -->
+      <section id="faq" class="section" style="background-color: #ffffff;" aria-labelledby="faq-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 40px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">FAQ</span>
+            <h2 id="faq-heading" style="font-size: 2.2rem; font-weight: 800;">よくあるご質問</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              墓じまいの費用に関して、お客様から頻繁に寄せられる疑問にお答えします。
+            </p>
+          </header>
+
+          <div style="max-width: 900px; margin: 0 auto; display: grid; gap: 16px;">
+            <div class="card" style="border-left: 6px solid var(--color-trust-blue);">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 10px;">Q. 墓じまいには総額でどのくらいの費用がかかりますか？</h3>
+              <p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-main);">
+                A. 一般的な墓じまいの総額費用は<strong>30万円〜150万円</strong>が相場です。主な内訳は、①お墓の解体撤去工事費用（1平方メートルあたり約10万〜15万円）、②お寺への離檀料や閉眼供養のお布施（約3万〜20万円）、③次の移行先での永代供養や納骨等の供養先費用（数万〜数十万円）の3大費用です。<br />
+                「ここから」では、追加料金なしのコミコミ安心プランを<strong>180,000円から</strong>ご案内しており、不透明になりがちなお墓解体や手続きのコストをクリアにして、余計な自己負担を防ぐサポートをしております。
+              </p>
+            </div>
+            <div class="card" style="border-left: 6px solid var(--color-trust-blue);">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 10px;">Q. 墓じまいの費用を安く抑えるコツはありますか？</h3>
+              <p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-main);">
+                A. 墓じまい費用を賢く安く抑えるコツは主に3つあります。<br />
+                1つ目は<strong>「複数社からの相見積もり」</strong>を取り、解体撤去費用の適正価格を確認すること（他社が高すぎる場合に価格交渉が可能です）。<br />
+                2つ目は<strong>「自治体の墓じまい補助金や支援制度の活用」</strong>で、お墓がある場所の自治体によって数万〜数十万円の支給を受けられる場合があります。<br />
+                3つ目は<strong>「手元供養や共同墓など柔軟な移行先を選択する」</strong>ことです。新しく高額な個別の永代供養墓や新たな納骨堂を購入するのではなく、当社が提案するお洒落な手元供養（50,000円〜）などを選ぶことで、新しいお墓の購入費用を大幅にカットできます。
+              </p>
+            </div>
+            <div class="card" style="border-left: 6px solid var(--color-trust-blue);">
+              <h3 style="font-size: 1.25rem; color: var(--color-trust-blue); font-weight: 700; margin-bottom: 10px;">Q. 見積もり後に追加料金が発生することはありますか？</h3>
+              <p style="font-size: 1.1rem; line-height: 1.7; color: var(--text-main);">
+                A. <strong>いいえ、「ここから」では見積もり後の追加料金は一切いただきません。</strong><br />
+                工事を開始する前の現地調査に基づき、すべての工事費用、行政手続きサポート、廃棄物処分費用を盛り込んだ「総額見積もり」をご提示し、ご納得いただいた上でご契約となります。天候不順や地中での障害物が発覚した場合でも、弊社の判断と負担において処理を行い、お客様に追加でご請求することは絶対にございません。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="cta-bar" id="cta" aria-labelledby="cta-heading" style="background: var(--color-trust-blue); color: white; padding: 60px 0; text-align: center;">
+        <div class="container">
+          <span style="background: rgba(255,255,255,0.15); color: #fff; font-weight: 700; font-size: 0.95rem; padding: 6px 14px; border-radius: 99px; display: inline-block; margin-bottom: 15px;">ESTIMATE FREE</span>
+          <h2 id="cta-heading" style="font-size: 2.3rem; font-weight: 800; margin-bottom: 15px; color: white;">墓じまい費用の無料お見積もり・ご相談</h2>
+          <p style="margin-bottom: 30px; font-size: 1.1rem; color: rgba(255, 255, 255, 0.9); line-height: 1.6; max-width: 700px; margin-left: auto; margin-right: auto;">
+            「まずはお墓の広さからいくらかかるか知りたい」「補助金が使えるか知りたい」など、どのような小さなことでも専門スタッフが丁寧にお答えします。
+          </p>
+          <div class="cta-tel" style="font-size: 3rem; font-weight: 900; color: white; margin-bottom: 25px; line-height: 1;">
+            {contactTel}
+          </div>
+          <p style="font-size: 1.1rem; color: #cfe9dd; font-weight: 700; margin-bottom: 30px;">24時間受付中 / 通話料無料 / 日本全国対応</p>
+          <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+            <a href={contactLineUrl} class="btn btn-line btn-shine" target="_blank" rel="noopener noreferrer" style="font-size: 1.2rem; padding: 18px 45px; background-color: #24a85c;">
+              LINEで無料見積もり・相談
+            </a>
+            <a href={`tel:${contactTel}`} class="btn btn-primary btn-shine" style="font-size: 1.2rem; padding: 18px 45px; background-color: var(--color-accent-gold);">
+              お電話で無料相談する
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- トピッククラスター（相互内部リンク） -->
+      <section class="cluster-section" id="related-concerns" aria-labelledby="related-concerns-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 30px;">
+            <span style="color: var(--color-trust-blue); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">TOPIC CLUSTER</span>
+            <h2 id="related-concerns-heading" style="font-size: 2rem; font-weight: 800; color: var(--text-main);">墓じまいに関するその他のお悩み</h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem; margin-top: 10px; line-height: 1.6;">
+              費用以外の墓じまいにおける様々な不安や行政手続きについて、お悩みに応じた解決ヒントを解説しています。
+            </p>
+          </header>
+
+          <nav class="cluster-grid" aria-label="墓じまい関連お悩み一覧">
+            <!-- 手続きLP -->
+            <a href="/hakajimai-tetsuduki/" class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">面倒な行政手続き・全体の流れ</h3>
+                <p class="cluster-card-text">
+                  改葬許可申請や墓地返還届など、墓じまいに必要な複雑な公的書類の書き方や申請窓口、全体の具体的なステップを優しくガイドします。
+                </p>
+              </div>
+              <span class="cluster-card-link">面倒な墓じまいの行政手続き・流れはこちら</span>
+            </a>
+
+            <!-- 跡継ぎいないLP -->
+            <a href="/hakajimai-atootsugi/" class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">跡継ぎ（後継者）がいない不安</h3>
+                <p class="cluster-card-text">
+                  「自分たちの世代で最後になり、墓を守る人がいない」という方へ。無縁仏・無縁墓になるのを防ぐための永代供養や、将来負担を残さない現実的な対策を提案。
+                </p>
+              </div>
+              <span class="cluster-card-link">跡継ぎがいない場合の墓じまいと対策はこちら</span>
+            </a>
+
+            <!-- トラブルLP -->
+            <a href="/hakajimai-trouble/" class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">親族・お寺とのトラブル防止</h3>
+                <p class="cluster-card-text">
+                  親族間の意見の不一致や、お寺から高額な離檀料を要求されて揉めてしまうケースなど、墓じまいに関するトラブルを事前に回避し円満に解決するための対話のコツ。
+                </p>
+              </div>
+              <span class="cluster-card-link">墓じまいでのトラブルを防ぐ円満解決法はこちら</span>
+            </a>
+
+            <!-- 永代供養LP -->
+            <a href="/hakajimai-eitaikuyo/" class="cluster-card">
+              <div>
+                <h3 class="cluster-card-title">永代供養・新しい供養先の選び方</h3>
+                <p class="cluster-card-text">
+                  樹木葬、納骨堂、合祀墓、手元供養など、墓じまいした後のご遺骨の新たな受け皿。それぞれのメリット・デメリットを分かりやすく整理し、最適な供養先探しを支援します。
+                </p>
+              </div>
+              <span class="cluster-card-link">墓じまい後の永代供養・新しい供養先の選び方はこちら</span>
+            </a>
+          </nav>
+        </div>
+      </section>
+    </article>
+  </main>
+</Layout>
+
+<style>
+  /* 料金プランの縦並びカード */
+  .pricing-card-list {
+    display: grid;
+    gap: 20px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .pricing-card-item {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #d9e2ef;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(34, 50, 71, 0.06);
+    display: grid;
+    grid-template-columns: 1.2fr 1.8fr;
+    gap: 24px;
+    align-items: center;
+    transition: var(--transition-smooth);
+  }
+  .pricing-card-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(34, 50, 71, 0.1);
+  }
+  .pricing-card-left {
+    border-right: 2px dashed #d9e2ef;
+    padding-right: 20px;
+  }
+  .pricing-card-area {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-trust-blue);
+    margin-bottom: 8px;
+  }
+  .pricing-card-size {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .pricing-card-right {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .pricing-card-price-box {
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+  .pricing-card-price-box.market {
+    background: #f7fafc;
+  }
+  .pricing-card-price-box.kokokara {
+    background: #f4fbf7;
+    border: 1px solid rgba(47, 143, 107, 0.3);
+  }
+  .price-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+  }
+  .price-value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-main);
+  }
+  .price-value.highlight {
+    color: var(--color-affirm-green);
+    font-size: 1.7rem;
+    font-weight: 900;
+  }
+
+  /* テーブルのスマホ対応とスタイル */
+  .comparison-table-wrapper {
+    overflow-x: auto;
+    margin: 30px 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(34, 50, 71, 0.08);
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 750px;
+    background: white;
+  }
+  .comparison-table th, .comparison-table td {
+    padding: 18px;
+    text-align: center;
+    border: 1px solid #d9e2ef;
+    vertical-align: middle;
+  }
+  .comparison-table th {
+    background-color: #f7fafc;
+    font-weight: 700;
+    color: var(--text-main);
+    font-size: 1.05rem;
+  }
+  .comparison-table tbody th {
+    background-color: #f7fafc;
+    font-weight: 700;
+    text-align: left;
+    color: var(--text-main);
+    padding-left: 20px;
+  }
+  .comparison-table td.highlight {
+    background-color: #f4fbf7;
+    border: 2px solid var(--color-affirm-green);
+  }
+
+  /* トピッククラスターのスタイリング */
+  .cluster-section {
+    background-color: #f7fafc;
+    padding: 80px 0;
+    border-top: 1px solid #e2e8f0;
+  }
+  .cluster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .cluster-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 28px;
+    text-decoration: none;
+    color: var(--text-main);
+    box-shadow: 0 4px 15px rgba(34, 50, 71, 0.03);
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .cluster-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(34, 50, 71, 0.1);
+    border-color: var(--color-trust-blue);
+  }
+  .cluster-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--color-trust-blue);
+  }
+  .cluster-card-text {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .cluster-card-link {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-affirm-green);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-top: 1px solid #f0f4f8;
+    padding-top: 15px;
+    margin-top: auto;
+  }
+  .cluster-card-link::after {
+    content: " →";
+    margin-left: 4px;
+    transition: transform 0.2s ease;
+  }
+  .cluster-card:hover .cluster-card-link::after {
+    transform: translateX(4px);
+  }
+
+  @media (max-width: 768px) {
+    .pricing-card-item {
+      grid-template-columns: 1fr;
+      gap: 16px;
+      padding: 20px;
+    }
+    .pricing-card-left {
+      border-right: none;
+      border-bottom: 2px dashed #d9e2ef;
+      padding-right: 0;
+      padding-bottom: 16px;
+      text-align: center;
+    }
+    .pricing-card-right {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .cluster-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
