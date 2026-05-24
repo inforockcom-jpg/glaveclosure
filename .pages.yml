@@ -1,0 +1,28 @@
+media:
+  input: public/assets/blog
+  output: /assets/blog
+
+content:
+  - name: blog
+    label: Blog
+    type: collection
+    path: src/content/blog
+    format: frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Publish Date
+        type: date
+        required: true
+      - name: heroImage
+        label: Hero Image
+        type: image
+      - name: body
+        label: Body
+        type: rich-text
