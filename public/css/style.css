@@ -298,6 +298,76 @@ p, li, dd, dt, td, th, summary, caption {
     letter-spacing: 2px;
 }
 
+/* Topic cluster navigation */
+.cluster-section {
+    background-color: #f7fafc;
+    padding: 80px 0;
+    border-top: 1px solid #e2e8f0;
+}
+
+.cluster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.cluster-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+    padding: 28px;
+    text-decoration: none;
+    color: var(--text-main);
+    box-shadow: 0 4px 15px rgba(34, 50, 71, 0.03);
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.cluster-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(34, 50, 71, 0.1);
+    border-color: var(--color-trust-blue);
+}
+
+.cluster-card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--color-trust-blue);
+}
+
+.cluster-card-text {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.cluster-card-link {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-affirm-green);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border-top: 1px solid #f0f4f8;
+    padding-top: 15px;
+    margin-top: auto;
+}
+
+.cluster-card-link::after {
+    content: " →";
+    margin-left: 4px;
+    transition: transform 0.2s ease;
+}
+
+.cluster-card:hover .cluster-card-link::after {
+    transform: translateX(4px);
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
     body { font-size: 19px; }
@@ -306,6 +376,7 @@ p, li, dd, dt, td, th, summary, caption {
     .fv-subtitle { font-size: 1.25rem; }
     .btn { width: 100%; text-align: center; }
     .grid-3 { grid-template-columns: 1fr !important; }
+    .cluster-grid { grid-template-columns: 1fr; }
     .sticky-cta { display: grid; }
     .hero-status-badge { font-size: 1.05rem; }
     h2 { font-size: 1.95rem; }

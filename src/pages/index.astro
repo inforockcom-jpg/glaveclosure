@@ -1,20 +1,41 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { prefectures } from '../data/prefectures';
+import {
+  siteUrl,
+  contactTel,
+  contactLineUrl,
+  brandName,
+  brandShortName,
+  tagline,
+  portalFaqs,
+  topicClusterSlugs
+} from '../data/site';
 
-const siteUrl = 'https://graveclosure.xyz';
 const pagePath = '/';
 const pageTitle = '墓じまい・手元供養案内専門 ここから | 47都道府県対応';
-const pageDescription = '47都道府県で墓じまい・手元供養を案内。地域ごとの事情に合わせた手続き支援、費用相談、供養方法の提案を行います。';
+const pageDescription =
+  '全国47都道府県で墓じまい・手元供養を案内。改葬許可証の取得代行、離檀交渉、墓石撤去、永代供養・手元供養までワンストップ。見積もり無料・24時間受付。';
 const jsonLd = JSON.stringify({
   '@context': 'https://schema.org',
   '@graph': [
     {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      name: brandName,
+      url: siteUrl,
+      logo: `${siteUrl}/assets/fv_bg.png`,
+      telephone: contactTel,
+      description:
+        '全国47都道府県の墓じまい・手元供養を一体サポート。行政書士提携のもと、改葬許可証取得代行・離檀交渉・墓石撤去・供養先提案まで対応。'
+    },
+    {
       '@type': 'WebSite',
       '@id': `${siteUrl}/#website`,
       url: siteUrl,
-      name: '墓じまい・手元供養案内専門 ここから',
-      inLanguage: 'ja-JP'
+      name: brandName,
+      inLanguage: 'ja-JP',
+      publisher: { '@id': `${siteUrl}/#organization` }
     },
     {
       '@type': 'WebPage',
@@ -23,9 +44,17 @@ const jsonLd = JSON.stringify({
       name: pageTitle,
       description: pageDescription,
       inLanguage: 'ja-JP',
-      isPartOf: {
-        '@id': `${siteUrl}/#website`
-      }
+      isPartOf: { '@id': `${siteUrl}/#website` },
+      about: { '@id': `${siteUrl}/#faq` }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': `${siteUrl}/#faq`,
+      mainEntity: portalFaqs.map(({ question, answer }) => ({
+        '@type': 'Question',
+        name: question,
+        acceptedAnswer: { '@type': 'Answer', text: answer }
+      }))
     },
     {
       '@type': 'ItemList',
@@ -42,26 +71,224 @@ const jsonLd = JSON.stringify({
 });
 ---
 
-<Layout 
-    title={pageTitle}
-    description={pageDescription}
-    isPortal={true}
-    canonicalPath={pagePath}
-    jsonLd={jsonLd}
->
-    <main class="portal-container" id="main-content">
-        <header style="max-width: 880px; text-align: center;">
-            <h1 class="portal-title">墓じまい・手元供養案内専門「ここから」</h1>
-            <p style="margin-bottom: 12px; font-size: 1.1rem;">47都道府県の地域事情に合わせて、手続きと供養方法を案内します。</p>
-            <p style="font-size: 0.9rem; color: #5f6b6d;">正規URL: https://graveclosure.xyz/</p>
-        </header>
-        <section style="width: 100%; max-width: 1080px;" aria-labelledby="prefecture-list-heading">
-            <h2 id="prefecture-list-heading" style="text-align: center; margin: 24px 0;">対応エリアを選択してください</h2>
-            <nav class="region-links" aria-label="都道府県一覧">
-                {prefectures.map((prefecture) => (
-                    <a href={`/${prefecture.slug}/`} class="region-card">{prefecture.name}エリア</a>
-                ))}
-            </nav>
-        </section>
-    </main>
+<Layout title={pageTitle} description={pageDescription} isPortal={true} canonicalPath={pagePath} jsonLd={jsonLd}>
+  <main class="portal-container" id="main-content">
+    <header class="portal-hero" style={`background-image: linear-gradient(rgba(34,50,71,0.55), rgba(34,50,71,0.55)), url('/assets/fv_bg.png');`}>
+      <p class="portal-brand">{brandShortName}</p>
+      <h1 class="portal-title portal-title-hero">墓じまい・手元供養案内専門「ここから」</h1>
+      <p class="portal-tagline">{tagline}</p>
+      <p class="portal-lead">全国47都道府県のお墓整理（墓じまい）と手元供養を、行政書士提携のもとワンストップでサポートします。</p>
+    </header>
+
+    <section id="service-summary" class="portal-section" aria-labelledby="service-summary-heading">
+      <h2 id="service-summary-heading">サービス概要</h2>
+      <p>
+        改葬許可証の取得代行、お寺との離檀交渉、墓石撤去、永代供養・手元供養のご提案まで、
+        手続きと供養を一体で案内します。見積もり後の追加料金は原則発生しません。
+      </p>
+      <ul class="portal-feature-list">
+        <li><strong>対応エリア：</strong>全国47都道府県（遠方墓地・立会い不要案件に対応）</li>
+        <li><strong>墓じまい基本パック：</strong>180,000円〜（墓石撤去・行政手続き代行含む）</li>
+        <li><strong>手元供養セット：</strong>50,000円〜（墓じまいと同時手配で割引あり）</li>
+        <li><strong>受付：</strong>24時間（電話 {contactTel} / LINE相談）</li>
+      </ul>
+      <div class="portal-cta-row">
+        <a href={`tel:${contactTel}`} class="portal-cta portal-cta-tel">電話で無料相談</a>
+        <a href={contactLineUrl} class="portal-cta portal-cta-line" target="_blank" rel="noopener noreferrer">LINEで相談</a>
+      </div>
+    </section>
+
+    <section id="topic-guides" class="portal-section" aria-labelledby="topic-guides-heading">
+      <h2 id="topic-guides-heading">お悩み別ガイド</h2>
+      <nav class="portal-topic-grid" aria-label="墓じまい関連ガイド">
+        {topicClusterSlugs.map((topic) => (
+          <a href={`/${topic.slug}/`} class="portal-topic-card">
+            <h3>{topic.title}</h3>
+            <p>{topic.text}</p>
+          </a>
+        ))}
+      </nav>
+    </section>
+
+    <section id="faq" class="portal-section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">よくあるご質問</h2>
+      <div class="portal-faq-list">
+        {portalFaqs.map((item) => (
+          <article class="portal-faq-item">
+            <h3>Q. {item.question}</h3>
+            <p>A. {item.answer}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="portal-section" aria-labelledby="prefecture-list-heading">
+      <h2 id="prefecture-list-heading">対応エリアを選択してください</h2>
+      <nav class="region-links" aria-label="都道府県一覧">
+        {prefectures.map((prefecture) => (
+          <a href={`/${prefecture.slug}/`} class="region-card">{prefecture.name}エリア</a>
+        ))}
+      </nav>
+    </section>
+
+    <footer class="portal-footer">
+      <a href="/tokushoho/">特定商取引法に基づく表記</a>
+      <a href="/privacy/">プライバシーポリシー</a>
+    </footer>
+  </main>
 </Layout>
+
+<style>
+  .portal-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background: #f7fafc;
+    padding: 0 20px 40px;
+  }
+  .portal-hero {
+    width: 100%;
+    max-width: 1080px;
+    margin: 20px auto 0;
+    padding: 56px 24px;
+    border-radius: 16px;
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+  }
+  .portal-brand {
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+    opacity: 0.95;
+  }
+  .portal-title-hero {
+    font-size: 2.2rem;
+    color: #fff;
+    margin-bottom: 12px;
+    line-height: 1.35;
+  }
+  .portal-tagline {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #cfe9dd;
+  }
+  .portal-lead {
+    max-width: 720px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .portal-section {
+    width: 100%;
+    max-width: 1080px;
+    margin-top: 32px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 24px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  }
+  .portal-section h2 {
+    text-align: center;
+    font-size: 1.6rem;
+    color: #2c3e50;
+    margin-bottom: 18px;
+  }
+  .portal-section p {
+    line-height: 1.75;
+    color: #333;
+  }
+  .portal-feature-list {
+    margin: 18px 0;
+    padding-left: 1.2rem;
+    line-height: 1.8;
+  }
+  .portal-cta-row {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .portal-cta {
+    display: inline-block;
+    padding: 14px 24px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    color: #fff;
+  }
+  .portal-cta-tel { background: #2f8f6b; }
+  .portal-cta-line { background: #06c755; }
+  .portal-topic-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .portal-topic-card {
+    display: block;
+    padding: 18px;
+    border: 1px solid #e1e8ed;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.2s ease;
+  }
+  .portal-topic-card:hover { transform: translateY(-3px); }
+  .portal-topic-card h3 {
+    font-size: 1.05rem;
+    color: #2f8f6b;
+    margin-bottom: 8px;
+  }
+  .portal-topic-card p {
+    font-size: 0.92rem;
+    color: #5f6b6d;
+    line-height: 1.6;
+  }
+  .portal-faq-list { display: grid; gap: 14px; }
+  .portal-faq-item {
+    border: 1px solid #e8edf2;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .portal-faq-item h3 {
+    font-size: 1.05rem;
+    color: #2f8f6b;
+    margin-bottom: 8px;
+  }
+  .portal-faq-item p {
+    font-size: 0.98rem;
+    line-height: 1.75;
+  }
+  .region-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+  }
+  .region-card {
+    background: #f7fafc;
+    padding: 22px 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    text-decoration: none;
+    color: #333;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .region-card:hover { transform: translateY(-4px); }
+  .portal-footer {
+    margin-top: 28px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-size: 0.95rem;
+  }
+  .portal-footer a { color: #2f8f6b; font-weight: 700; }
+</style>

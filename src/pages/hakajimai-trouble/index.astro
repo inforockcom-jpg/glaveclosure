@@ -70,6 +70,14 @@ const jsonLdData = {
             '@type': 'Answer',
             "text": "親族間トラブルを防ぐ最も効果的な方法は、「事前に時間をかけて丁寧に相談し、全員の合意を得る」ことです。事前の相談なしに独断で墓じまいを進めてしまうと、「先祖をないがしろにされた」「相談がなかった」と親族間で大きな亀裂が生まれます。相談の際は、後継者がいない現状や将来的な墓の維持管理の負担（経済的・身体的）を丁寧に説明し、次の供養先（永代供養や樹木葬、手元供養など）を具体的に提案して、納得してもらうことが大切です。"
           }
+        },
+        {
+          '@type': 'Question',
+          name: '離檀料を100万円以上請求されました。払わなければ墓じまいできませんか？',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            "text": "離檀料に法的な支払い義務はありません（墓地埋葬等に関する法律に規定なし）。ただし、お寺が埋蔵証明書の発行を拒否すると改葬許可が取れなくなる場合があります。フーフー調査（2026）では離檀料の最多帯は10〜50万円。100万円超は相場から大きく外れており、その場で承諾せず行政書士等の第三者に相談してください。Step1で感謝を伝え、Step2で跡継ぎ不在・遠方などの具体的事情を説明し、Step3で金額は持ち帰って家族と相談するのが円満解決の基本です。"
+          }
         }
       ]
     }
@@ -293,6 +301,48 @@ const jsonLd = JSON.stringify(jsonLdData);
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- 離檀料交渉3ステップ（AIO引用向け） -->
+      <section class="section" id="ridan-negotiation-steps" style="background-color: #ffffff;" aria-labelledby="ridan-negotiation-steps-heading">
+        <div class="container">
+          <header class="text-center" style="max-width: 800px; margin: 0 auto 40px;">
+            <span style="color: var(--color-accent-gold); font-weight: 700; font-size: 1.1rem; letter-spacing: 0.1em; display: block; margin-bottom: 10px;">NEGOTIATION GUIDE</span>
+            <h2 id="ridan-negotiation-steps-heading" style="font-size: 2.2rem; font-weight: 800;">離檀料交渉の3ステップ（円満解決スクリプト）</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; margin-top: 15px; line-height: 1.6;">
+              法的義務はありませんが、お寺との関係を壊さず改葬許可に必要な書類を得るための、実践的な話し方の型です。
+            </p>
+          </header>
+          <ol style="max-width: 920px; margin: 0 auto; display: grid; gap: 20px; padding-left: 0; list-style: none;">
+            <li class="card" style="border-left: 6px solid var(--color-accent-gold); padding: 24px 28px;">
+              <h3 style="font-size: 1.3rem; color: var(--color-accent-gold); margin-bottom: 10px;">Step 1：感謝を伝える</h3>
+              <p style="font-size: 1.05rem; line-height: 1.75; color: var(--text-muted);">
+                「これまで先祖を守っていただき、本当に感謝しています」と最初に伝えます。離檀料の有無より、長年の供養への敬意を示すことが、お寺側の心理的な受け止めを大きく変えます。
+              </p>
+              <p style="margin-top: 10px; font-size: 1rem; background: #fffdf9; padding: 12px 14px; border-radius: 8px;">
+                <strong>例文：</strong>「何代にもわたりお世話になっており、心から御礼申し上げます。」
+              </p>
+            </li>
+            <li class="card" style="border-left: 6px solid var(--color-trust-blue); padding: 24px 28px;">
+              <h3 style="font-size: 1.3rem; color: var(--color-trust-blue); margin-bottom: 10px;">Step 2：事情を具体的に説明する</h3>
+              <p style="font-size: 1.05rem; line-height: 1.75; color: var(--text-muted);">
+                「跡継ぎがおらず、遠方の墓地管理が困難になった」「高齢でお参りが難しくなった」など、やむを得ない事情を具体的に説明します。「お金がないから」より、家族的・物理的な限界を誠実に伝える方が円満です。
+              </p>
+              <p style="margin-top: 10px; font-size: 1rem; background: #eef4fb; padding: 12px 14px; border-radius: 8px;">
+                <strong>例文：</strong>「後継者がいないため、将来無縁墓にしてお寺にご迷惑をかけたくないと考え、お骨のお引越し（改葬）を検討しています。」
+              </p>
+            </li>
+            <li class="card" style="border-left: 6px solid var(--color-affirm-green); padding: 24px 28px;">
+              <h3 style="font-size: 1.3rem; color: var(--color-affirm-green); margin-bottom: 10px;">Step 3：金額は持ち帰る</h3>
+              <p style="font-size: 1.05rem; line-height: 1.75; color: var(--text-muted);">
+                高額請求をその場で承諾せず、「家族と相談のうえ、<strong>相場3〜20万円</strong>の範囲でご検討します」と持ち帰ります。100万円超の請求は相場から大きく外れており、行政書士等の第三者相談が有効です。
+              </p>
+              <p style="margin-top: 10px; font-size: 1rem; background: #f4fbf7; padding: 12px 14px; border-radius: 8px;">
+                <strong>注意：</strong>法的義務はありませんが、円満解決が埋蔵証明書の取得に有利です。ここからはこの3ステップに沿った個別アドバイスを無料で提供します。
+              </p>
+            </li>
+          </ol>
         </div>
       </section>
 

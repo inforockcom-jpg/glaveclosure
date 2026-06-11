@@ -15,6 +15,9 @@ export const GET: APIRoute = () => {
 
   const urls = [
     `${siteUrl}/`,
+    `${siteUrl}/tokushoho/`,
+    `${siteUrl}/privacy/`,
+    ...specializedSlugs.map((slug) => `${siteUrl}/${slug}/`),
     ...prefectures.flatMap((prefecture) => [
       `${siteUrl}/${prefecture.slug}/`,
       ...specializedSlugs.map((slug) => `${siteUrl}/${prefecture.slug}/${slug}/`)
