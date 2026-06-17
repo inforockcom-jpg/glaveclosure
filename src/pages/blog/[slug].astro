@@ -1,0 +1,200 @@
+---
+import { CollectionEntry, getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import BlogSeriesNav from '../../components/BlogSeriesNav.astro';
+import BlogCta from '../../components/BlogCta.astro';
+import { getSeriesPartBySlug, seriesCtaCopy } from '../../data/blog-series';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content } = await render(post);
+const seriesContext = getSeriesPartBySlug(post.id);
+const ctaCopy = seriesContext ? seriesCtaCopy[seriesContext.index + 1] : null;
+const canonicalPath = `/blog/${post.id}/`;
+---
+
+<Layout
+	title={`${post.data.title} | ブログ | ここから`}
+	description={post.data.description}
+	canonicalPath={canonicalPath}
+>
+	<main class="container section blog-page">
+		<article class="blog-article">
+			{seriesContext && (
+				<BlogSeriesNav
+					seriesTitle={seriesContext.series.id}
+					parts={seriesContext.series.parts}
+					currentSlug={post.id}
+					prev={seriesContext.prev}
+					next={seriesContext.next}
+				/>
+			)}
+
+			{post.data.heroImage && (
+				<img src={post.data.heroImage} alt="" class="blog-hero-image" />
+			)}
+
+			<header class="blog-header">
+				{seriesContext && <p class="blog-series-badge">{seriesContext.current.label}</p>}
+				<h1 class="blog-title">{post.data.title}</h1>
+				<div class="blog-meta">
+					<time datetime={post.data.pubDate.toISOString()}>
+						{post.data.pubDate.toLocaleDateString('ja-JP', {
+							year: 'numeric',
+							month: 'long',
+							day: 'numeric',
+						})}
+					</time>
+					{post.data.updatedDate && (
+						<span class="blog-updated">
+							(更新:
+							<time datetime={post.data.updatedDate.toISOString()}>
+								{post.data.updatedDate.toLocaleDateString('ja-JP', {
+									year: 'numeric',
+									month: 'long',
+									day: 'numeric',
+								})}
+							</time>)
+						</span>
+					)}
+				</div>
+			</header>
+
+			<div class="blog-content">
+				<Content />
+			</div>
+
+			{ctaCopy && <BlogCta heading={ctaCopy.heading} lead={ctaCopy.lead} />}
+
+			{seriesContext && (
+				<BlogSeriesNav
+					seriesTitle={seriesContext.series.id}
+					parts={seriesContext.series.parts}
+					currentSlug={post.id}
+					prev={seriesContext.prev}
+					next={seriesContext.next}
+				/>
+			)}
+		</article>
+
+		<div class="blog-back">
+			<a href="/blog/" class="blog-back-link">← ブログ一覧へ戻る</a>
+		</div>
+	</main>
+
+	<style is:global>
+		.blog-page {
+			max-width: 860px;
+		}
+		.blog-article {
+			background: #fff;
+			padding: 1.75rem 1.5rem 2rem;
+			border-radius: 14px;
+			box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+		}
+		.blog-hero-image {
+			width: 100%;
+			border-radius: 12px;
+			margin-bottom: 1.5rem;
+		}
+		.blog-header {
+			margin-bottom: 1.75rem;
+			text-align: center;
+		}
+		.blog-series-badge {
+			display: inline-block;
+			font-size: 0.85rem;
+			font-weight: 700;
+			color: #2f8f6b;
+			background: #f4fbf7;
+			padding: 0.3rem 0.85rem;
+			border-radius: 999px;
+			margin-bottom: 0.75rem;
+		}
+		.blog-title {
+			font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+			color: #223247;
+			margin-bottom: 0.75rem;
+			line-height: 1.45;
+		}
+		.blog-meta {
+			color: #666;
+			font-size: 0.95rem;
+		}
+		.blog-updated {
+			margin-left: 0.75rem;
+		}
+		.blog-content {
+			line-height: 1.85;
+			color: #333;
+			font-size: 1.05rem;
+		}
+		.blog-content h2 {
+			font-size: 1.45rem;
+			color: #2f8f6b;
+			margin-top: 2rem;
+			margin-bottom: 0.85rem;
+			border-bottom: 2px solid #eef4fb;
+			padding-bottom: 0.45rem;
+			line-height: 1.45;
+		}
+		.blog-content h3 {
+			font-size: 1.2rem;
+			color: #223247;
+			margin-top: 1.5rem;
+			margin-bottom: 0.75rem;
+		}
+		.blog-content p {
+			margin-bottom: 1.25rem;
+		}
+		.blog-content ul,
+		.blog-content ol {
+			margin-bottom: 1.25rem;
+			padding-left: 1.5rem;
+		}
+		.blog-content li {
+			margin-bottom: 0.4rem;
+		}
+		.blog-content blockquote {
+			border-left: 4px solid #2f8f6b;
+			background: #f9f9f9;
+			padding: 1rem 1.25rem;
+			margin: 1.25rem 0;
+			border-radius: 4px;
+			color: #555;
+		}
+		.blog-content img {
+			max-width: 100%;
+			height: auto;
+			border-radius: 8px;
+			margin: 1.25rem 0;
+		}
+		.blog-back {
+			text-align: center;
+			margin-top: 2rem;
+		}
+		.blog-back-link {
+			display: inline-block;
+			padding: 0.65rem 1.25rem;
+			background: #f0f0f0;
+			color: #333;
+			text-decoration: none;
+			border-radius: 8px;
+			font-weight: 700;
+		}
+		@media (min-width: 768px) {
+			.blog-article {
+				padding: 2rem 2.25rem 2.5rem;
+			}
+		}
+	</style>
+</Layout>

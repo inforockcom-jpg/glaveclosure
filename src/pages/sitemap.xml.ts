@@ -1,10 +1,12 @@
 import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
 import { prefectures } from '../data/prefectures';
 
 const siteUrl = 'https://graveclosure.xyz';
 
-export const GET: APIRoute = () => {
+export const GET: APIRoute = async () => {
   const now = new Date().toISOString();
+  const blogPosts = await getCollection('blog');
   const specializedSlugs = [
     'hakajimai-hio',
     'hakajimai-tetsuduki',
@@ -15,8 +17,10 @@ export const GET: APIRoute = () => {
 
   const urls = [
     `${siteUrl}/`,
+    `${siteUrl}/blog/`,
     `${siteUrl}/tokushoho/`,
     `${siteUrl}/privacy/`,
+    ...blogPosts.map((post) => `${siteUrl}/blog/${post.id}/`),
     ...specializedSlugs.map((slug) => `${siteUrl}/${slug}/`),
     ...prefectures.flatMap((prefecture) => [
       `${siteUrl}/${prefecture.slug}/`,

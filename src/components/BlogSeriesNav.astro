@@ -1,0 +1,128 @@
+---
+import type { BlogSeriesPart } from '../data/blog-series';
+
+interface Props {
+  seriesTitle: string;
+  parts: readonly BlogSeriesPart[];
+  currentSlug: string;
+  prev: BlogSeriesPart | null;
+  next: BlogSeriesPart | null;
+}
+
+const { seriesTitle, parts, currentSlug, prev, next } = Astro.props;
+---
+
+<nav class="series-nav" aria-label={`${seriesTitle}シリーズナビゲーション`}>
+  <p class="series-nav-label">シリーズ</p>
+  <h2 class="series-nav-title">{seriesTitle}</h2>
+  <ul class="series-nav-list">
+    {parts.map((part) => (
+      <li>
+        {part.slug === currentSlug ? (
+          <span class="series-nav-current" aria-current="page">
+            {part.label}
+          </span>
+        ) : (
+          <a href={`/blog/${part.slug}/`} class="series-nav-link">
+            {part.label}
+          </a>
+        )}
+      </li>
+    ))}
+  </ul>
+  <div class="series-nav-prev-next">
+    {prev ? (
+      <a href={`/blog/${prev.slug}/`} class="series-nav-prev">
+        ← {prev.label}へ
+      </a>
+    ) : (
+      <span class="series-nav-placeholder" />
+    )}
+    {next ? (
+      <a href={`/blog/${next.slug}/`} class="series-nav-next">
+        {next.label}へ →
+      </a>
+    ) : (
+      <span class="series-nav-placeholder" />
+    )}
+  </div>
+</nav>
+
+<style>
+  .series-nav {
+    background: #f4fbf7;
+    border: 1px solid rgba(47, 143, 107, 0.25);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+  }
+  .series-nav-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #2f8f6b;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.35rem;
+  }
+  .series-nav-title {
+    font-size: 1.15rem;
+    color: #223247;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  .series-nav-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+  }
+  .series-nav-link,
+  .series-nav-current {
+    display: inline-block;
+    padding: 0.45rem 1rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .series-nav-link {
+    background: #fff;
+    color: #2f8f6b;
+    border: 1px solid #cfe9dd;
+  }
+  .series-nav-link:hover {
+    background: #e8f5ef;
+  }
+  .series-nav-current {
+    background: #2f8f6b;
+    color: #fff;
+  }
+  .series-nav-prev-next {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    border-top: 1px solid rgba(47, 143, 107, 0.2);
+    padding-top: 0.85rem;
+    font-size: 0.92rem;
+  }
+  .series-nav-prev,
+  .series-nav-next {
+    color: #2f5d9f;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .series-nav-prev:hover,
+  .series-nav-next:hover {
+    text-decoration: underline;
+  }
+  .series-nav-placeholder {
+    flex: 1;
+  }
+  @media (max-width: 640px) {
+    .series-nav-prev-next {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>

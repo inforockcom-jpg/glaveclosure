@@ -1,0 +1,100 @@
+---
+import { contactTel, contactLineUrl } from '../data/site';
+
+interface Props {
+  heading: string;
+  lead: string;
+}
+
+const { heading, lead } = Astro.props;
+---
+
+<section class="blog-cta" aria-labelledby="blog-cta-heading">
+  <p class="blog-cta-badge">24時間受付・見積もり無料</p>
+  <h2 id="blog-cta-heading" class="blog-cta-heading">{heading}</h2>
+  <p class="blog-cta-lead">{lead}</p>
+  <p class="blog-cta-tel">
+    <a href={`tel:${contactTel}`}>{contactTel}</a>
+  </p>
+  <div class="blog-cta-actions">
+    <a href={`tel:${contactTel}`} class="blog-cta-btn blog-cta-btn-tel">電話で無料相談</a>
+    <a href={contactLineUrl} class="blog-cta-btn blog-cta-btn-line" target="_blank" rel="noopener noreferrer">
+      LINEで相談
+    </a>
+  </div>
+</section>
+
+<style>
+  .blog-cta {
+    margin-top: 2.5rem;
+    padding: 2rem 1.5rem;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #223247 0%, #2f5d9f 100%);
+    color: #fff;
+    text-align: center;
+  }
+  .blog-cta-badge {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 0.75rem;
+  }
+  .blog-cta-heading {
+    font-size: 1.45rem;
+    line-height: 1.45;
+    margin-bottom: 0.75rem;
+    color: #fff;
+  }
+  .blog-cta-lead {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.92);
+    margin-bottom: 1rem;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .blog-cta-tel {
+    font-size: 1.75rem;
+    font-weight: 900;
+    margin-bottom: 1.25rem;
+  }
+  .blog-cta-tel a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .blog-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+  }
+  .blog-cta-btn {
+    display: inline-block;
+    padding: 0.85rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+  .blog-cta-btn-tel {
+    background: #2f8f6b;
+    color: #fff;
+  }
+  .blog-cta-btn-line {
+    background: #06c755;
+    color: #fff;
+  }
+  @media (max-width: 640px) {
+    .blog-cta-actions {
+      flex-direction: column;
+    }
+    .blog-cta-btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

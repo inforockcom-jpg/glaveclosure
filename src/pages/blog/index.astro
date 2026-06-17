@@ -1,37 +1,162 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
+import { hakajimaiTimingSeries } from '../../data/blog-series';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+const allPosts = await getCollection('blog');
+const seriesSlugs = new Set(hakajimaiTimingSeries.parts.map((part) => part.slug));
+
+const seriesPosts = hakajimaiTimingSeries.parts
+	.map((part) => allPosts.find((post) => post.id === part.slug))
+	.filter((post): post is NonNullable<typeof post> => Boolean(post));
+
+const otherPosts = allPosts
+	.filter((post) => !seriesSlugs.has(post.id))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
-<Layout title="ブログ | ここから" description="墓じまい案内専門「ここから」のブログです。">
-	<main class="container section">
-		<h1 class="text-center" style="margin-bottom: 2rem; font-size: 2.5rem; color: #2C3E50;">ブログ</h1>
-		
-		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;">
-			{posts.map((post) => (
-				<article style="background: #fff; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-					<a href={`/blog/${post.slug}/`} style="text-decoration: none; color: inherit;">
-						{post.data.heroImage && (
-							<img src={post.data.heroImage} alt="" style="width: 100%; border-radius: 8px; margin-bottom: 1rem;" />
-						)}
-						<h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: #2f8f6b;">{post.data.title}</h2>
-						<p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">
-							<time datetime={post.data.pubDate.toISOString()}>
-								{post.data.pubDate.toLocaleDateString('ja-JP', {
-									year: 'numeric',
-									month: 'long',
-									day: 'numeric',
-								})}
-							</time>
-						</p>
-						<p style="color: #444;">{post.data.description}</p>
-					</a>
-				</article>
-			))}
-		</div>
+<Layout
+	title="ブログ | ここから"
+	description="墓じまい・手元供養案内専門「ここから」のブログです。"
+	canonicalPath="/blog/"
+>
+	<main class="container section blog-index">
+		<h1 class="blog-index-title">ブログ</h1>
+
+		<section class="blog-series-block" aria-labelledby="series-heading">
+			<h2 id="series-heading" class="blog-series-heading">{hakajimaiTimingSeries.id}</h2>
+			<p class="blog-series-description">{hakajimaiTimingSeries.description}</p>
+			<div class="blog-series-grid">
+				{seriesPosts.map((post, index) => (
+					<article class="blog-series-card">
+						<a href={`/blog/${post.id}/`} class="blog-series-card-link">
+							<span class="blog-series-card-label">第{index + 1}弾</span>
+							<h3 class="blog-series-card-title">{post.data.title}</h3>
+							<p class="blog-series-card-desc">{post.data.description}</p>
+							<span class="blog-series-card-more">記事を読む →</span>
+						</a>
+					</article>
+				))}
+			</div>
+		</section>
+
+		{otherPosts.length > 0 && (
+			<section class="blog-other" aria-labelledby="other-heading">
+				<h2 id="other-heading" class="blog-other-heading">その他の記事</h2>
+				<div class="blog-other-grid">
+					{otherPosts.map((post) => (
+						<article class="blog-other-card">
+							<a href={`/blog/${post.id}/`} class="blog-other-card-link">
+								<h3>{post.data.title}</h3>
+								<p>{post.data.description}</p>
+							</a>
+						</article>
+					))}
+				</div>
+			</section>
+		)}
 	</main>
+
+	<style>
+		.blog-index-title {
+			text-align: center;
+			margin-bottom: 2rem;
+			font-size: 2.2rem;
+			color: #223247;
+		}
+		.blog-series-block {
+			margin-bottom: 3rem;
+		}
+		.blog-series-heading {
+			font-size: 1.6rem;
+			color: #2f8f6b;
+			margin-bottom: 0.75rem;
+			text-align: center;
+		}
+		.blog-series-description {
+			text-align: center;
+			color: #5f6b6d;
+			line-height: 1.7;
+			max-width: 640px;
+			margin: 0 auto 1.5rem;
+		}
+		.blog-series-grid {
+			display: grid;
+			gap: 1rem;
+		}
+		.blog-series-card {
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+			border: 1px solid #e8edf2;
+		}
+		.blog-series-card-link {
+			display: block;
+			padding: 1.25rem 1.5rem;
+			text-decoration: none;
+			color: inherit;
+		}
+		.blog-series-card-label {
+			display: inline-block;
+			font-size: 0.8rem;
+			font-weight: 700;
+			color: #2f8f6b;
+			background: #f4fbf7;
+			padding: 0.25rem 0.7rem;
+			border-radius: 999px;
+			margin-bottom: 0.5rem;
+		}
+		.blog-series-card-title {
+			font-size: 1.2rem;
+			color: #223247;
+			margin-bottom: 0.5rem;
+			line-height: 1.45;
+		}
+		.blog-series-card-desc {
+			font-size: 0.95rem;
+			color: #5f6b6d;
+			line-height: 1.65;
+			margin-bottom: 0.75rem;
+		}
+		.blog-series-card-more {
+			font-size: 0.9rem;
+			font-weight: 700;
+			color: #2f5d9f;
+		}
+		.blog-other-heading {
+			font-size: 1.35rem;
+			margin-bottom: 1rem;
+			color: #223247;
+		}
+		.blog-other-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+			gap: 1rem;
+		}
+		.blog-other-card {
+			background: #fff;
+			border-radius: 12px;
+			padding: 1.25rem;
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+		}
+		.blog-other-card-link {
+			text-decoration: none;
+			color: inherit;
+		}
+		.blog-other-card h3 {
+			font-size: 1.1rem;
+			color: #2f8f6b;
+			margin-bottom: 0.5rem;
+		}
+		.blog-other-card p {
+			font-size: 0.92rem;
+			color: #666;
+			line-height: 1.6;
+		}
+		@media (min-width: 768px) {
+			.blog-series-grid {
+				grid-template-columns: repeat(3, 1fr);
+			}
+		}
+	</style>
 </Layout>
