@@ -20,6 +20,12 @@ content:
         label: Publish Date
         type: date
         required: true
+      - name: series
+        label: Series
+        type: string
+      - name: seriesOrder
+        label: Series Order
+        type: number
       - name: heroImage
         label: Hero Image
         type: image
