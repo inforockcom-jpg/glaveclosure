@@ -9,7 +9,9 @@ import {
   brandShortName,
   tagline,
   portalFaqs,
-  topicClusterSlugs
+  topicClusterSlugs,
+  company,
+  pricingBoundary
 } from '../data/site';
 
 const pagePath = '/';
@@ -23,9 +25,22 @@ const jsonLd = JSON.stringify({
       '@type': 'Organization',
       '@id': `${siteUrl}/#organization`,
       name: brandName,
+      alternateName: company.shopName,
       url: siteUrl,
       logo: `${siteUrl}/assets/fv_bg.png`,
       telephone: contactTel,
+      address: {
+        '@type': 'PostalAddress',
+        postalCode: '701-0212',
+        addressRegion: '岡山県',
+        addressLocality: '岡山市南区',
+        streetAddress: '当新田342',
+        addressCountry: 'JP'
+      },
+      founder: {
+        '@type': 'Person',
+        name: company.representative
+      },
       description:
         '全国47都道府県の墓じまい・手元供養を一体サポート。行政書士提携のもと、改葬許可証取得代行・離檀交渉・墓石撤去・供養先提案まで対応。'
     },
@@ -91,11 +106,44 @@ const jsonLd = JSON.stringify({
         <li><strong>墓じまい基本パック：</strong>180,000円〜（墓石撤去・行政手続き代行含む）</li>
         <li><strong>手元供養セット：</strong>50,000円〜（墓じまいと同時手配で割引あり）</li>
         <li><strong>受付：</strong>24時間（電話 {contactTel} / LINE相談）</li>
+        <li><strong>運営：</strong>屋号「{company.tradeName}」店舗名「{company.shopName}」／代表 {company.representative}</li>
       </ul>
       <div class="portal-cta-row">
         <a href={`tel:${contactTel}`} class="portal-cta portal-cta-tel">電話で無料相談</a>
         <a href={contactLineUrl} class="portal-cta portal-cta-line" target="_blank" rel="noopener noreferrer">LINEで相談</a>
       </div>
+    </section>
+
+    <section id="pricing-boundary" class="portal-section" aria-labelledby="pricing-boundary-heading">
+      <h2 id="pricing-boundary-heading">料金に含むもの・含まないもの</h2>
+      <p style="margin-bottom: 16px;">
+        基本パック（180,000円〜）の境界を先に明示します。総額の不安を残さないための透明性です。
+      </p>
+      <div class="portal-price-grid">
+        <div class="portal-price-col">
+          <h3>パックに含む</h3>
+          <ul>
+            {pricingBoundary.included.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="portal-price-col">
+          <h3>パックに含まない（別途）</h3>
+          <ul>
+            {pricingBoundary.excluded.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <h3 style="margin-top: 20px; font-size: 1.1rem; color: #2c3e50;">追加料金が発生しうる例外（着手前に必ず説明）</h3>
+      <ul class="portal-feature-list">
+        {pricingBoundary.exceptionNotes.map((item) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <p style="margin-top: 12px; font-weight: 700; color: #2f8f6b;">{pricingBoundary.policy}</p>
     </section>
 
     <section id="topic-guides" class="portal-section" aria-labelledby="topic-guides-heading">
@@ -108,6 +156,11 @@ const jsonLd = JSON.stringify({
           </a>
         ))}
       </nav>
+      <p style="text-align: center; margin-top: 18px;">
+        <a href="/blog/temoto-kuyo-exit-design-04/" style="color: #2f8f6b; font-weight: 700;">
+          手元供養の出口設計コラムを読む →
+        </a>
+      </p>
     </section>
 
     <section id="faq" class="portal-section" aria-labelledby="faq-heading">
@@ -132,8 +185,10 @@ const jsonLd = JSON.stringify({
     </section>
 
     <footer class="portal-footer">
+      <a href="/company/">会社概要</a>
       <a href="/tokushoho/">特定商取引法に基づく表記</a>
       <a href="/privacy/">プライバシーポリシー</a>
+      <a href="/blog/">コラム</a>
     </footer>
   </main>
 </Layout>
@@ -248,6 +303,27 @@ const jsonLd = JSON.stringify({
     font-size: 0.92rem;
     color: #5f6b6d;
     line-height: 1.6;
+  }
+  .portal-price-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .portal-price-col {
+    border: 1px solid #e1e8ed;
+    border-radius: 12px;
+    padding: 16px 18px;
+    background: #f7fafc;
+  }
+  .portal-price-col h3 {
+    font-size: 1.05rem;
+    color: #2f8f6b;
+    margin-bottom: 10px;
+  }
+  .portal-price-col ul {
+    padding-left: 1.1rem;
+    line-height: 1.75;
+    color: #333;
   }
   .portal-faq-list { display: grid; gap: 14px; }
   .portal-faq-item {

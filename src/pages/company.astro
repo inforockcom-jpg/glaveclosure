@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { brandName, company, contactTel, contactLineUrl, siteUrl } from '../data/site';
+
+const pagePath = '/company/';
+const pageTitle = `会社概要 | ${brandName}`;
+const pageDescription =
+  '墓じまい・手元供養案内専門「ここから」の会社概要。屋号・代表者・所在地・本部と現場の役割をご案内します。';
+---
+
+<Layout title={pageTitle} description={pageDescription} canonicalPath={pagePath}>
+  <main id="main-content" class="section" style="padding-top: 48px;">
+    <div class="container" style="max-width: 860px;">
+      <h1 style="font-size: 2rem; margin-bottom: 24px;">会社概要</h1>
+      <p style="line-height: 1.8; margin-bottom: 28px;">
+        {brandName}（店舗名「{company.shopName}」）は、全国の墓じまい・手元供養を案内するサービスです。
+        品質管理と受付は岡山の本部、施工は掲載エリアへの出張チームが担当します。
+      </p>
+
+      <table style="width: 100%; border-collapse: collapse; font-size: 1.05rem; margin-bottom: 32px;">
+        <tbody>
+          <tr>
+            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed; width: 34%;">屋号</th>
+            <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{company.tradeName}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">店舗名</th>
+            <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{company.shopName}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">サービス名</th>
+            <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{brandName}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">代表者</th>
+            <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{company.representative}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">運営元所在地</th>
+            <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{company.addressFull}</td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">電話番号</th>
+            <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">
+              <a href={`tel:${contactTel}`}>{contactTel}</a>（24時間受付）
+            </td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">公式サイト</th>
+            <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{siteUrl}/</td>
+          </tr>
+          <tr>
+            <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">LINE相談</th>
+            <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">
+              <a href={contactLineUrl} target="_blank" rel="noopener noreferrer">公式LINE</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 style="font-size: 1.4rem; margin-bottom: 14px;">本部と現場の役割</h2>
+      <ul style="line-height: 1.85; padding-left: 1.2rem; margin-bottom: 28px;">
+        <li style="margin-bottom: 10px;">{company.roles.headquarters}</li>
+        <li style="margin-bottom: 10px;">{company.roles.field}</li>
+        <li>{company.roles.customerFacing}</li>
+      </ul>
+
+      <p style="line-height: 1.8; margin-bottom: 24px;">
+        特定商取引法に基づく表記は
+        <a href="/tokushoho/">こちら</a>
+        をご覧ください。
+      </p>
+      <p>
+        <a href="/">トップページへ戻る</a>
+        ／
+        <a href={`tel:${contactTel}`}>電話で相談（{contactTel}）</a>
+      </p>
+    </div>
+  </main>
+</Layout>

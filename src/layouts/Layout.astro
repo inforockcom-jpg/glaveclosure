@@ -1,4 +1,6 @@
 ---
+import { contactTel, siteUrl as canonicalSiteUrl } from '../data/site';
+
 export interface Props {
   title: string;
   description?: string;
@@ -8,7 +10,7 @@ export interface Props {
 }
 
 const { title, description, canonicalPath, jsonLd, isPortal = false } = Astro.props;
-const siteUrl = "https://graveclosure.xyz";
+const siteUrl = canonicalSiteUrl;
 const canonicalUrl = canonicalPath ? new URL(canonicalPath, siteUrl).toString() : siteUrl;
 const ogImageUrl = new URL('/assets/fv_bg.png', siteUrl).toString();
 ---
@@ -107,10 +109,11 @@ const ogImageUrl = new URL('/assets/fv_bg.png', siteUrl).toString();
             <div class="container text-center" data-aos>
                 <h2 style="font-size: 2.1rem; line-height: 1.4;">「私たちが選ぶ、いちばん優しい終わらせ方。」</h2>
                 <p style="margin-bottom: 24px; font-size: 1.25rem; font-weight: 700;">墓じまい案内専門「ここから」</p>
-                <p style="font-size: 1.4rem; font-weight: 700;">お問い合わせ：070-8428-0866</p>
+                <p style="font-size: 1.4rem; font-weight: 700;">お問い合わせ：{contactTel}</p>
                 <p style="font-size: 1.2rem; font-weight: 700; color: #cfe9dd;">24時間受付中 / 年中受付中</p>
             </div>
             <div class="container text-center" style="font-size: 1rem; border-top: 1px solid rgba(255,255,255,0.25); padding-top: 20px;">
+                <a href="/company/" style="color: #ffffff; margin: 0 10px; font-weight: 700; text-decoration: underline;">会社概要</a>
                 <a href="/tokushoho/" style="color: #ffffff; margin: 0 10px; font-weight: 700; text-decoration: underline;">特定商取引法に基づく表記</a>
                 <a href="/privacy/" style="color: #ffffff; margin: 0 10px; font-weight: 700; text-decoration: underline;">プライバシーポリシー</a>
                 <p style="margin-top: 12px; font-size: 1rem;">&copy; 2024 ここから. All Rights Reserved.</p>

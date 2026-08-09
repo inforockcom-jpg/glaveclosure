@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { brandName, contactTel } from '../data/site';
+import { brandName, company, contactTel } from '../data/site';
 
 const pagePath = '/privacy/';
 const pageTitle = `プライバシーポリシー | ${brandName}`;
@@ -27,7 +27,10 @@ const pageDescription = '墓じまい・手元供養案内専門「ここから�
       <h2 style="font-size: 1.35rem; margin: 28px 0 12px;">4. 安全管理</h2>
       <p style="line-height: 1.8;">個人情報の漏えい・滅失・毀損を防止するため、適切な安全管理措置を講じます。</p>
       <h2 style="font-size: 1.35rem; margin: 28px 0 12px;">5. お問い合わせ</h2>
-      <p style="line-height: 1.8;">個人情報の取扱いに関するお問い合わせは、{contactTel}（24時間受付）までご連絡ください。</p>
+      <p style="line-height: 1.8;">
+        個人情報の取扱いに関するお問い合わせは、{contactTel}（24時間受付）までご連絡ください。
+        運営：{company.shopName}（代表 {company.representative}）／{company.addressFull}
+      </p>
       <p style="margin-top: 24px;"><a href="/">トップページへ戻る</a></p>
     </div>
   </main>

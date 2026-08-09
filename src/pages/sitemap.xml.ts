@@ -18,6 +18,7 @@ export const GET: APIRoute = async () => {
   const urls = [
     `${siteUrl}/`,
     `${siteUrl}/blog/`,
+    `${siteUrl}/company/`,
     `${siteUrl}/tokushoho/`,
     `${siteUrl}/privacy/`,
     ...blogPosts.map((post) => `${siteUrl}/blog/${post.id}/`),

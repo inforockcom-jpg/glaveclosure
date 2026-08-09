@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { brandName, contactTel, siteUrl } from '../data/site';
+import { brandName, company, contactTel, pricing, siteUrl } from '../data/site';
 
 const pagePath = '/tokushoho/';
 const pageTitle = `特定商取引法に基づく表記 | ${brandName}`;
@@ -13,20 +13,26 @@ const pageDescription = '墓じまい・手元供養案内専門「ここから�
       <h1 style="font-size: 2rem; margin-bottom: 24px;">特定商取引法に基づく表記</h1>
       <table style="width: 100%; border-collapse: collapse; font-size: 1.05rem;">
         <tbody>
-          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed; width: 34%;">販売事業者</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">ここから（墓じまい・手元供養案内専門）</td></tr>
-          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">運営責任者</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">お問い合わせください</td></tr>
-          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">所在地</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">お問い合わせいただいた際に遅滞なく開示いたします</td></tr>
-          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">電話番号</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{contactTel}（24時間受付）</td></tr>
+          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed; width: 34%;">販売事業者（屋号）</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{company.tradeName}</td></tr>
+          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">店舗名</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{company.shopName}（墓じまい・手元供養案内専門）</td></tr>
+          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">運営責任者（代表者）</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{company.representative}</td></tr>
+          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">所在地</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{company.addressFull}</td></tr>
+          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">電話番号</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;"><a href={`tel:${contactTel}`}>{contactTel}</a>（24時間受付）</td></tr>
           <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">メールアドレス</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">お問い合わせフォーム・LINEよりご連絡ください</td></tr>
           <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">販売URL</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{siteUrl}/</td></tr>
-          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">販売価格</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">墓じまい基本パック 180,000円〜、手元供養セット 50,000円〜（墓地の広さ・立地により変動。見積もり無料）</td></tr>
-          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">商品代金以外の必要料金</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">閉眼供養のお布施、離檀料、改葬先費用など（見積もり時に内訳を明示）</td></tr>
+          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">販売価格</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">墓じまい基本パック {pricing.basicPackFrom}円〜、手元供養セット {pricing.temotoKuyoFrom}円〜（墓地の広さ・立地により変動。見積もり無料）</td></tr>
+          <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">商品代金以外の必要料金</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">閉眼供養のお布施、離檀料、改葬先費用など（見積もり時に内訳を明示。基本パックには含みません）</td></tr>
           <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">支払方法</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">銀行振込・現金（契約時にご案内）</td></tr>
           <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">支払時期</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">契約内容に基づき、着手前・完了時など段階的にお支払い</td></tr>
           <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">サービス提供時期</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">ご相談後、おおむね1〜3か月程度（墓地・行政窓口の状況により変動）</td></tr>
           <tr><th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed;">返品・キャンセル</th><td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">着手前のキャンセルは契約書の条件に従います。着手後のキャンセル・返金については個別にご案内します</td></tr>
         </tbody>
       </table>
+      <p style="margin-top: 20px; line-height: 1.7; color: #5f6b6d; font-size: 0.95rem;">
+        本部（岡山）は品質管理・予約受付・書類サポートを担当し、現場施工は掲載エリアへの出張チームが行います。詳細は
+        <a href="/company/">会社概要</a>
+        をご覧ください。
+      </p>
       <p style="margin-top: 24px;"><a href="/">トップページへ戻る</a></p>
     </div>
   </main>

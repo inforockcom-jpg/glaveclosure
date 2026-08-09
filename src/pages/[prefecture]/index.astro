@@ -1,12 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { prefectures, type Prefecture } from '../../data/prefectures';
-import { topicClusterSlugs } from '../../data/site';
+import { topicClusterSlugs, contactTel, contactLineUrl, siteUrl } from '../../data/site';
 import { getPrefectureExtraFaq } from '../../data/prefecture-extra-faq';
+import { getRegionalPrimaryInfo } from '../../data/regional-primary-info';
 
-const siteUrl = 'https://graveclosure.xyz';
-const contactTel = '070-8428-0866';
-const contactLineUrl = 'https://lin.ee/QzDuTbn';
 const heroImageUrl = 'https://graveclosure.xyz/assets/fv_bg.png';
 const supportImageUrl = 'https://graveclosure.xyz/assets/japanese_temoto_kuyo.png';
 
@@ -213,6 +211,7 @@ const faqItems = [...baseFaqItems, getPrefectureExtraFaq(prefecture)];
 const reasonItems = reasonsTemplate(prefecture.name, prefecture.category);
 const voiceItems = voiceTemplate(prefecture.name, prefecture.primaryCity);
 const caseItems = specialLongDistanceCopy?.cases ?? caseTemplate(prefecture, remoteResidence, localMetroResidence);
+const regionalInfo = getRegionalPrimaryInfo(prefecture.slug);
 
 const jsonLdData = {
   '@context': 'https://schema.org',
@@ -557,6 +556,50 @@ const jsonLd = JSON.stringify(jsonLdData);
           </div>
         </div>
       </section>
+
+      {regionalInfo && (
+        <section class="section" id="local-primary-info" aria-labelledby="local-primary-info-heading" style="background-color: #f7fafc;">
+          <div class="container">
+            <h2 id="local-primary-info-heading" class="text-center">{regionalInfo.prefectureName}の墓じまい・改葬 一次情報</h2>
+            <p style="max-width: 860px; margin: 0 auto 18px; text-align: center; color: var(--text-muted);">
+              自治体ごとに窓口・手数料・補助制度が異なります。以下は相談時の整理用です。最新情報はお墓所在地の役所でご確認ください。
+            </p>
+            <div class="card" style="max-width: 900px; margin: 0 auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 1.02rem;">
+                <tbody>
+                  <tr>
+                    <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed; width: 28%; vertical-align: top;">総額目安</th>
+                    <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{regionalInfo.totalCostRange}</td>
+                  </tr>
+                  <tr>
+                    <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed; vertical-align: top;">申請窓口</th>
+                    <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{regionalInfo.applicationOffice}</td>
+                  </tr>
+                  <tr>
+                    <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed; vertical-align: top;">手数料</th>
+                    <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{regionalInfo.feeNote}</td>
+                  </tr>
+                  <tr>
+                    <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed; vertical-align: top;">補助金・制度</th>
+                    <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{regionalInfo.subsidyNote}</td>
+                  </tr>
+                  <tr>
+                    <th style="text-align: left; padding: 12px; border-bottom: 1px solid #e1e8ed; vertical-align: top;">公営霊園の注意</th>
+                    <td style="padding: 12px; border-bottom: 1px solid #e1e8ed;">{regionalInfo.publicCemeteryNote}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3 style="margin: 18px 0 10px; font-size: 1.15rem; color: var(--color-trust-blue);">{regionalInfo.prefectureName}で押さえたいポイント</h3>
+              <ul style="padding-left: 1.2rem; line-height: 1.8; margin-bottom: 12px;">
+                {regionalInfo.localTips.map((tip) => (
+                  <li>{tip}</li>
+                ))}
+              </ul>
+              <p style="font-size: 0.95rem; color: var(--text-muted); line-height: 1.7;">{regionalInfo.sourcesNote}</p>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section id="faq" class="section" aria-labelledby="faq-heading">
         <div class="container">

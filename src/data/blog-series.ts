@@ -22,6 +22,11 @@ export const hakajimaiTimingSeries = {
       slug: 'temoto-kuyo-kazoku-03',
       label: '第3弾',
       title: '手元供養か永代供養か、家族で決める前の話し合い'
+    },
+    {
+      slug: 'temoto-kuyo-exit-design-04',
+      label: '第4弾',
+      title: '手元供養のあとどうする？出口まで決めておく設計図'
     }
   ] satisfies BlogSeriesPart[]
 } as const;
@@ -50,5 +55,9 @@ export const seriesCtaCopy: Record<number, { heading: string; lead: string }> = 
   3: {
     heading: '手元供養・永代供養の選び方を一緒に整理',
     lead: '墓じまい後の供養先選びや分骨のご相談も承ります。24時間受付、見積もり無料です。'
+  },
+  4: {
+    heading: '手元供養の出口設計、一緒に決めませんか',
+    lead: '一部手元＋残り合祀など、将来に負担を残さない供養の設計をご案内します。見積もり無料です。'
   }
 };
